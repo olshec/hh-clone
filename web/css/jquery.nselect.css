@@ -1,0 +1,239 @@
+.nselect {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nselect:after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  display: none;
+}
+
+.nselect._active .nselect__inner {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nselect._top .nselect__inner {
+  top: inherit;
+  bottom: 45px;
+}
+
+.nselect._disabled:after {
+  display: block;
+}
+
+.nselect._disabled .nselect__head {
+  cursor: default;
+}
+
+.nselect .nselect__head {
+  margin: 0;
+  font-weight: normal;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.nselect .nselect__head SPAN {
+  display: block;
+  overflow: hidden;
+}
+
+.nselect .nselect__inner {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 190px;
+  max-height: 330px;
+  z-index: 15;
+  box-sizing: border-box;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity, visibility;
+}
+
+.nselect .nselect__list {
+  max-height: 280px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.nselect .nselect__list LI {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nselect .nselect__list LI._hide {
+  display: none;
+}
+
+.nselect .nselect__list LI SPAN {
+  display: block;
+  cursor: pointer;
+}
+
+.nselect.nsOrange {
+  color: #fff;
+  font-size: 14px;
+}
+
+.nselect.nsOrange._active .nselect__head:after {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.nselect.nsOrange._active .nselect__inner {
+  width: auto;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.nselect.nsOrange._top .nselect__inner {
+  top: inherit;
+  bottom: 45px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(10px);
+  -ms-transform: translateY(10px);
+  transform: translateY(10px);
+}
+
+.nselect.nsOrange._top .nselect__inner:before {
+  top: inherit;
+  bottom: -6px;
+  border-width: 6px 6px 0 6px;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.nselect.nsOrange._disabled .nselect__head {
+  color: #909090;
+  background: #e6e6e6;
+}
+
+.nselect.nsOrange._disabled .nselect__head:after {
+  border-color: #909090 transparent transparent transparent;
+}
+
+.nselect.nsOrange._checked .nselect__head:after {
+  border-color: #fff transparent transparent transparent;
+}
+
+.nselect.nsOrange .nselect__head {
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid #b8d1de;
+  border-radius: 4px;
+  padding: 8px;
+  height: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  color: #262a36;
+}
+
+.profile-select .nselect.nsOrange .nselect__head {
+  width: 80px !important;
+}
+
+.citizenship-select .nselect.nsOrange {
+  width: 100%;
+}
+
+.citizenship-select .nselect.nsOrange .nselect__head {
+  width: 100% !important;
+}
+
+.nselect.nsOrange .nselect__head:after {
+  right: 10px;
+  top: 8px;
+  content: url(../images/blue-arrow-down.svg);
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.15s;
+  transition: transform 0.15s;
+}
+
+.nselect.nsOrange .nselect__inner {
+  text-align: left;
+  top: 45px;
+  left: 0;
+  z-index: 15;
+  width: auto;
+  max-height: 330px;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 0;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  -webkit-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s, visibility 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+}
+
+.nselect.nsOrange .nselect__inner:before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  margin-left: 15px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+.nselect.nsOrange .nselect__list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.nselect.nsOrange .nselect__list LI {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nselect.nsOrange .nselect__list LI._active SPAN {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #262a36;
+}
+
+.nselect.nsOrange .nselect__list LI:last-child SPAN {
+  border-color: transparent;
+}
+
+.nselect.nsOrange .nselect__list LI SPAN {
+  padding: 7px 20px;
+  color: #000;
+  border-bottom: 1px solid #f4f4f4;
+  white-space: nowrap;
+}
+
+.nselect.nsOrange .nselect__list LI SPAN:hover {
+  background: #edf6fb;
+}

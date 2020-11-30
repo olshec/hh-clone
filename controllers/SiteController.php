@@ -95,6 +95,16 @@ class SiteController extends Controller
     }
     
     /**
+     * Displays resume view.
+     *
+     * @return string
+     */
+    public function actionResumeView()
+    {
+        return $this->render('resume-view', ['resumeState' => 'active', 'listResumeState' => '']);
+    }
+    
+    /**
      * Login action.
      *
      * @return Response|string

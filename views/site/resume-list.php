@@ -4,6 +4,8 @@
 
 $this->title = 'Список резюме';
 ?>
+<?php $addressServer = 'http://localhost/hh-clone/web/'; ?>
+
         <div class="content">
         <div class="container">
             <h1 class="main-title mt24 mb16">PHP разработчики в Кемерово</h1>
@@ -38,7 +40,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -62,7 +64,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -86,7 +88,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -110,7 +112,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -134,7 +136,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -158,7 +160,7 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">
-                                <img src="images/profile-foto.jpg" alt="profile">
+                                <img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile">
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
@@ -181,7 +183,7 @@ $this->title = 'Список резюме';
                     </div>
                     <ul class="dor-pagination mb128">
                         <li class="page-link-prev"><a href="#"><img class="mr8"
-                                                                    src="images/mini-left-arrow.svg" alt="arrow"> Назад</a>
+                                                                    src="<?= $addressServer ?>images/mini-left-arrow.svg" alt="arrow"> Назад</a>
                         </li>
                         <li><a href="#">1</a></li>
                         <li><a class="grey" href="#">...</a></li>
@@ -190,7 +192,7 @@ $this->title = 'Список резюме';
                         <li><a class="grey" href="#">...</a></li>
                         <li><a href="#">10</a></li>
                         <li class="page-link-next"><a href="#">Далее <img class="ml8"
-                                                                          src="images/mini-right-arrow.svg" alt="arrow"></a>
+                                                                          src="<?= $addressServer ?>images/mini-right-arrow.svg" alt="arrow"></a>
                         </li>
                     </ul>
                 </div>
@@ -198,7 +200,7 @@ $this->title = 'Список резюме';
                     <div
                             class="vakancy-page-filter-block__row mobile-flex-992 mb24 d-flex justify-content-between align-items-center">
                         <div class="heading">Фильтр</div>
-                        <img class="cursor-p" src="images/big-cancel.svg" alt="cancel">
+                        <img class="cursor-p" src="<?= $addressServer ?>images/big-cancel.svg" alt="cancel">
                     </div>
                     <div class="signin-modal__switch-btns-wrap resume-list__switch-btns-wrap mb16">
                         <a href="#" class="signin-modal__switch-btn active">Все</a>
@@ -221,7 +223,7 @@ $this->title = 'Список резюме';
                         <div class="paragraph cadet-blue">Зарплата</div>
                         <div class="p-rel">
                             <input placeholder="Любая" type="text" class="dor-input w100">
-                            <img class="rub-icon" src="images/rub-icon.svg" alt="rub-icon">
+                            <img class="rub-icon" src="<?= $addressServer ?>images/rub-icon.svg" alt="rub-icon">
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">

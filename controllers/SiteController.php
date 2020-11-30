@@ -61,9 +61,29 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('resume-list');
     }
 
+    /**
+     * Displays my resume.
+     *
+     * @return string
+     */
+    public function actionMyResume()
+    {
+        return $this->render('my-resume');
+    }
+    
+    /**
+     * Displays my resume list.
+     *
+     * @return string
+     */
+    public function actionResumeList()
+    {
+        return $this->render('resume-list');
+    }
+    
     /**
      * Login action.
      *

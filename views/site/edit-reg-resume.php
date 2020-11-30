@@ -11,7 +11,7 @@ $this->title = 'Редактирование резюме'
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="mt8 mb40"><a href="#"><img src="<?= $addressServer ?>images/blue-left-arrow.svg" alt="arrow"> Вернуться без
+                    <div class="mt8 mb40"><a href="<?= $addressServer ?>site/my-resume"><img src="<?= $addressServer ?>images/blue-left-arrow.svg" alt="arrow"> Вернуться без
                         сохранения</a>
                     </div>
                 </div>

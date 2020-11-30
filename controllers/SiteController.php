@@ -85,7 +85,7 @@ class SiteController extends Controller
     }
     
     /**
-     * Displays my resume list.
+     * Displays edit resume.
      *
      * @return string
      */

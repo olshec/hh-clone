@@ -95,6 +95,16 @@ class SiteController extends Controller
     }
     
     /**
+     * Displays added new resume.
+     *
+     * @return string
+     */
+    public function actionAddResume()
+    {
+        return $this->render('add-new-resume', ['resumeState' => 'active', 'listResumeState' => '']);
+    }
+    
+    /**
      * Displays resume view.
      *
      * @return string

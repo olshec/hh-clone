@@ -5,7 +5,7 @@ $this->params['listResumeState'] = $listResumeState;
 $this->params['resumeState'] = $resumeState;
 $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
 
-$this->title = 'Редактирование резюме'
+$this->title = 'Создание нового резюме'
 ?>
     <div class="content p-rel">
         <div class="container">
@@ -18,7 +18,7 @@ $this->title = 'Редактирование резюме'
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="main-title mb24">Редактирование резюме</div>
+                    <div class="main-title mb24">Новое резюме</div>
                 </div>
             </div>
             <div class="col-12">

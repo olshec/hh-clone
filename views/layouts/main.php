@@ -3,9 +3,11 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $content string */
+
+$addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
+
 ?>
 <?php $this->beginPage() ?>
-<?php $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

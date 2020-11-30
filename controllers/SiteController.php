@@ -85,6 +85,16 @@ class SiteController extends Controller
     }
     
     /**
+     * Displays my resume list.
+     *
+     * @return string
+     */
+    public function actionEditResume()
+    {
+        return $this->render('edit-reg-resume', ['resumeState' => 'active', 'listResumeState' => '']);
+    }
+    
+    /**
      * Login action.
      *
      * @return Response|string

@@ -3,10 +3,11 @@
 /* @var $this yii\web\View */
 $this->params['listResumeState'] = $listResumeState;
 $this->params['resumeState'] = $resumeState;
+$addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
 
 $this->title = 'Список резюме';
  ?>
-<?php $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/' ?>
+
         <div class="content">
         <div class="container">
             <h1 class="main-title mt24 mb16">PHP разработчики в Кемерово</h1>

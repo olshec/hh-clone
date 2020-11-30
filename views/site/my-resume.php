@@ -1,10 +1,12 @@
 <?php
 
 /* @var $this yii\web\View */
+$this->params['listResumeState'] = $listResumeState;
+$this->params['resumeState'] = $resumeState;
 
-$this->title = 'Мои резюме';
+$this->title = 'Мои резюме'
 ?>
-<?php $addressServer = 'http://localhost/hh-clone/web/'; ?>
+<?php $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/' ?>
 
     <div class="content">
         <div class="container">

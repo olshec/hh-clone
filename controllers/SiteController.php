@@ -61,7 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('resume-list');
+        return $this->render('resume-list', ['resumeState' => '', 'listResumeState' => 'active']);
     }
 
     /**
@@ -71,7 +71,7 @@ class SiteController extends Controller
      */
     public function actionMyResume()
     {
-        return $this->render('my-resume');
+        return $this->render('my-resume', ['resumeState' => 'active', 'listResumeState' => '']);
     }
     
     /**
@@ -81,7 +81,7 @@ class SiteController extends Controller
      */
     public function actionResumeList()
     {
-        return $this->render('resume-list');
+        return $this->render('resume-list', ['resumeState' => '', 'listResumeState' => 'active']);
     }
     
     /**

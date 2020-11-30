@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $content string */
 ?>
 <?php $this->beginPage() ?>
-<?php $addressServer = 'http://localhost/hh-clone/web/'; ?>
+<?php $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,10 +36,10 @@ use yii\helpers\Html;
                 <div class="header__login header__login-mobile">
                 </div>
                 <ul class="navigation-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item  <?= $this->params['listResumeState'] ?> ">
                         <a class="nav-link" href="<?= $addressServer ?>site/resume-list">Резюме</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= $this->params['resumeState'] ?>">
                         <a class="nav-link" href="<?= $addressServer ?>site/my-resume">Мои резюме</a>
                     </li>
                 </ul>
@@ -76,7 +76,6 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
-    
     <?= $content ?>
    
 

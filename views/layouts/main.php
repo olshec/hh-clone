@@ -31,7 +31,7 @@ use yii\helpers\Html;
     <header class="header">
         <div class="container">
             <nav class="navbar navigation">
-                <a class="navbar-brand" href="#"><img src="<?= $addressServer ?>images/logo.svg" alt="Logo">
+                <a class="navbar-brand" href="<?= $addressServer ?>site/resume-list"><img src="<?= $addressServer ?>images/logo.svg" alt="Logo">
                 </a>
                 <div class="header__login header__login-mobile">
                 </div>

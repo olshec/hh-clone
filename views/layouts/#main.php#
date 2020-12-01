@@ -39,10 +39,10 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
                 </div>
                 <ul class="navigation-nav">
                     <li class="nav-item  <?= $this->params['listResumeState'] ?> ">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
+                        <a class="nav-link" href="<?= $addressServer ?>site/resume-list">Резюме</a>
                     </li>
                     <li class="nav-item <?= $this->params['resumeState'] ?>">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
+                        <a class="nav-link" href="<?= $addressServer ?>site/my-resume">Мои резюме</a>
                     </li>
                 </ul>
                 <div class="navigation-menu__mobile">
@@ -66,19 +66,15 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
         </div>
     </header>
 
-    <div class="header-search">
-        <div class="container">
-            <div class="header-search__wrap">
-                <form class="header-search__form">
-                    <a href="#"><img src="<?= $addressServer ?>images/dark-search.svg" alt="search"
-                                     class="dark-search-icon header-search__icon"></a>
-                    <input class="header-search__input" type="text" placeholder="Поиск по резюме и навыкам">
-                    <button type="button" class="blue-btn header-search__btn">Найти</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <?= $content ?>
+    <div class="header-search"> <div class="container"> <div
+        class="header-search__wrap"> <form
+        class="header-search__form"> <a href="#"><img src="<?=
+        $addressServer ?>images/dark-search.svg" alt="search"
+        class="dark-search-icon header-search__icon"></a> <input
+        class="header-search__input" type="text" placeholder="Поиск по
+        резюме и навыкам"> <button type="button" class="blue-btn
+        header-search__btn">Найти</button> </form> </div> </div>
+        </div> <?= $content ?>
    
 
  <footer class="footer">

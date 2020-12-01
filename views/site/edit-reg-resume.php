@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 $this->params['listResumeState'] = $listResumeState;
-$this->params['resumeState'] = $resumeState;
+$this->params['resumeState'] = $resumeState; 
 $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
 
 $this->title = 'Редактирование резюме'

@@ -1,8 +1,11 @@
 <?php
 use yii\helpers\Html;
+use app\models\MenuHeader;
 
 /* @var $this yii\web\View */
 /* @var $content string */
+
+$menuHeader = Yii::$app->params['menuHeader'];
 
 ?>
 <?php $this->beginPage() ?>
@@ -36,10 +39,10 @@ use yii\helpers\Html;
                 <div class="header__login header__login-mobile">
                 </div>
                 <ul class="navigation-nav">
-                    <li class="nav-item  <?= Yii::$app->params['listResumeState'] ?> ">
+                    <li class="nav-item  <?= $menuHeader->getListResumeState() ?> ">
                         <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
                     </li>
-                    <li class="nav-item <?= Yii::$app->params['resumeState'] ?>">
+                    <li class="nav-item <?= $menuHeader->getResumeState() ?>">
                         <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
                     </li>
                 </ul>

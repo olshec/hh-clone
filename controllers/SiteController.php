@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\MenuHeader;
+use phpDocumentor\Reflection\Types\Integer;
 
 class SiteController extends Controller
 {
@@ -63,6 +65,24 @@ class SiteController extends Controller
     {
         return $this->render('resume-list', ['resumeState' => '', 'listResumeState' => 'active']);
     }
+    
+    /*
+     * Activates menu item.
+     * 
+     * @param enum from MenuHeader, example MenuHeader::LIST_RESUME
+     */
+    private function activateMenuItem(int $item){
+        $menu = new MenuHeader();
+        switch ($item){
+            case MenuHeader::RESUME:
+                $menu->activateResume();
+                break;
+            case MenuHeader::LIST_RESUME:
+                $menu->activateListResume();
+                break;
+        }
+        Yii::$app->params['menuHeader'] = $menu;
+    }
 
     /**
      * Displays my resume.
@@ -71,8 +91,7 @@ class SiteController extends Controller
      */
     public function actionMyResume()
     {
-        Yii::$app->params['resumeState'] = 'active';
-        Yii::$app->params['listResumeState'] = '';
+        $this->activateMenuItem(MenuHeader::RESUME);
         return $this->render('my-resume');
     }
     
@@ -83,8 +102,7 @@ class SiteController extends Controller
      */
     public function actionResumeList()
     {
-        Yii::$app->params['resumeState'] = '';
-        Yii::$app->params['listResumeState'] = 'active';
+        $this->activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('resume-list');
     }
     
@@ -95,8 +113,7 @@ class SiteController extends Controller
      */
     public function actionEditResume()
     {
-        Yii::$app->params['resumeState'] = 'active';
-        Yii::$app->params['listResumeState'] = '';
+        $this->activateMenuItem(MenuHeader::RESUME);
         return $this->render('edit-reg-resume');
     }
     
@@ -107,7 +124,8 @@ class SiteController extends Controller
      */
     public function actionAddResume()
     {
-        return $this->render('add-new-resume', ['resumeState' => 'active', 'listResumeState' => '']);
+        $this->activateMenuItem(MenuHeader::RESUME);
+        return $this->render('add-new-resume');
     }
     
     /**
@@ -117,7 +135,8 @@ class SiteController extends Controller
      */
     public function actionResumeView()
     {
-        return $this->render('resume-view', ['resumeState' => 'active', 'listResumeState' => '']);
+        $this->activateMenuItem(MenuHeader::RESUME);
+        return $this->render('resume-view');
     }
     
     /**

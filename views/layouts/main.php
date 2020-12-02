@@ -6,7 +6,7 @@ use app\models\MenuHeader;
 /* @var $content string */
 
 $menuHeader = Yii::$app->params['menuHeader'];
-
+$menuHeader = Yii::$app->params['menuHeaderdgf'];
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

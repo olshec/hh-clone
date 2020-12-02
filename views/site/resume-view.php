@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 $this->params['listResumeState'] = $listResumeState;
 $this->params['resumeState'] = $resumeState;
-$addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
 
 $this->title = 'Резюме PHP разработчик';
 ?>
@@ -12,14 +11,14 @@ $this->title = 'Резюме PHP разработчик';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="mt8 mb32"><a href="#"><img src="<?= $addressServer ?>images/blue-left-arrow.svg" alt="arrow"> Резюме в
+                    <div class="mt8 mb32"><a href="#"><img src="<?= Yii::$app->params['addressServer'] ?>images/blue-left-arrow.svg" alt="arrow"> Резюме в
                         Кемерово</a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-5 mobile-mb32">
-                    <div class="profile-foto resume-profile-foto"><img src="<?= $addressServer ?>images/profile-foto.jpg" alt="profile-foto">
+                    <div class="profile-foto resume-profile-foto"><img src="<?= Yii::$app->params['addressServer'] ?>images/profile-foto.jpg" alt="profile-foto">
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-7">

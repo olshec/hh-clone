@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 $this->params['listResumeState'] = $listResumeState;
 $this->params['resumeState'] = $resumeState; 
-$addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
 
 $this->title = 'Редактирование резюме'
 ?>
@@ -11,7 +10,7 @@ $this->title = 'Редактирование резюме'
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="mt8 mb40"><a href="<?= $addressServer ?>site/my-resume"><img src="<?= $addressServer ?>images/blue-left-arrow.svg" alt="arrow"> Вернуться без
+                    <div class="mt8 mb40"><a href="<?= Yii::$app->params['addressServer'] ?>site/my-resume"><img src="<?= Yii::$app->params['addressServer'] ?>images/blue-left-arrow.svg" alt="arrow"> Вернуться без
                         сохранения</a>
                     </div>
                 </div>
@@ -28,7 +27,7 @@ $this->title = 'Редактирование резюме'
                             <div class="paragraph">Фото</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <div class="profile-foto-upload mb8"><img src="<?= $addressServer ?>images/profile-foto.jpg" alt="foto">
+                            <div class="profile-foto-upload mb8"><img src="<?= Yii::$app->params['addressServer'] ?>images/profile-foto.jpg" alt="foto">
                             </div>
                             <label class="custom-file-upload">
                                 <input type="file"/>
@@ -67,7 +66,7 @@ $this->title = 'Редактирование резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="datepicker-wrap input-group date">
                                 <input type="text" class="dor-input dpicker datepicker-input">
-                                <img src="<?= $addressServer ?>images/mdi_calendar_today.svg" alt="">
+                                <img src="<?= Yii::$app->params['addressServer'] ?>images/mdi_calendar_today.svg" alt="">
                             </div>
                         </div>
                     </div>
@@ -149,7 +148,7 @@ $this->title = 'Редактирование резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="p-rel">
                                 <input placeholder="От" type="text" class="dor-input w100">
-                                <img class="rub-icon" src="<?= $addressServer ?>images/rub-icon.svg" alt="rub-icon">
+                                <img class="rub-icon" src="<?= Yii::$app->params['addressServer'] ?>images/rub-icon.svg" alt="rub-icon">
                             </div>
                         </div>
                     </div>

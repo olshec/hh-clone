@@ -4,8 +4,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $content string */
 
-$addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUrl().'/';
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -18,13 +16,13 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?= $addressServer ?>css/main.css">
+    <link rel="stylesheet" href="<?=  Yii::$app->params['addressServer'] ?>css/main.css">
     
     <script src="https://kit.fontawesome.com/a4e584b747.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="<?= $addressServer ?>css/jquery.nselect.css">
-    <link rel="stylesheet" href="<?= $addressServer ?>css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<?=  Yii::$app->params['addressServer'] ?>css/jquery.nselect.css">
+    <link rel="stylesheet" href="<?=  Yii::$app->params['addressServer'] ?>css/bootstrap-datepicker.css">
 </head>
 
 <body>
@@ -33,15 +31,15 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
     <header class="header">
         <div class="container">
             <nav class="navbar navigation">
-                <a class="navbar-brand" href="<?= $addressServer ?>site/resume-list"><img src="<?= $addressServer ?>images/logo.svg" alt="Logo">
+                <a class="navbar-brand" href="<?=  Yii::$app->params['addressServer'] ?>site/resume-list"><img src="<?=  Yii::$app->params['addressServer'] ?>images/logo.svg" alt="Logo">
                 </a>
                 <div class="header__login header__login-mobile">
                 </div>
                 <ul class="navigation-nav">
-                    <li class="nav-item  <?= $this->params['listResumeState'] ?> ">
+                    <li class="nav-item  <?= Yii::$app->params['listResumeState'] ?> ">
                         <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
                     </li>
-                    <li class="nav-item <?= $this->params['resumeState'] ?>">
+                    <li class="nav-item <?= Yii::$app->params['resumeState'] ?>">
                         <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
                     </li>
                 </ul>
@@ -70,7 +68,7 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
         <div class="container">
             <div class="header-search__wrap">
                 <form class="header-search__form">
-                    <a href="#"><img src="<?= $addressServer ?>images/dark-search.svg" alt="search"
+                    <a href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/dark-search.svg" alt="search"
                                      class="dark-search-icon header-search__icon"></a>
                     <input class="header-search__input" type="text" placeholder="Поиск по резюме и навыкам">
                     <button type="button" class="blue-btn header-search__btn">Найти</button>
@@ -86,12 +84,12 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
             <div class="footer__wrap">
                 <div class="row">
                     <div class="footer__col footer__policy col-lg-3 col-md-12 p-rel">
-                        <a class="footer__logo" href="#"><img src="<?= $addressServer ?>images/logo.svg" alt="Logo"></a>
+                        <a class="footer__logo" href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/logo.svg" alt="Logo"></a>
                         <div class="footer__soc-icon">
-                            <a href="#"><img src="<?= $addressServer ?>images/vk.png" alt="vk"></a>
-                            <a href="#"><img src="<?= $addressServer ?>images/facebook.png" alt="facebook"></a>
-                            <a href="#"><img src="<?= $addressServer ?>images/twitter.png" alt="twitter"></a>
-                            <a href="#"><img src="<?= $addressServer ?>images/instagram.png" alt="instagram"></a>
+                            <a href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/vk.png" alt="vk"></a>
+                            <a href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/facebook.png" alt="facebook"></a>
+                            <a href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/twitter.png" alt="twitter"></a>
+                            <a href="#"><img src="<?=  Yii::$app->params['addressServer'] ?>images/instagram.png" alt="instagram"></a>
                         </div>
                         <ul class="footer__ul-policy">
                             <li><a href="#">Все права защищены</a></li>
@@ -145,10 +143,10 @@ $addressServer = Yii::$app->request->getHostInfo().Yii::$app->request->getBaseUr
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
-<script src="<?= $addressServer ?>js/main.js"></script>
-<script src="<?= $addressServer ?>js/jquery.nselect.min.js"></script>
-<script src="<?= $addressServer ?>js/bootstrap-datepicker.js"></script>
-<script src="<?= $addressServer ?>js/bootstrap-datepicker.ru.min.js"></script>
+<script src="<?=  Yii::$app->params['addressServer'] ?>js/main.js"></script>
+<script src="<?=  Yii::$app->params['addressServer'] ?>js/jquery.nselect.min.js"></script>
+<script src="<?=  Yii::$app->params['addressServer'] ?>js/bootstrap-datepicker.js"></script>
+<script src="<?=  Yii::$app->params['addressServer'] ?>js/bootstrap-datepicker.ru.min.js"></script>
 
 <?php $this->endBody() ?>
 </body>

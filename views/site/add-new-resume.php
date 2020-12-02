@@ -1,8 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
-$this->params['listResumeState'] = $listResumeState;
-$this->params['resumeState'] = $resumeState;
+
+// $this->params['listResumeState'] = $listResumeState;
+// $this->params['resumeState'] = $resumeState;
 
 $this->title = 'Создание нового резюме'
 ?>

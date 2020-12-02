@@ -71,7 +71,9 @@ class SiteController extends Controller
      */
     public function actionMyResume()
     {
-        return $this->render('my-resume', ['resumeState' => 'active', 'listResumeState' => '']);
+        Yii::$app->params['resumeState'] = 'active';
+        Yii::$app->params['listResumeState'] = '';
+        return $this->render('my-resume');
     }
     
     /**
@@ -81,7 +83,9 @@ class SiteController extends Controller
      */
     public function actionResumeList()
     {
-        return $this->render('resume-list', ['resumeState' => '', 'listResumeState' => 'active']);
+        Yii::$app->params['resumeState'] = '';
+        Yii::$app->params['listResumeState'] = 'active';
+        return $this->render('resume-list');
     }
     
     /**
@@ -91,7 +95,9 @@ class SiteController extends Controller
      */
     public function actionEditResume()
     {
-        return $this->render('edit-reg-resume', ['resumeState' => 'active', 'listResumeState' => '']);
+        Yii::$app->params['resumeState'] = 'active';
+        Yii::$app->params['listResumeState'] = '';
+        return $this->render('edit-reg-resume');
     }
     
     /**

@@ -12,7 +12,7 @@ $this->title = 'Мои резюме'
         <div class="container">
             <div class="col-lg-9">
                 <div class="main-title mb32 mt50 d-flex justify-content-between align-items-center">Мои резюме
-                    <a href="<?= Yii::$app->params['addressServer'] ?>site/add-resume" class="link-orange-btn orange-btn my-vacancies-add-btn">Добавить резюме</a><a
+                    <a href="<?= \yii\helpers\Url::to(['/']) ?>site/add-resume" class="link-orange-btn orange-btn my-vacancies-add-btn">Добавить резюме</a><a
                             class="my-vacancies-mobile-add-btn link-orange-btn orange-btn plus-btn" href="#">+</a></div>
                 <div class="tabs mb64">
                     <div class="tabs__content active">
@@ -26,11 +26,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer']?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/'])?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -63,11 +63,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -100,11 +100,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -124,7 +124,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -136,11 +136,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -161,7 +161,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -173,11 +173,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -198,7 +198,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -219,11 +219,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                                 <a class="mr16" href="#">Изменить видимость</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
@@ -265,11 +265,11 @@ $this->title = 'Мои резюме'
                                         <div class="my-resume-dropdown dropdown show mb8">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="<?= Yii::$app->params['addressServer'] ?>images/dots.svg" alt="dots">
+                                                <img src="<?= \yii\helpers\Url::to(['/']) ?>images/dots.svg" alt="dots">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= Yii::$app->params['addressServer'] ?>site/edit-resume">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>site/edit-resume">Редактировать</a>
                                                 <a class="dropdown-item" href="#">Удалить</a>
                                             </div>
                                         </div>
@@ -290,7 +290,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                                 <a class="mr16" href="#">Изменить видимость</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
@@ -356,7 +356,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= Yii::$app->params['addressServer'] ?>site/resume-view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>site/resume-view">Открыть</a>
                                                 <a class="mr16" href="#">Удалить</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Заархивировано 23 марта 2020 в 12:00</span>

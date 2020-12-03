@@ -5,7 +5,7 @@ use app\models\MenuHeader;
 /* @var $this yii\web\View */
 /* @var $content string */
 
-$menuHeader = Yii::$app->params['menuHeader'];
+$menuHeader =  MenuHeader::getMenuHeader(Yii::$app->params['menuHeader']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -49,10 +49,10 @@ $menuHeader = Yii::$app->params['menuHeader'];
                     <ul class="navigation-menu__mobile-nav">
                         <div class="navigation-menu__mobile-nav-top">
                             <li class="navigation-menu__mobile-nav-item active">
-                                <a class="nav-link" href="#">Резюме</a>
+                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
                             </li>
                             <li class="navigation-menu__mobile-nav-item">
-                                <a class="nav-link" href="#">Мои резюме</a>
+                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
                             </li>
                         </div>
                     </ul>

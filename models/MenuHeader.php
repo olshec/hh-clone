@@ -9,6 +9,13 @@ class MenuHeader
     public const RESUME = 1;
     public const LIST_RESUME = 2;
     
+    public static function getMenuHeader(MenuHeader $menuHeader){
+        $menu = new MenuHeader();
+        $menu->setResumeState($menuHeader->getResumeState());
+        $menu->setListResumeState($menuHeader->getListResumeState());
+        return $menu;
+    }
+    
     /**
      * @param int $resumeState. It's should be const: RESUME, LIST_RESUME
      */

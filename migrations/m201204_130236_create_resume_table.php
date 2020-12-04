@@ -3,26 +3,28 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%user}}`.
+ * Handles the creation of table `{{%resume}}`.
  */
-class m201202_131153_create_user_table extends Migration
+class m201204_130236_create_resume_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%user}}', [
+        $this->createTable('{{%resume}}', [
             'id' => \yii\db\pgsql\Schema::TYPE_PK,
-            'name' => $this->string(50)->notNull(),
-            'surname' => $this->string(50)->notNull(),
-            'email' => $this->string(50)->notNull(),
+            'salary' => $this->integer(11)->notNull(),
+            'about_me' => \yii\db\pgsql\Schema::TYPE_TEXT,
+            'id_user' => $this->string(50)->notNull(),
             'telephone' => $this->string(50)->notNull(),
             'date_birth' => $this->date()->notNull(),
             'city' => $this->string(100)->notNull(),
             'gender' => 'gender_enum NOT NULL',
             'photo' => $this->string(255),
+            'user_id' => $this->integer(11)->notNull(),
         ]);
+        $this->addForeignKey('fk_resume_user_id', 'resume', 'user_id', 'user', 'id');
     }
 
     /**
@@ -30,6 +32,6 @@ class m201202_131153_create_user_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable('{{%resume}}');
     }
 }

@@ -23,6 +23,6 @@ class m201204_134854_create_specialization_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%resume_specialization}}');
+        $this->dropTable('{{%specialization}}');
     }
 }

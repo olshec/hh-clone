@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%TypeEmployment}}`.
  */
-class m201204_132915_create_TypeEmployment_table extends Migration
+class m201204_132915_create_type_employment_table extends Migration
 {
     /**
      * {@inheritdoc}

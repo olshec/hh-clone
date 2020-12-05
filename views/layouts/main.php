@@ -5,7 +5,14 @@ use app\models\MenuHeader;
 /* @var $this yii\web\View */
 /* @var $content string */
 
-$menuHeader =  MenuHeader::getMenuHeader(Yii::$app->params['menuHeader']);
+if(array_key_exists('menuHeader', Yii::$app->params)){
+    $menuHeader =  MenuHeader::getMenuHeader(Yii::$app->params['menuHeader']);
+}
+else {
+    $menuHeader =  new MenuHeader();
+    $menuHeader->activateResume();
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

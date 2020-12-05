@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
 
 <!--     < ?= $form->field($model, 'photo')->textInput(['maxlength' => true], ['class' => 'col-lg-2 col-md-3 dflex-acenter']) ?> -->
 
-    <?= $form->field($model, 'salary')->textInput() ?>
+    
 
-    <?= $form->field($model, 'about_me')->textarea(['rows' => 6]) ?>
+<!--     < ?= $form->field($model, 'about_me')->textarea(['rows' => 6]) ?> -->
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+<!--     < ?= $form->field($model, 'user_id')->textInput() ?> -->
 
 
 
@@ -167,8 +167,14 @@ use yii\widgets\ActiveForm;
                             <div class="paragraph">Зарплата</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
+                        
                             <div class="p-rel">
-                                <input placeholder="От" type="text" class="dor-input w100">
+                            <?php  $fieldOptions1 = [
+                                'options' => ['class' => 'form-group has-feedback'],
+                                'src' =>  \yii\helpers\Url::to(['/']).'images/rub-icon.svg',
+                                'alt' => 'rub-icon',
+                            ];?>
+                            <?= $form->field($model, 'salary')->textInput(['class'=>'dor-input w100','placeholder'=>'От']) ?>
                                 <img class="rub-icon" src="<?= \yii\helpers\Url::to(['/']) ?>images/rub-icon.svg" alt="rub-icon">
                             </div>
                         </div>

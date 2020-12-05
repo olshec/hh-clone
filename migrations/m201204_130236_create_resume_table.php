@@ -14,6 +14,7 @@ class m201204_130236_create_resume_table extends Migration
     {
         $this->createTable('{{%resume}}', [
             'id' => \yii\db\pgsql\Schema::TYPE_PK,
+            'photo' => $this->string(255),
             'salary' => $this->integer(11)->notNull(),
             'about_me' => \yii\db\pgsql\Schema::TYPE_TEXT,
             'user_id' => $this->integer(11)->notNull(),

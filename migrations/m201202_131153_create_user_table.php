@@ -21,7 +21,6 @@ class m201202_131153_create_user_table extends Migration
             'date_birth' => $this->date()->notNull(),
             'city' => $this->string(100)->notNull(),
             'gender' => 'gender_enum NOT NULL',
-            'photo' => $this->string(255),
         ]);
     }
 

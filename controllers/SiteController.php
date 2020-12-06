@@ -61,7 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('resume-list', ['resumeState' => '', 'listResumeState' => 'active']);
+        self::activateMenuItem(MenuHeader::LIST_RESUME);
+        return $this->render('resume-list');    
     }
     
     /*

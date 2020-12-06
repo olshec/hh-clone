@@ -40,26 +40,26 @@ else {
     <header class="header">
         <div class="container">
             <nav class="navbar navigation">
-                <a class="navbar-brand" href="<?=  \yii\helpers\Url::to(['/']) ?>site/resume-list"><img src="<?=  \yii\helpers\Url::to(['/']) ?>images/logo.svg" alt="Logo">
+                <a class="navbar-brand" href="<?=  \yii\helpers\Url::to(['/']) ?>resume"><img src="<?=  \yii\helpers\Url::to(['/']) ?>images/logo.svg" alt="Logo">
                 </a>
                 <div class="header__login header__login-mobile">
                 </div>
                 <ul class="navigation-nav">
                     <li class="nav-item  <?= $menuHeader->getListResumeState() ?> ">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['/']) ?>resume">Резюме</a>
                     </li>
                     <li class="nav-item <?= $menuHeader->getResumeState() ?>">
-                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
+                        <a class="nav-link" href="<?= \yii\helpers\Url::to(['/']) ?>resume/my-resumes">Мои резюме</a>
                     </li>
                 </ul>
                 <div class="navigation-menu__mobile">
                     <ul class="navigation-menu__mobile-nav">
                         <div class="navigation-menu__mobile-nav-top">
                             <li class="navigation-menu__mobile-nav-item active">
-                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/resume-list']) ?>">Резюме</a>
+                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['/']) ?>resume">Резюме</a>
                             </li>
                             <li class="navigation-menu__mobile-nav-item">
-                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['site/my-resume']) ?>">Мои резюме</a>
+                                <a class="nav-link" href="<?= \yii\helpers\Url::to(['/']) ?>resume/my-resumes">Мои резюме</a>
                             </li>
                         </div>
                     </ul>

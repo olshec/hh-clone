@@ -54,11 +54,26 @@ class ResumeController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+//         return $this->render('view', [
+//             'model' => $this->findModel($id),
+//         ]);
+        return $this->render('view');
+    }
+    
+    /**
+     * Displays a list resumes for one user.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionMyResumes()
+    {
+        //         return $this->render('view', [
+        //             'model' => $this->findModel($id),
+        //         ]);
+        return $this->render('myResumes');
     }
 
     /**
@@ -86,17 +101,19 @@ class ResumeController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
+//         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+//         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//             return $this->redirect(['view', 'id' => $model->id]);
+//         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+//         return $this->render('update', [
+//             'model' => $model,
+//         ]);
+
+        return $this->render('update');
     }
 
     /**

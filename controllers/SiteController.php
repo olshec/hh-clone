@@ -69,7 +69,7 @@ class SiteController extends Controller
      * 
      * @param enum from MenuHeader, example MenuHeader::LIST_RESUME
      */
-    private function activateMenuItem(int $item){
+    public static function activateMenuItem(int $item){
         $menu = new MenuHeader();
         switch ($item){
             case MenuHeader::RESUME:
@@ -89,7 +89,7 @@ class SiteController extends Controller
      */
     public function actionMyResume()
     {
-        $this->activateMenuItem(MenuHeader::RESUME);
+        self::activateMenuItem(MenuHeader::RESUME);
         return $this->render('my-resume');
     }
     
@@ -100,7 +100,7 @@ class SiteController extends Controller
      */
     public function actionResumeList()
     {
-        $this->activateMenuItem(MenuHeader::LIST_RESUME);
+        self::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('resume-list');
     }
     
@@ -111,7 +111,7 @@ class SiteController extends Controller
      */
     public function actionEditResume()
     {
-        $this->activateMenuItem(MenuHeader::RESUME);
+        self::activateMenuItem(MenuHeader::RESUME);
         return $this->render('edit-reg-resume');
     }
     
@@ -122,7 +122,7 @@ class SiteController extends Controller
      */
     public function actionAddResume()
     {
-        $this->activateMenuItem(MenuHeader::RESUME);
+        self::activateMenuItem(MenuHeader::RESUME);
         return $this->render('add-new-resume');
     }
     
@@ -133,7 +133,7 @@ class SiteController extends Controller
      */
     public function actionResumeView()
     {
-        $this->activateMenuItem(MenuHeader::RESUME);
+        self::activateMenuItem(MenuHeader::RESUME);
         return $this->render('resume-view');
     }
   

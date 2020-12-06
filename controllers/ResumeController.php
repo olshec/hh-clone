@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\MenuHeader;
 use app\models\Resume;
 use app\models\ResumeSearch;
 use yii\web\Controller;
@@ -35,13 +36,16 @@ class ResumeController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ResumeSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//         $searchModel = new ResumeSearch();
+//         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+//         return $this->render('index', [
+//             'searchModel' => $searchModel,
+//             'dataProvider' => $dataProvider,
+//         ]);
+
+        SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
+        return $this->render('index');
     }
 
     /**

@@ -27,6 +27,30 @@ class User extends \yii\db\ActiveRecord
     {
         return 'user';
     }
+    
+    /**
+     * Returns new user.
+     * 
+     * @param unknown $name
+     * @param unknown $surname
+     * @param unknown $email
+     * @param unknown $telephone
+     * @param unknown $date_birth
+     * @param unknown $city
+     * @param unknown $gender
+     * @return \app\models\User
+     */
+    public static function getNewUser($name, $surname, $email, $telephone, $date_birth, $city, $gender) {
+        $user = new User();
+        $user->name = $name;
+        $user->surname = $surname;
+        $user->email = $email;
+        $user->telephone = $telephone;
+        $user->date_birth = $date_birth;
+        $user->city = $city;
+        $user->gender = $gender;
+        return $user;
+    }
 
     /**
      * {@inheritdoc}

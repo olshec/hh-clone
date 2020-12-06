@@ -31,13 +31,13 @@ class User extends \yii\db\ActiveRecord
     /**
      * Returns new user.
      * 
-     * @param unknown $name
-     * @param unknown $surname
-     * @param unknown $email
-     * @param unknown $telephone
-     * @param unknown $date_birth
-     * @param unknown $city
-     * @param unknown $gender
+     * @param string $name
+     * @param string $surname
+     * @param string $email
+     * @param string $telephone
+     * @param string $date_birth
+     * @param string $city
+     * @param string $gender
      * @return \app\models\User
      */
     public static function getNewUser($name, $surname, $email, $telephone, $date_birth, $city, $gender) {

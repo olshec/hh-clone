@@ -27,6 +27,24 @@ class Resume extends \yii\db\ActiveRecord
     {
         return 'resume';
     }
+    
+    /**
+     * Returns new resume.
+     * 
+     * @param string $salary
+     * @param string $about_me
+     * @param string $photo
+     * @param string $user_id
+     * @return \app\models\Resume
+     */
+    public static function getNewResume($salary, $about_me, $photo, $user_id) {
+        $resume = new Resume();
+        $resume->salary = $salary;
+        $resume->about_me = $about_me;
+        $resume->photo = $photo;
+        $resume->user_id = $user_id;
+        return $resume;
+    }
 
     /**
      * {@inheritdoc}

@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use app\models\MenuHeader;
-
 /* @var $this yii\web\View */
 /* @var $content string */
 

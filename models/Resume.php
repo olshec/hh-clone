@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "resume".
  *
  * @property int $id
- * @property string|null $photo
  * @property string|null $name
+ * @property string|null $photo
  * @property int $salary
  * @property string|null $about_me
  * @property int $user_id
@@ -48,7 +48,7 @@ class Resume extends \yii\db\ActiveRecord
         $resume->user_id = $user_id;
         return $resume;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -56,11 +56,11 @@ class Resume extends \yii\db\ActiveRecord
     {
         return [
             [['salary', 'user_id', 'name'], 'required'],
-            [['salary', 'user_id', 'name'], 'default', 'value' => null],
-            [['salary', 'user_id', 'name'], 'integer'],
+            [['salary', 'user_id'], 'default', 'value' => null],
+            [['salary', 'user_id',], 'integer'],
             [['about_me'], 'string'],
-            [['photo'], 'string', 'max' => 255],
             [['name'], 'string', 'max' => 255],
+            [['photo'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

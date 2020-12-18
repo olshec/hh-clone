@@ -17,6 +17,7 @@ class m201204_130236_create_resume_table extends Migration
     {
         $this->createTable('{{%resume}}', [
             'id' => \yii\db\pgsql\Schema::TYPE_PK,
+            'name' => $this->string(255)->notNull(),
             'photo' => $this->string(255),
             'salary' => $this->integer(11)->notNull(),
             'about_me' => \yii\db\pgsql\Schema::TYPE_TEXT,
@@ -25,20 +26,20 @@ class m201204_130236_create_resume_table extends Migration
         $this->addForeignKey('fk_resume_user_id', 'resume', 'user_id', 
             'user', 'id', 'cascade', 'cascade');
 
-        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name');
-        $command->bindValue(':name', 'Anton');
+        addresume('Anton', 'Lavrov', '1990-02-18', 'Manager', 100, 'about me');
+        addresume('Anna', 'Mironova', '1992-11-25', 'Director' ,200, 'about me');
+        
+    }
+    
+    public function addresume(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, int $salary, string $aboutMe) {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
+        $command->bindValue(':name', $nameUser);
+        $command->bindValue(':surname', $surnameUser);
+        $command->bindValue(':date_birth', $dateBirth);
         $post = $command->queryOne();
         
         $idUser = $post['id'];
-        $resume = Resume::getNewResume('100', 'about me!', '---', $idUser);
-        $resume->save();
-        
-        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name');
-        $command->bindValue(':name', 'Anna');
-        $post = $command->queryOne();
-        
-        $idUser = $post['id'];
-        $resume = Resume::getNewResume('200', 'about me for Anna!', '---', $idUser);
+        $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, '---', $idUser);
         $resume->save();
     }
 

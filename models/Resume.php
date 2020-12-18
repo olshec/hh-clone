@@ -31,14 +31,16 @@ class Resume extends \yii\db\ActiveRecord
     /**
      * Returns new resume.
      * 
+     * @param string $name
      * @param string $salary
      * @param string $about_me
      * @param string $photo
      * @param string $user_id
      * @return \app\models\Resume
      */
-    public static function getNewResume($salary, $about_me, $photo, $user_id) {
+    public static function getNewResume($name, $salary, $about_me, $photo, $user_id) {
         $resume = new Resume();
+        $resume->name = $name;
         $resume->salary = $salary;
         $resume->about_me = $about_me;
         $resume->photo = $photo;
@@ -52,11 +54,12 @@ class Resume extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['salary', 'user_id'], 'required'],
-            [['salary', 'user_id'], 'default', 'value' => null],
-            [['salary', 'user_id'], 'integer'],
+            [['salary', 'user_id', 'name'], 'required'],
+            [['salary', 'user_id', 'name'], 'default', 'value' => null],
+            [['salary', 'user_id', 'name'], 'integer'],
             [['about_me'], 'string'],
             [['photo'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -68,6 +71,7 @@ class Resume extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'name' => 'Name',
             'photo' => 'Photo',
             'salary' => 'Salary',
             'about_me' => 'About Me',

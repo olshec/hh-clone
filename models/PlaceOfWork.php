@@ -27,6 +27,29 @@ class PlaceOfWork extends \yii\db\ActiveRecord
     {
         return 'place_of_work';
     }
+    
+    /**
+     * Returns new PlaceOfWork.
+     *
+     * @param string $name_organization
+     * @param string $date_start
+     * @param string $date_end
+     * @param string $resp_func_ach
+     * @param string $resume_id
+     * @param string $specialization_id
+     * @return \app\models\PlaceOfWork
+     */
+    public static function getNewPlaceOfWork(string $name_organization, string $date_start, 
+        string $date_end, string $resp_func_ach, int $resume_id, int $specialization_id) {
+        $placeOfWork = new PlaceOfWork();
+        $placeOfWork->name_organization = $name_organization;
+        $placeOfWork->date_start = $date_start;
+        $placeOfWork->date_end = $date_end;
+        $placeOfWork->resp_func_ach = $resp_func_ach;
+        $placeOfWork->resume_id = $resume_id;
+        $placeOfWork->specialization_id = $specialization_id;
+        return $placeOfWork;
+    }
 
     /**
      * {@inheritdoc}

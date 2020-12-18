@@ -137,5 +137,9 @@ class SiteController extends Controller
         self::activateMenuItem(MenuHeader::RESUME);
         return $this->render('resume-view');
     }
+    
   
 }
+
+
+

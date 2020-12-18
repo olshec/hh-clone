@@ -26,8 +26,11 @@ class m201204_130236_create_resume_table extends Migration
         $this->addForeignKey('fk_resume_user_id', 'resume', 'user_id', 
             'user', 'id', 'cascade', 'cascade');
 
-        $this->addResume('Anton', 'Lavrov', '1990-02-18', 'Manager', 100, 'about me');
-        $this->addResume('Anna', 'Mironova', '1992-11-25', 'Director' ,200, 'about me');
+        $this->addResume('Anton', 'Lavrov', '1990-02-18', 'Manager', 120000, 'about me');
+        $this->addResume('Anna', 'Mironova', '1992-11-25', 'Director' ,140000, 'about me');
+        
+        $this->addResume('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 70000, 'about me');
+        $this->addResume('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer' ,200000, 'about me');
     }
     
     public function addResume(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, int $salary, string $aboutMe) {

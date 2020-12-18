@@ -21,6 +21,12 @@ class Specialization extends \yii\db\ActiveRecord
     {
         return 'specialization';
     }
+    
+    public static function getNewSpecialization($name) {
+        $specialization = new Specialization();
+        $specialization->name = $name;
+        return $specialization;
+    }
 
     /**
      * {@inheritdoc}

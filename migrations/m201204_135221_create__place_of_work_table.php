@@ -25,6 +25,8 @@ class m201204_135221_create__place_of_work_table extends Migration
             'resume', 'id', 'cascade', 'cascade');
         $this->addForeignKey('fk_pow_specialization_id', 'place_of_work', 'specialization_id',
             'specialization', 'id', 'cascade', 'cascade');
+        
+
     }
 
     /**

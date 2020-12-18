@@ -25,6 +25,10 @@ class m201204_132915_create_type_employment_table extends Migration
         $this->addTypeEmployment('Стажировка');
     }
     
+    /**
+     * 
+     * @param string $nameTypeEmployment
+     */
     public function addTypeEmployment(string $nameTypeEmployment) {
         $typeEmployment = TypeEmployment::getNewTypeEmployment($nameTypeEmployment);
         $typeEmployment->save();

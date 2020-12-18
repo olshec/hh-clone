@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string|null $photo
+ * @property string|null $name
  * @property int $salary
  * @property string|null $about_me
  * @property int $user_id

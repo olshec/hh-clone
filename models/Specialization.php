@@ -22,6 +22,11 @@ class Specialization extends \yii\db\ActiveRecord
         return 'specialization';
     }
     
+     /**
+     * Returns new specialization.
+     * 
+     * @param string $name
+     */ 
     public static function getNewSpecialization($name) {
         $specialization = new Specialization();
         $specialization->name = $name;

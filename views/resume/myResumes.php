@@ -88,7 +88,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -124,7 +124,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -161,7 +161,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -198,7 +198,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
                                                     12:00</span>
@@ -290,7 +290,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                                 <a class="mr16" href="#">Изменить видимость</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано 23 марта 2020 в
@@ -356,7 +356,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a></a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
                                                 <a class="mr16" href="#">Удалить</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Заархивировано 23 марта 2020 в 12:00</span>

@@ -32,7 +32,12 @@ class m201204_135221_create__place_of_work_table extends Migration
         $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Director', 'Продажи', 'ООО Северная столица', '2017-11-25', '2019-08-25', '----');
         
         $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ООО Спутник', '2016-03-16', '2018-05-10', '----');
+        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ИП Красников', '2018-06-20', '2019-02-22', '----');
+        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ОАО Стелс', '2019-03-26', '2020-07-11', '----');
+        
         $this->addPlaceOfWork('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Программирование, Разработка', 'High tecnology', '2018-11-25', '2019-08-27', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Программирование, Разработка', 'SkyTech', '2019-10-25', '2020-07-20', '----');
+    
     }
 
     public function addPlaceOfWork(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, string $specialization, 

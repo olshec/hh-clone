@@ -21,6 +21,18 @@ class TypeEmployment extends \yii\db\ActiveRecord
     {
         return 'type_employment';
     }
+    
+    /**
+     * Returns new type of employment.
+     * 
+     * @param string $nameTypeEmployment
+     * @return \app\models\TypeEmployment
+     */
+    public static function getNewTypeEmployment(string $nameTypeEmployment) {
+        $typeEmployment = new TypeEmployment();
+        $typeEmployment->name = $nameTypeEmployment;
+        return $typeEmployment;
+    }
 
     /**
      * {@inheritdoc}

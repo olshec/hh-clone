@@ -1,5 +1,6 @@
 <?php
 
+use app\models\TypeEmployment;
 use yii\db\Migration;
 
 /**
@@ -16,6 +17,17 @@ class m201204_132915_create_type_employment_table extends Migration
             'id' => \yii\db\pgsql\Schema::TYPE_PK,
             'name' => $this->string(50)->notNull(),
         ]);
+        
+        $this->addTypeEmployment('Полная занятость');
+        $this->addTypeEmployment('Частичная занятость');
+        $this->addTypeEmployment('Проектная/Временная работа');
+        $this->addTypeEmployment('Волонтёрство');
+        $this->addTypeEmployment('Стажировка');
+    }
+    
+    public function addTypeEmployment(string $nameTypeEmployment) {
+        $typeEmployment = TypeEmployment::getNewTypeEmployment($nameTypeEmployment);
+        $typeEmployment->save();
     }
 
     /**

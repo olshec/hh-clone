@@ -25,6 +25,19 @@ class ResumeTypeEmployment extends \yii\db\ActiveRecord
     }
 
     /**
+     * Creates new ResumeTypeEmployment.
+     * 
+     * @param int $resumeId
+     * @param int $typeEmploymentId
+     * @return \app\models\ResumeTypeEmployment
+     */
+    public static function getNewResumeTypeEmployment(int $resumeId, int $typeEmploymentId) {
+        $resumeTypeEmployment = new ResumeTypeEmployment();
+        $resumeTypeEmployment->resume_id = $resumeId;
+        $resumeTypeEmployment->type_employment_id = $typeEmploymentId;
+        return $resumeTypeEmployment;
+    }
+    /**
      * {@inheritdoc}
      */
     public function rules()

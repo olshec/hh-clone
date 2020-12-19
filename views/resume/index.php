@@ -15,7 +15,7 @@ $this->title = 'Список резюме';
             <div class="row">
                 <div class="col-lg-9 desctop-992-pr-16">
                     <div class="d-flex align-items-center flex-wrap mb8">
-                        <span class="paragraph mr16">Найдено 3 резюме</span>
+                        <span class="paragraph mr16">Найдено <?= count($resumeModels);?> резюме</span>
                         <div class="vakancy-page-header-dropdowns">
                             <div class="vakancy-page-wrap show mr16">
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

@@ -44,8 +44,16 @@ class ResumeController extends Controller
 //             'dataProvider' => $dataProvider,
 //         ]);
 
+        $command = Yii::$app->db->createCommand('SELECT * FROM "resume"');
+        $resumeModels = $command->queryAll();
+//         print_r($resumeModels);
+//         exit();
+        //$idUser = $post['id'];
+        
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
-        return $this->render('index');
+        return $this->render('index', [
+            'resumeModels' => $resumeModels
+        ]);
     }
 
     /**

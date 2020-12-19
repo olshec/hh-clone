@@ -62,7 +62,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         self::activateMenuItem(MenuHeader::LIST_RESUME);
-        return $this->render('resume-list');    
+        return $this->render('index');    
     }
     
     /*

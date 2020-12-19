@@ -27,7 +27,7 @@ class m201204_130236_create_resume_table extends Migration
             'user', 'id', 'cascade', 'cascade');
 
         $this->addResume('Anton', 'Lavrov', '1990-02-18', 'Менеджер персонала', 
-            120000, 'about me', 'Anton_Lavrov_1990-02-18-37485948/photo-1.jpg');
+            120000, 'about me', 'Anton_Lavrov_1990-02-18_37485948/photo-1.jpeg');
         $this->addResume('Anna', 'Mironova', '1992-11-25', 'Директор по развитию бизнеса' ,
             140000, 'about me', 'Anna_Mironova_1992-11-25_34758693/photo-5.jpg');
         $this->addResume('Anna', 'Mironova', '1992-11-25', 'Менеджер по продажам',

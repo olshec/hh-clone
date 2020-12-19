@@ -30,7 +30,18 @@ class m201202_131153_create_user_table extends Migration
         $this->addUser('Andrey', 'Rumov', 'andreyrum@yahoo.com', '+79204859764', '2001-08-11', 'Lipeck', 'male');
     }
     
-    public function addUser($name, $surname, $email, $telephone, $date_birth, $city, $gender) {
+    /**
+     * Adds new user.
+     * 
+     * @param string $name
+     * @param string $surname
+     * @param string $email
+     * @param string $telephone
+     * @param string $date_birth
+     * @param string $city
+     * @param string $gender
+     */
+    public function addUser(string $name, string $surname, string $email, string $telephone, string $date_birth, string $city, string $gender) {
         $user = User::getNewUser($name, $surname, $email, $telephone, $date_birth, $city, $gender) ;
         $user->save();
     }

@@ -40,7 +40,8 @@ class User extends \yii\db\ActiveRecord
      * @param string $gender
      * @return \app\models\User
      */
-    public static function getNewUser($name, $surname, $email, $telephone, $date_birth, $city, $gender) {
+    public static function getNewUser(string $name, string $surname, string $email, string $telephone, 
+        string $date_birth, string $city, string $gender) {
         $user = new User();
         $user->name = $name;
         $user->surname = $surname;

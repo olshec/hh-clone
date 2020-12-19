@@ -33,13 +33,13 @@ class Resume extends \yii\db\ActiveRecord
      * Returns new resume.
      * 
      * @param string $name
-     * @param string $salary
+     * @param int $salary
      * @param string $about_me
      * @param string $photo
-     * @param string $user_id
+     * @param int $user_id
      * @return \app\models\Resume
      */
-    public static function getNewResume($name, $salary, $about_me, $photo, $user_id) {
+    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, int $user_id) {
         $resume = new Resume();
         $resume->name = $name;
         $resume->salary = $salary;

@@ -26,6 +26,7 @@ class m201204_132915_create_type_employment_table extends Migration
     }
     
     /**
+     * Adds type employment.
      * 
      * @param string $nameTypeEmployment
      */

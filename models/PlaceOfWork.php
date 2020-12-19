@@ -35,8 +35,8 @@ class PlaceOfWork extends \yii\db\ActiveRecord
      * @param string $date_start
      * @param string $date_end
      * @param string $resp_func_ach
-     * @param string $resume_id
-     * @param string $specialization_id
+     * @param int $resume_id
+     * @param int $specialization_id
      * @return \app\models\PlaceOfWork
      */
     public static function getNewPlaceOfWork(string $name_organization, string $date_start, 

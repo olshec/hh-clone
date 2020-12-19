@@ -46,6 +46,19 @@ class m201204_135221_create__place_of_work_table extends Migration
     
     }
 
+    /**
+     * Adds new PlaceOfWork.
+     * 
+     * @param string $nameUser
+     * @param string $surnameUser
+     * @param string $dateBirth
+     * @param string $nameResume
+     * @param string $specialization
+     * @param string $name_organization
+     * @param string $date_start
+     * @param string $date_end
+     * @param string $resp_func_ach
+     */
     public function addPlaceOfWork(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, string $specialization, 
         string $name_organization, string $date_start, string $date_end, string $resp_func_ach){
         $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');

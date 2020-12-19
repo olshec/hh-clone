@@ -34,6 +34,16 @@ class m201204_130236_create_resume_table extends Migration
         $this->addResume('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer' ,200000, 'about me');
     }
     
+    /**
+     * Adds new resume.
+     * 
+     * @param string $nameUser
+     * @param string $surnameUser
+     * @param string $dateBirth
+     * @param string $nameResume
+     * @param int $salary
+     * @param string $aboutMe
+     */
     public function addResume(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, int $salary, string $aboutMe) {
         $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
         $command->bindValue(':name', $nameUser);

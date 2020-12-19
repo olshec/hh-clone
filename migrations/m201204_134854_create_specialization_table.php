@@ -47,7 +47,12 @@ class m201204_134854_create_specialization_table extends Migration
         
     }
     
-    public function addSpecialization($nameSpecialization) {
+    /**
+     * Adds new Specialization.
+     * 
+     * @param string $nameSpecialization
+     */
+    public function addSpecialization(string $nameSpecialization) {
         $specialization = Specialization::getNewSpecialization($nameSpecialization);
         $specialization->save();
     }

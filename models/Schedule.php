@@ -24,6 +24,7 @@ class Schedule extends \yii\db\ActiveRecord
 
     /**
      * Returns new schedule;
+     * 
      * @param string $nameSchedule
      * @return \app\models\Schedule
      */

@@ -25,6 +25,20 @@ class ResumeSchedule extends \yii\db\ActiveRecord
     }
 
     /**
+     * Returns new ResumeSchedule.
+     * 
+     * @param int $idResume
+     * @param int $idTypeSchedule
+     * @return \app\models\ResumeSchedule
+     */
+    public static function getNewResumeSchedule(int $idResume, int $idTypeSchedule) {
+        $resumeSchedule = new ResumeSchedule();
+        $resumeSchedule->resume_id = $idResume;
+        $resumeSchedule->schedule_id = $idTypeSchedule;
+        return $resumeSchedule;
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function rules()

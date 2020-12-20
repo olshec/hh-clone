@@ -212,7 +212,25 @@ class ResumeController extends Controller
         $command->bindValue(':resume_id', $resumeId);
         $allPlacesOfWork = $command->queryAll();
         $lastPlaceOfWork = $allPlacesOfWork[0];
+        $dateStartWork = $lastPlaceOfWork['date_start'];
+        $dateEndWork = $lastPlaceOfWork['date_end'];
+        if($dateEndWork == "0") {
+            $dateEndWork = " настоящее время";
+        }
+        //list of month
+        $_monthsList = array(
+            "01"=>"Январь","02"=>"Февраль","03"=>"Март",
+            "04"=>"Апрель","05"=>"Май", "06"=>"Июнь",
+            "07"=>"Июль","08"=>"Август","09"=>"Сентябрь",
+            "10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
+        $dateStart = new DateTime($dateStartWork);
+        $month = $_monthsList[$dateStart->format('m')];
         
+         echo $month;
+         exit;
+        //выведет, например, для 7 месяца "Июль"
+        
+        $infoAboutLastWork = "PHP разработчик в ".$lastPlaceOfWork['name_organization']." ".$month." ";
         return $lastPlaceOfWork['name_organization'];
     }
     

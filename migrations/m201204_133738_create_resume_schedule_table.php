@@ -41,9 +41,9 @@ class m201204_133738_create_resume_schedule_table extends Migration
         $this->addResumeSchedule('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Удалённая работа');         
         $this->addResumeSchedule('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Вахтовый метод');           
               
-        $this->addResumeSchedule('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Полный день');
-        $this->addResumeSchedule('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Гибкий график');
-        $this->addResumeSchedule('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Удалённая работа');
+        $this->addResumeSchedule('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Полный день');
+        $this->addResumeSchedule('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Гибкий график');
+        $this->addResumeSchedule('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Удалённая работа');
     }
     
     /**

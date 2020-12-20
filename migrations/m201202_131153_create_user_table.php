@@ -27,7 +27,7 @@ class m201202_131153_create_user_table extends Migration
         $this->addUser('Anton', 'Lavrov', 'lAnton@gmail.com', '+79202943874', '1990-02-18', 'Moscow', 'male');
         $this->addUser('Anna', 'Mironova', 'anmir@yandex.com', '+79203459845', '1992-11-25', 'Tula', 'female');
         $this->addUser('Ekaterina', 'Shahmotova', 'katsh@gmail.com', '+79209384756', '1997-12-30', 'Krasnodar', 'female');
-        $this->addUser('Andrey', 'Rumov', 'andreyrum@yahoo.com', '+79204859764', '2001-08-11', 'Lipeck', 'male');
+        $this->addUser('Andrey', 'Rumov', 'andreyrum@yahoo.com', '+79204859764', '1999-08-11', 'Lipeck', 'male');
     }
     
     /**

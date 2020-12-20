@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use DateTime;
 use Yii;
 use app\models\MenuHeader;
 use app\models\Resume;
@@ -46,8 +47,40 @@ class ResumeController extends Controller
 
         $command = Yii::$app->db->createCommand('SELECT * FROM "resume"');
         $resumeModels = $command->queryAll();
-//         print_r($resumeModels);
-//         exit();
+//         foreach ($resumeModels as $resume){
+//             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
+//             $command->bindValue(':user_id', $resume['user_id']);
+//             $user = $command->queryOne();
+//             $resume['user'] = $user;
+//         }
+        
+        for ($i=0;$i<count($resumeModels);$i++){
+            $resume=$resumeModels[$i];
+            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
+            $command->bindValue(':user_id', $resume['user_id']);
+            $user = $command->queryOne();
+            $resumeModels[$i]['city'] = $user['city'];
+            //count age
+            $dateNow = new DateTime(date('Y-m-d'));
+            $dateBirthString = $user['date_birth'];
+            $dateBirth = new DateTime($dateBirthString);
+            $year = $dateNow->diff($dateBirth);
+            $stringYear = strval($year->y);
+            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
+            if ($lastFigureYear == "1") {
+                $age = $year->y . " год";
+            } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
+                $age = $year->y . " года";
+            } else {
+                $age = $year->y . " лет";
+            }
+            $resumeModels[$i]['age'] = $age;
+            //print_r($dateDiff);
+           // exit();
+        }
+        
+//          print_r($resumeModels);
+//          exit();
         //$idUser = $post['id'];
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);

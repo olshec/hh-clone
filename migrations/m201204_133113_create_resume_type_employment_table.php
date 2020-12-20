@@ -38,8 +38,8 @@ class m201204_133113_create_resume_type_employment_table extends Migration
         $this->addResumeTypeEmployment('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Волонтёрство');
         $this->addResumeTypeEmployment('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Стажировка');
         
-        $this->addResumeTypeEmployment('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Полная занятость');
-        $this->addResumeTypeEmployment('Andrey', 'Rumov', '2001-08-11', 'Python sinior developer', 'Проектная/Временная работа');
+        $this->addResumeTypeEmployment('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Полная занятость');
+        $this->addResumeTypeEmployment('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Проектная/Временная работа');
     }
 
      /**

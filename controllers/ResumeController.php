@@ -219,7 +219,6 @@ class ResumeController extends Controller
         $monthAndYearFinish = $this->getFormatDate($dateFinishWork); 
 //          echo $month;
 //          exit;
-        //выведет, например, для 7 месяца "Июль"
         
         $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
         ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;

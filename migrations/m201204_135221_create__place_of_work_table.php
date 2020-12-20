@@ -29,21 +29,30 @@ class m201204_135221_create__place_of_work_table extends Migration
             'specialization', 'id', 'cascade', 'cascade');
         
 
-        $this->addPlaceOfWork('Anton', 'Lavrov', '1990-02-18', 'Менеджер персонала', 'Маркетинг', 'ООО Новый-тренд', 'Менеджер', '2014-02-11', '2015-01-25', '----');
-        $this->addPlaceOfWork('Anton', 'Lavrov', '1990-02-18', 'Менеджер персонала', 'Маркетинг', 'HVC', '2015-01-28', 'Старший менеджер','2017-03-12', '----');
+        $this->addPlaceOfWork('Anton', 'Lavrov', '1990-02-18', 'Менеджер персонала', 'Маркетинг', 'ООО Новый-тренд', 
+            'Менеджер', '2014-02-11', '2015-01-25', '----');
+        $this->addPlaceOfWork('Anton', 'Lavrov', '1990-02-18', 'Менеджер персонала', 'Маркетинг', 'HVC',
+            'Старший менеджер', '2015-01-28', '2017-03-12', '----');
         
-        $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Менеджер по продажам', 'Продажи', 'ООО Северная столица', 'Продавец консультант', '2016-11-25', '2017-11-24', '----');
-        $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Менеджер по продажам', 'Развитие бизнеса', 'ООО Северная столица', 'Менеджер', '2016-11-25', '2017-11-24', '----');
+        $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Менеджер по продажам', 'Продажи', 'ООО Северная столица', 
+            'Продавец консультант', '2016-11-25', '2017-11-24', '----');
+        $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Менеджер по продажам', 'Развитие бизнеса', 
+            'ООО Северная столица', 'Менеджер', '2016-11-25', '2017-11-24', '----');
         $this->addPlaceOfWork('Anna', 'Mironova', '1992-11-25', 'Директор по развитию бизнеса', 
             'Развитие бизнеса', 'ООО Северная столица', 'Главный менеджер', '2017-11-25', '2019-08-25', '----');
         
         
-        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ООО Спутник', 'Программист', '2016-03-16', '2018-05-10', '----');
-        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ИП Красников', 'Программист', '2018-06-20', '2019-02-22', '----');
-        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 'ОАО Стелс', 'Java Spring developer', '2019-03-26', '2020-07-11', '----');
+        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 
+            'ООО Спутник', 'Программист', '2016-03-16', '2018-05-10', '----');
+        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 
+            'ИП Красников', 'Программист', '2018-06-20', '2019-02-22', '----');
+        $this->addPlaceOfWork('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 'Программирование, Разработка', 
+            'ОАО Стелс', 'Java Spring developer', '2019-03-26', '2020-07-11', '----');
         
-        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 'High tecnology', 'Python developer', '2018-11-25', '2019-08-27', '----');
-        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 
+            'High tecnology', 'Python developer', '2018-11-25', '2019-08-27', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 
+            'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
     
     }
 
@@ -81,7 +90,7 @@ class m201204_135221_create__place_of_work_table extends Migration
         $post = $command->queryOne();
         $idSpecialization= $post['id'];
         
-        $placeOfWork = PlaceOfWork::getNewPlaceOfWork($name_organization, $position, $specialization, $date_start,
+        $placeOfWork = PlaceOfWork::getNewPlaceOfWork($name_organization, $position, $date_start,
             $date_end, $resp_func_ach, $idResume, $idSpecialization); 
         $placeOfWork->save();
     }

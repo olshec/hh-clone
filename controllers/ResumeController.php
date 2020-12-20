@@ -224,7 +224,7 @@ class ResumeController extends Controller
         $monthStartWork = $_monthsList[$dateStart->format('m')];
         $monthAndYearStart = $monthStartWork." ".$dateStart->format('y');
         
-        if($dateEndWork == "0") {
+        if($dateEndWork == '') {
             $monthAndYearFinish = "настоящее время";
         } else {
             $dateEnd = new DateTime($dateEndWork);

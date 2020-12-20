@@ -53,7 +53,7 @@ class ResumeController extends Controller
             $user = $this->getUser($resume['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
-            
+            $resumeModels[$i]['lastPlaceOfWork'] = $this->getLastPlaceOfWork($resume['user_id']);
             //print_r($dateDiff);
            // exit();
         }
@@ -199,6 +199,21 @@ class ResumeController extends Controller
             $age = $year->y . " лет";
         }
        return $age;
+    }
+    
+    /**
+     * Returns the last place of work.
+     * 
+     * @param string $resumeId
+     * @return string
+     */
+    private function getLastPlaceOfWork(string $resumeId): string {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id ORDER BY date_end DESC');
+        $command->bindValue(':resume_id', $resumeId);
+        $allPlacesOfWork = $command->queryAll();
+        $lastPlaceOfWork = $allPlacesOfWork[0];
+        
+        return $lastPlaceOfWork['name_organization'];
     }
     
 }

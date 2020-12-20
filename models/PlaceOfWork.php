@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name_organization
+ * @property string $position
  * @property string $date_start
  * @property string $date_end
  * @property string|null $resp_func_ach
@@ -32,6 +33,7 @@ class PlaceOfWork extends \yii\db\ActiveRecord
      * Returns new PlaceOfWork.
      *
      * @param string $name_organization
+     * @param string $position
      * @param string $date_start
      * @param string $date_end
      * @param string $resp_func_ach
@@ -39,10 +41,11 @@ class PlaceOfWork extends \yii\db\ActiveRecord
      * @param int $specialization_id
      * @return \app\models\PlaceOfWork
      */
-    public static function getNewPlaceOfWork(string $name_organization, string $date_start, 
+    public static function getNewPlaceOfWork(string $name_organization, string $position, string $date_start, 
         string $date_end, string $resp_func_ach, int $resume_id, int $specialization_id) {
         $placeOfWork = new PlaceOfWork();
         $placeOfWork->name_organization = $name_organization;
+        $placeOfWork->position = $position;
         $placeOfWork->date_start = $date_start;
         $placeOfWork->date_end = $date_end;
         $placeOfWork->resp_func_ach = $resp_func_ach;
@@ -57,12 +60,12 @@ class PlaceOfWork extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_organization', 'date_start', 'date_end', 'resume_id', 'specialization_id'], 'required'],
+            [['name_organization', 'position', 'date_start', 'date_end', 'resume_id', 'specialization_id'], 'required'],
             [['date_start', 'date_end'], 'safe'],
             [['resp_func_ach'], 'string'],
             [['resume_id', 'specialization_id'], 'default', 'value' => null],
             [['resume_id', 'specialization_id'], 'integer'],
-            [['name_organization'], 'string', 'max' => 50],
+            [['name_organization', 'position'], 'string', 'max' => 50],
             [['resume_id'], 'exist', 'skipOnError' => true, 'targetClass' => Resume::className(), 'targetAttribute' => ['resume_id' => 'id']],
             [['specialization_id'], 'exist', 'skipOnError' => true, 'targetClass' => Specialization::className(), 'targetAttribute' => ['specialization_id' => 'id']],
         ];
@@ -76,6 +79,7 @@ class PlaceOfWork extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name_organization' => 'Name Organization',
+            'position' => 'Position',
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'resp_func_ach' => 'Resp Func Ach',

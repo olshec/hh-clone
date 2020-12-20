@@ -213,25 +213,10 @@ class ResumeController extends Controller
         $allPlacesOfWork = $command->queryAll();
         $lastPlaceOfWork = $allPlacesOfWork[0];
         $dateStartWork = $lastPlaceOfWork['date_start'];
-        $dateEndWork = $lastPlaceOfWork['date_end'];
+        $dateFinishWork = $lastPlaceOfWork['date_end'];
         //list of month
-        $_monthsList = array(
-            "01"=>"Январь","02"=>"Февраль","03"=>"Март",
-            "04"=>"Апрель","05"=>"Май", "06"=>"Июнь",
-            "07"=>"Июль","08"=>"Август","09"=>"Сентябрь",
-            "10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
-        $dateStart = new DateTime($dateStartWork);
-        $monthStartWork = $_monthsList[$dateStart->format('m')];
-        $monthAndYearStart = $monthStartWork." ".$dateStart->format('y');
-        
-        if($dateEndWork == '') {
-            $monthAndYearFinish = "настоящее время";
-        } else {
-            $dateEnd = new DateTime($dateEndWork);
-            $monthFinishWork = $_monthsList[$dateEnd->format('m')];
-            $monthAndYearFinish = $monthFinishWork." ".$dateEnd->format('y');
-        }
-        
+        $monthAndYearStart = $this->getFormatDate($dateStartWork); 
+        $monthAndYearFinish = $this->getFormatDate($dateFinishWork); 
 //          echo $month;
 //          exit;
         //выведет, например, для 7 месяца "Июль"
@@ -239,6 +224,37 @@ class ResumeController extends Controller
         $infoAboutLastWork = "Младший PHP разработчик в ".$lastPlaceOfWork['name_organization'].
         ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
         return $lastPlaceOfWork['infoAboutLastWork'] = $infoAboutLastWork;
+    }
+
+    /**
+     * Returns formated date.
+     * 
+     * @param string $dateString
+     * @return string
+     */
+    private function getFormatDate(string $dateString): string {
+        if ($dateString == '') {
+            $monthAndYear = "настоящее время";
+        } else {
+            $_monthsList = array(
+                "01" => "Январь",
+                "02" => "Февраль",
+                "03" => "Март",
+                "04" => "Апрель",
+                "05" => "Май",
+                "06" => "Июнь",
+                "07" => "Июль",
+                "08" => "Август",
+                "09" => "Сентябрь",
+                "10" => "Октябрь",
+                "11" => "Ноябрь",
+                "12" => "Декабрь"
+            );
+            $date = new DateTime($dateString);
+            $month = $_monthsList[$date->format('m')];
+            $monthAndYear = $month . " " . $date->format('y');
+            return $monthAndYear;
+        }
     }
     
 }

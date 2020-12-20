@@ -45,36 +45,15 @@ class ResumeController extends Controller
 //             'dataProvider' => $dataProvider,
 //         ]);
 
+        //filling in resume data
         $command = Yii::$app->db->createCommand('SELECT * FROM "resume"');
         $resumeModels = $command->queryAll();
-//         foreach ($resumeModels as $resume){
-//             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
-//             $command->bindValue(':user_id', $resume['user_id']);
-//             $user = $command->queryOne();
-//             $resume['user'] = $user;
-//         }
-        
-        for ($i=0;$i<count($resumeModels);$i++){
+        for ($i=0; $i < count($resumeModels); $i++){
             $resume=$resumeModels[$i];
-            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
-            $command->bindValue(':user_id', $resume['user_id']);
-            $user = $command->queryOne();
+            $user = $this->getUser($resume['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
-            //count age
-            $dateNow = new DateTime(date('Y-m-d'));
-            $dateBirthString = $user['date_birth'];
-            $dateBirth = new DateTime($dateBirthString);
-            $year = $dateNow->diff($dateBirth);
-            $stringYear = strval($year->y);
-            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
-            if ($lastFigureYear == "1") {
-                $age = $year->y . " год";
-            } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
-                $age = $year->y . " года";
-            } else {
-                $age = $year->y . " лет";
-            }
-            $resumeModels[$i]['age'] = $age;
+            $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
+            
             //print_r($dateDiff);
            // exit();
         }
@@ -186,4 +165,40 @@ class ResumeController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
+    /**
+     * Returns the user of this resume.
+     * 
+     * @param int $idUser
+     * @return array
+     */ 
+    private function getUser(int $idUser): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
+        $command->bindValue(':user_id', $idUser);
+        $user = $command->queryOne();
+        return $user;
+    }
+    
+    /**
+     * Returns formatted age
+     * 
+     * @param string $dateBirthString
+     * @return string
+     */
+    private function getFormatAge(string $dateBirthString): string {
+        $dateNow = new DateTime(date('Y-m-d'));
+        $dateBirth = new DateTime($dateBirthString);
+        $year = $dateNow->diff($dateBirth);
+        $stringYear = strval($year->y);
+        $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
+        if ($lastFigureYear == "1") {
+            $age = $year->y . " год";
+        } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
+            $age = $year->y . " года";
+        } else {
+            $age = $year->y . " лет";
+        }
+       return $age;
+    }
+    
 }

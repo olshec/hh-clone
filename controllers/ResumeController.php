@@ -50,7 +50,7 @@ class ResumeController extends Controller
         $resumeModels = $command->queryAll();
         for ($i=0; $i < count($resumeModels); $i++){
             $resume=$resumeModels[$i];
-            $user = $this->getUser($resume['user_id']);
+            $user = $this->getUser($resumeModels[$i]['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
             $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['user_id']);
@@ -221,9 +221,9 @@ class ResumeController extends Controller
 //          exit;
         //выведет, например, для 7 месяца "Июль"
         
-        $infoAboutLastWork = "Младший PHP разработчик в ".$lastPlaceOfWork['name_organization'].
+        $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
         ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
-        return $lastPlaceOfWork['infoAboutLastWork'] = $infoAboutLastWork;
+        return $infoAboutLastWork;
     }
 
     /**

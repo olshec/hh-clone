@@ -53,7 +53,7 @@ class ResumeController extends Controller
             $user = $this->getUser($resume['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
-            $resumeModels[$i]['lastPlaceOfWork'] = $this->getLastPlaceOfWork($resume['user_id']);
+            $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['user_id']);
             //print_r($dateDiff);
            // exit();
         }
@@ -202,21 +202,18 @@ class ResumeController extends Controller
     }
     
     /**
-     * Returns the last place of work.
+     * Returns the info about last place of work.
      * 
      * @param string $resumeId
      * @return string
      */
-    private function getLastPlaceOfWork(string $resumeId): string {
+    private function getInfoAboutLastPlaceOfWork(string $resumeId): string {
         $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id ORDER BY date_end DESC');
         $command->bindValue(':resume_id', $resumeId);
         $allPlacesOfWork = $command->queryAll();
         $lastPlaceOfWork = $allPlacesOfWork[0];
         $dateStartWork = $lastPlaceOfWork['date_start'];
         $dateEndWork = $lastPlaceOfWork['date_end'];
-        if($dateEndWork == "0") {
-            $dateEndWork = " настоящее время";
-        }
         //list of month
         $_monthsList = array(
             "01"=>"Январь","02"=>"Февраль","03"=>"Март",
@@ -224,14 +221,24 @@ class ResumeController extends Controller
             "07"=>"Июль","08"=>"Август","09"=>"Сентябрь",
             "10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
         $dateStart = new DateTime($dateStartWork);
-        $month = $_monthsList[$dateStart->format('m')];
+        $monthStartWork = $_monthsList[$dateStart->format('m')];
+        $monthAndYearStart = $monthStartWork." ".$dateStart->format('y');
         
-         echo $month;
-         exit;
+        if($dateEndWork == "0") {
+            $monthAndYearEnd = "настоящее время";
+        } else {
+            $dateEnd = new DateTime($dateEndWork);
+            $monthFinishWork = $_monthsList[$dateEnd->format('m')];
+            $monthAndYearFinish = $monthFinishWork." ".$dateEnd->format('y');
+        }
+        
+//          echo $month;
+//          exit;
         //выведет, например, для 7 месяца "Июль"
         
-        $infoAboutLastWork = "PHP разработчик в ".$lastPlaceOfWork['name_organization']." ".$month." ";
-        return $lastPlaceOfWork['name_organization'];
+        $infoAboutLastWork = "Младший PHP разработчик в ".$lastPlaceOfWork['name_organization'].
+        ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        return $lastPlaceOfWork['infoAboutLastWork'] = $infoAboutLastWork;
     }
     
 }

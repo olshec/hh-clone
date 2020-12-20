@@ -60,8 +60,7 @@ $this->title = 'Список резюме';
                         </div>
                         <div class="company-list-search__block-middle">
                             <h3 class="mini-title desktop-off">PHP разработчик</h3>
-                            <p class="paragraph mb16 mobile-mb32">Младший PHP разработчик в <?= $resume['lastPlaceOfWork'] ?>,
-                                Октябрь 2010 — по настоящее время </p>
+                            <p class="paragraph mb16 mobile-mb32"><?= $resume['infoAboutLastWork'] ?></p>
                         </div>
                     </div>
                    <?php endforeach; ?>

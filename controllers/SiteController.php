@@ -61,8 +61,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        self::activateMenuItem(MenuHeader::LIST_RESUME);
-        return $this->render('index');    
+        Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['/']).'resume');
+//         self::activateMenuItem(MenuHeader::LIST_RESUME);
+//         return $this->render('index');    
     }
     
     /*

@@ -52,7 +52,7 @@ $this->title = 'Список резюме';
                             <h3 class="mini-title mobile-off"><?= $resume['name'] ?></h3>
                             <div class="d-flex align-items-center flex-wrap mb8 ">
                                 <span class="mr16 paragraph"><?= number_format($resume['salary'], 0, '', ' ');  ?></span>
-                                <span class="mr16 paragraph">Опыт работы 3 года</span>
+                                <span class="mr16 paragraph"><?= $resume['experience'] ?></span>
                                 <span class="mr16 paragraph"><?= $resume['age'] ?> </span>
                                 <span class="mr16 paragraph"><?= $resume['city'] ?></span>
                             </div>

@@ -10,6 +10,7 @@ use app\models\ResumeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use phpDocumentor\Reflection\Types\Array_;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -48,12 +49,13 @@ class ResumeController extends Controller
         //filling in resume data
         $command = Yii::$app->db->createCommand('SELECT * FROM "resume"');
         $resumeModels = $command->queryAll();
-        for ($i=0; $i < count($resumeModels); $i++){
+        for ($i=0; $i < count($resumeModels); $i++) {
             $resume=$resumeModels[$i];
             $user = $this->getUser($resumeModels[$i]['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
             $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
+            $resumeModels[$i]['experience'] = $this->getExperience($resume['id']);
             //print_r($dateDiff);
            // exit();
         }
@@ -223,6 +225,98 @@ class ResumeController extends Controller
         $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
         ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
         return $infoAboutLastWork;
+    }
+    
+    /**
+     * Returns experience.
+     * 
+     * @param string $resumeId
+     * @return string
+     */
+    private function getExperience(string $resumeId): string {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
+        $command->bindValue(':resume_id', $resumeId);
+        $placesOfWork = $command->queryAll();
+        $days = 0;
+        for ($i=0; $i < count($placesOfWork); $i++) {
+            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
+            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $interval = $dateFinishWork->diff($dateStartWork);
+            $days += $interval->y*365 + $interval->m*30 + $interval->d;
+        }
+        $countExperience = $this->countExperience($days);
+        return $countExperience;
+    }
+    
+    /**
+     * Counts experience.
+     * 
+     * @param int $days
+     * @return string
+     */
+    private function countExperience(int $days):string {
+        $countExperience='Опыт работы ';
+        if($days >= 365) {
+            $year = intdiv($days, 365);
+            $days -= $year * 365;
+            
+            $stringYear = strval($year);
+            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
+            if ($lastFigureYear == "1") {
+                $yearsExperience = $year . " год";
+            } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
+                $yearsExperience = $year . " года";
+            } else {
+                $yearsExperience = $year . " лет";
+            }
+            $countExperience .= $yearsExperience;
+        }
+        
+        if($days >= 30) {
+            $months = intdiv($days, 30);
+            $stringMonth = strval($months);
+            switch ($stringMonth) {
+                case '1':
+                    $monthsExperience = $months . " месяц";
+                    break;
+                case '2':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '3':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '4':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '5':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '6':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '7':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '8':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '9':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '10':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '11':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '12':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+            }
+            $countExperience .= " ".$monthsExperience;
+        }
+        
+        return $countExperience;
     }
 
     /**

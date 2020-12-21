@@ -53,7 +53,7 @@ class ResumeController extends Controller
             $user = $this->getUser($resumeModels[$i]['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
-            $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['user_id']);
+            $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
             //print_r($dateDiff);
            // exit();
         }

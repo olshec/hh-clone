@@ -53,7 +53,7 @@ class ResumeController extends Controller
                 $orderType = 'ASC';
                 $orderTable = 'salary';
                 $typeSort = 'По возрастанию зарплаты';
-            } else if (Yii::$app->request->queryParams['type_sort'] == 'dec-salary') {
+            } else if (Yii::$app->request->queryParams['type_sort'] == 'desc-salary') {
                 $orderType = 'DESC';
                 $orderTable = 'salary';
                 $typeSort = 'По убыванию зарплаты';
@@ -70,9 +70,7 @@ class ResumeController extends Controller
                 $gender = 'female';
             }
         }
-//         echo $gender;
-//         exit();
-       
+
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable'] = $orderTable;
         $queryParams['orderType'] = $orderType;

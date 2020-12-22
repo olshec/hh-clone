@@ -34,7 +34,7 @@ $this->title = 'Список резюме';
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="<?= $addressServer?>resume?type_sort=new">По новизне</a>
                                     <a class="dropdown-item" href="<?= $addressServer?>resume?type_sort=inc-salary">По возрастанию зарплаты</a>
-                                    <a class="dropdown-item" href="<?= $addressServer?>resume?type_sort=dec-salary">По убыванию зарплаты</a>
+                                    <a class="dropdown-item" href="<?= $addressServer?>resume?type_sort=desc-salary">По убыванию зарплаты</a>
                                 </div>
                             </div>
                         </div>

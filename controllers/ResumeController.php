@@ -39,26 +39,34 @@ class ResumeController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ResumeSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       
 //         return $this->render('index', [
 //             'searchModel' => $searchModel,
 //             'dataProvider' => $dataProvider,
 //         ]);
 
-         $order = 'ORDER BY date_update DESC';
+         $orderType = 'DESC';
+         $orderTable = 'date_update';
          $typeSort = 'По новизне';
         if(array_key_exists('type_sort', Yii::$app->request->queryParams)){
             if(Yii::$app->request->queryParams['type_sort'] == 'inc-salary') {
-                $order ='ORDER BY salary';
+                $orderType = 'ASC';
+                $orderTable = 'salary';
                 $typeSort = 'По возрастанию зарплаты';
             } else if (Yii::$app->request->queryParams['type_sort'] == 'dec-salary') {
-                $order = 'ORDER BY salary DESC';
+                $orderType = 'DESC';
+                $orderTable = 'salary';
                 $typeSort = 'По убыванию зарплаты';
             }
         }
         
-         $gender = 'all';
+        $searchModel = new ResumeSearch();
+        $queryParams = Yii::$app->request->queryParams;
+        $queryParams['orderTable'] = $orderTable;
+        $queryParams['orderType'] = $orderType;
+        $dataProvider = $searchModel->search($queryParams);
+        
+        $gender = 'all';
         if (array_key_exists('gender', Yii::$app->request->queryParams)) {
             if(Yii::$app->request->queryParams['gender'] == 'man') {
                 $gender = 'man';

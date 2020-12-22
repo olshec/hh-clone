@@ -40,7 +40,7 @@ class ResumeSearch extends Resume
      */
     public function search($params)
     {
-        $query = Resume::find()->orderBy(['salary' => SORT_DESC]);
+        $query = Resume::find()->orderBy([$params['orderTable'] => ($params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC)]);
 
         // add conditions that should always apply here
 

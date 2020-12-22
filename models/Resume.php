@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $photo
  * @property int $salary
  * @property string|null $about_me
+ * @property string $date_update
  * @property int $user_id
  *
  * @property PlaceOfWork[] $placeOfWorks
@@ -36,15 +37,17 @@ class Resume extends \yii\db\ActiveRecord
      * @param int $salary
      * @param string $about_me
      * @param string $photo
+     * @param string $date_update
      * @param int $user_id
      * @return \app\models\Resume
      */
-    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, int $user_id) {
+    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, string $date_update, int $user_id) {
         $resume = new Resume();
         $resume->name = $name;
         $resume->salary = $salary;
         $resume->about_me = $about_me;
         $resume->photo = $photo;
+        $resume->date_update = $date_update;
         $resume->user_id = $user_id;
         return $resume;
     }
@@ -55,7 +58,7 @@ class Resume extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['salary', 'user_id', 'name'], 'required'],
+            [['salary', 'user_id', 'name', 'date_update'], 'required'],
             [['salary', 'user_id'], 'default', 'value' => null],
             [['salary', 'user_id',], 'integer'],
             [['about_me'], 'string'],
@@ -76,6 +79,7 @@ class Resume extends \yii\db\ActiveRecord
             'photo' => 'Photo',
             'salary' => 'Salary',
             'about_me' => 'About Me',
+            'date_update' => 'DateUpdate',
             'user_id' => 'User ID',
         ];
     }

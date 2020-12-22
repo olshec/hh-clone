@@ -56,6 +56,8 @@ class ResumeController extends Controller
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
             $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
             $resumeModels[$i]['experience'] = $this->getExperience($resume['id']);
+            $resumeModels[$i]['dataUpdate'] = $this->getDataUpdate($resume);
+
             //print_r($dateDiff);
            // exit();
         }
@@ -329,7 +331,7 @@ class ResumeController extends Controller
         if ($dateString == '') {
             $monthAndYear = "настоящее время";
         } else {
-            $_monthsList = array(
+            $monthsList = array(
                 "01" => "Январь",
                 "02" => "Февраль",
                 "03" => "Март",
@@ -344,10 +346,53 @@ class ResumeController extends Controller
                 "12" => "Декабрь"
             );
             $date = new DateTime($dateString);
-            $month = $_monthsList[$date->format('m')];
-            $monthAndYear = $month . " " . $date->format('y');
+            $month = $monthsList[$date->format('m')];
+            $monthAndYear = $month . " " . $date->format('Y');
             return $monthAndYear;
         }
+    }
+
+    /**
+     * This method used for dataUpdate function.
+     * Returns formated date.
+     *
+     * @param string $dateString
+     * @return string
+     */
+    private function getFormatDateUpdate(string $dateString): string
+    {
+        $monthsList = array(
+            "01" => "января",
+            "02" => "февраля",
+            "03" => "марта",
+            "04" => "апреля",
+            "05" => "мая",
+            "06" => "июня",
+            "07" => "июля",
+            "08" => "августа",
+            "09" => "сентября",
+            "10" => "октября",
+            "11" => "ноября",
+            "12" => "декабря"
+            );
+            $date = new DateTime($dateString);
+            $month = $monthsList[$date->format('m')];
+            $monthAndYear = $month . " " . $date->format('Y');
+            return $monthAndYear;
+        
+    }
+    
+    /**
+     * Returns data update.
+     * 
+     * @param array $resume
+     * @return string
+     */
+    private function getDataUpdate(array $resume): string {
+        $monthAndYear = $this->getFormatDateUpdate($resume['date_update']);
+        $dayUpdate = new DateTime($resume['date_update']);
+        $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
+        return $formatStringDataUpdate;
     }
     
 }

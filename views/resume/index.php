@@ -28,13 +28,13 @@ $this->title = 'Список резюме';
                                 <a class="vakancy-page-btn vakancy-btn dropdown-toggle" href="#" role="button"
                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="false">
-                                    По новизне
+                                    <?= $typeSort ?>
                                     <i class="fas fa-angle-down arrowDown"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">По новизне</a>
-                                    <a class="dropdown-item" href="#">По возрастанию зарплаты</a>
-                                    <a class="dropdown-item" href="#">По убыванию зарплаты</a>
+                                    <a class="dropdown-item" href="<?php \yii\helpers\Url::to(['/'])?>resume?type_sort=new">По новизне</a>
+                                    <a class="dropdown-item" href="<?php \yii\helpers\Url::to(['/'])?>resume?type_sort=inc-salary">По возрастанию зарплаты</a>
+                                    <a class="dropdown-item" href="<?php \yii\helpers\Url::to(['/'])?>resume?type_sort=dec-salary">По убыванию зарплаты</a>
                                 </div>
                             </div>
                         </div>
@@ -87,9 +87,9 @@ $this->title = 'Список резюме';
                         <img class="cursor-p" src="<?= \yii\helpers\Url::to(['/']) ?>images/big-cancel.svg" alt="cancel">
                     </div>
                     <div class="signin-modal__switch-btns-wrap resume-list__switch-btns-wrap mb16">
-                        <a href="#" class="signin-modal__switch-btn active">Все</a>
-                        <a href="#" class="signin-modal__switch-btn ">Мужчины</a>
-                        <a href="#" class="signin-modal__switch-btn ">Женщины</a>
+                        <a href="#" class="signin-modal__switch-btn <? $genderActivate['all'] ?>">Все</a>
+                        <a href="#" class="signin-modal__switch-btn <? $genderActivate['man'] ?>">Мужчины</a>
+                        <a href="#" class="signin-modal__switch-btn <? $genderActivate['woman'] ?>">Женщины</a>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Город</div>

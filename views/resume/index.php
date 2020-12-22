@@ -48,7 +48,7 @@ $this->title = 'Список резюме';
                             </div>
                         </div>
                         <div class="company-list-search__block-right">
-                            <div class="mini-paragraph cadet-blue mobile-mb12">Обновлено <?= $resume['dataUpdate'] ?> </div>
+                            <div class="mini-paragraph cadet-blue mobile-mb12">Обновлено <?= $resume['dateUpdate'] ?> </div>
                             <h3 class="mini-title mobile-off"><?= $resume['name'] ?></h3>
                             <div class="d-flex align-items-center flex-wrap mb8 ">
                                 <span class="mr16 paragraph"><?= number_format($resume['salary'], 0, '', ' ');  ?></span>

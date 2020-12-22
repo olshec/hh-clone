@@ -60,21 +60,25 @@ class ResumeController extends Controller
             }
         }
         
-        $searchModel = new ResumeSearch();
-        $queryParams = Yii::$app->request->queryParams;
-        $queryParams['orderTable'] = $orderTable;
-        $queryParams['orderType'] = $orderType;
-        $dataProvider = $searchModel->search($queryParams);
+       
         
         $gender = 'all';
         if (array_key_exists('gender', Yii::$app->request->queryParams)) {
-            if(Yii::$app->request->queryParams['gender'] == 'man') {
-                $gender = 'man';
-            } else if (Yii::$app->request->queryParams['gender'] == 'woman') {
-                $gender = 'woman';
+            if(Yii::$app->request->queryParams['gender'] == 'male') {
+                $gender = 'male';
+            } else if (Yii::$app->request->queryParams['gender'] == 'female') {
+                $gender = 'female';
             }
         }
-        
+//         echo $gender;
+//         exit();
+       
+        $queryParams = Yii::$app->request->queryParams;
+        $queryParams['orderTable'] = $orderTable;
+        $queryParams['orderType'] = $orderType;
+        $queryParams['gender'] = $gender;
+        $searchModel = new ResumeSearch();
+        $dataProvider = $searchModel->search($queryParams);
        
         //filling in resume data
         

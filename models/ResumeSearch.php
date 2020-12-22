@@ -40,7 +40,19 @@ class ResumeSearch extends Resume
      */
     public function search($params)
     {
-        $query = Resume::find()->orderBy([$params['orderTable'] => ($params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC)]);
+        $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
+        $gender = $params['gender'];
+        if($gender != 'all'){
+            $query = Resume::find()
+            ->innerJoin('user', '"resume"."user_id" = "user"."id"')
+            ->where('"user"."gender" = \''.$gender.'\'')
+            ->orderBy([$params['orderTable'] => $orderType]);
+        }
+        else {
+            $query = Resume::find()
+            ->innerJoin('user', '"user"."id" = "resume"."user_id"')
+            ->orderBy([$params['orderTable'] => $orderType]);
+        }
 
         // add conditions that should always apply here
 

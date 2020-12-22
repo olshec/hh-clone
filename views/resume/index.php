@@ -87,9 +87,9 @@ $this->title = 'Список резюме';
                         <img class="cursor-p" src="<?= $addressServer ?>images/big-cancel.svg" alt="cancel">
                     </div>
                     <div class="signin-modal__switch-btns-wrap resume-list__switch-btns-wrap mb16">
-                        <a href="<?= $addressServer ?>resume?gender=all" class="signin-modal__switch-btn <?= $genderActivate['all'] ?>">Все</a>
-                        <a href="<?= $addressServer ?>resume?gender=man" class="signin-modal__switch-btn <?= $genderActivate['man'] ?>">Мужчины</a>
-                        <a href="<?= $addressServer ?>resume?gender=woman" class="signin-modal__switch-btn <?= $genderActivate['woman'] ?>">Женщины</a>
+                        <a href="<?= $addressServer ?>resume?gender=all" class="signin-modal__switch-btn    <?= $gender == 'all'?  'active':'' ?>">Все</a>
+                        <a href="<?= $addressServer ?>resume?gender=man" class="signin-modal__switch-btn    <?= $gender == 'man'?  'active':'' ?>">Мужчины</a>
+                        <a href="<?= $addressServer ?>resume?gender=woman" class="signin-modal__switch-btn  <?= $gender == 'woman'?'active':'' ?>">Женщины</a>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Город</div>

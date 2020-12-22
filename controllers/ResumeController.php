@@ -58,11 +58,13 @@ class ResumeController extends Controller
             }
         }
         
-        $genderActivate['all'] = 'active';
-        $genderActivate['man'] = '';
-        $genderActivate['woman'] = '';
+        $gender = 'all';
         if (array_key_exists('gender', Yii::$app->request->queryParams)) {
-            
+            if(Yii::$app->request->queryParams['gender'] == 'man') {
+                $gender = 'man';
+            } else if (Yii::$app->request->queryParams['gender'] == 'woman') {
+                $gender = 'woman';
+            }
         }
         
        
@@ -90,7 +92,7 @@ class ResumeController extends Controller
         return $this->render('index', [
             'resumeModels' => $resumeModels,
             'typeSort' => $typeSort,
-            'genderActivate' => $genderActivate
+            'gender' => $gender
         ]);
     }
 

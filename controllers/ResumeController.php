@@ -9,6 +9,7 @@ use app\models\Resume;
 use app\models\ResumeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use phpDocumentor\Reflection\Types\Array_;
 
@@ -38,16 +39,15 @@ class ResumeController extends Controller
      */
     public function actionIndex()
     {
-//         $searchModel = new ResumeSearch();
-//         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $searchModel = new ResumeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 //         return $this->render('index', [
 //             'searchModel' => $searchModel,
 //             'dataProvider' => $dataProvider,
 //         ]);
 
-        $order = 'ORDER BY date_update DESC';
-        $typeSort = 'По новизне';
+         $order = 'ORDER BY date_update DESC';
+         $typeSort = 'По новизне';
         if(array_key_exists('type_sort', Yii::$app->request->queryParams)){
             if(Yii::$app->request->queryParams['type_sort'] == 'inc-salary') {
                 $order ='ORDER BY salary';
@@ -58,7 +58,7 @@ class ResumeController extends Controller
             }
         }
         
-        $gender = 'all';
+         $gender = 'all';
         if (array_key_exists('gender', Yii::$app->request->queryParams)) {
             if(Yii::$app->request->queryParams['gender'] == 'man') {
                 $gender = 'man';
@@ -69,17 +69,23 @@ class ResumeController extends Controller
         
        
         //filling in resume data
-        $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
-        $resumeModels = $command->queryAll();
-        for ($i=0; $i < count($resumeModels); $i++) {
-            $resume=$resumeModels[$i];
-            $user = $this->getUser($resumeModels[$i]['user_id']);
+        
+       // $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
+        //$resumeModels = $command->queryAll();
+        $resumeModels = array();
+//         print_r($resumeModels[0]);
+//         exit();
+        for ($i=0; $i < count($dataProvider->models); $i++) {
+            $resume=$dataProvider->models[$i];
+            $user = $this->getUser($dataProvider->models[$i]['user_id']);
             $resumeModels[$i]['city'] = $user['city'];
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
             $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
             $resumeModels[$i]['experience'] = $this->getExperience($resume['id']);
             $resumeModels[$i]['dateUpdate'] = $this->getDataUpdate($resume);
-
+            $resumeModels[$i]['photo'] = $resume->photo;
+            $resumeModels[$i]['name'] = $resume->name;
+            $resumeModels[$i]['salary'] = $resume->salary;
             //print_r($dateDiff);
            // exit();
         }
@@ -412,8 +418,8 @@ class ResumeController extends Controller
      * @param array $resume
      * @return string
      */
-    private function getDataUpdate(array $resume): string {
-        $monthAndYear = $this->getFormatDateUpdate($resume['date_update']);
+    private function getDataUpdate(Resume $resume): string {
+        $monthAndYear = $this->getFormatDateUpdate($resume->date_update);
         $dayUpdate = new DateTime($resume['date_update']);
         $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
         return $formatStringDataUpdate;

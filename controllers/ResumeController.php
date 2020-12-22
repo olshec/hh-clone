@@ -46,24 +46,28 @@ class ResumeController extends Controller
 //             'dataProvider' => $dataProvider,
 //         ]);
 
+        $order = 'ORDER BY date_update DESC';
         $typeSort = 'По новизне';
-        $command = Yii::$app->db->createCommand('SELECT * FROM "resume" ORDER BY date_update DESC');
         if(array_key_exists('type_sort', Yii::$app->request->queryParams)){
             if(Yii::$app->request->queryParams['type_sort'] == 'inc-salary') {
-                $command = Yii::$app->db->createCommand('SELECT * FROM "resume" ORDER BY salary');
+                $order ='ORDER BY salary';
                 $typeSort = 'По возрастанию зарплаты';
             } else if (Yii::$app->request->queryParams['type_sort'] == 'dec-salary') {
-                $command = Yii::$app->db->createCommand('SELECT * FROM "resume" ORDER BY salary DESC');
+                $order = 'ORDER BY salary DESC';
                 $typeSort = 'По убыванию зарплаты';
             }
         }
-        else {
+        
+        $genderActivate['all'] = 'active';
+        $genderActivate['man'] = '';
+        $genderActivate['woman'] = '';
+        if (array_key_exists('gender', Yii::$app->request->queryParams)) {
             
         }
         
        
         //filling in resume data
-        
+        $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
         $resumeModels = $command->queryAll();
         for ($i=0; $i < count($resumeModels); $i++) {
             $resume=$resumeModels[$i];
@@ -85,7 +89,8 @@ class ResumeController extends Controller
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
             'resumeModels' => $resumeModels,
-            'typeSort' => $typeSort
+            'typeSort' => $typeSort,
+            'genderActivate' => $genderActivate
         ]);
     }
 

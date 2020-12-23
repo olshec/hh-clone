@@ -92,14 +92,14 @@ $this->title = 'Список резюме';
                         <a href="<?= $addressServer ?>resume?gender=female" class="signin-modal__switch-btn  <?= $gender == 'female'?'active':'' ?>">Женщины</a>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
-                        <div class="paragraph cadet-blue">Город</div>
+                        <div class="paragraph cadet-blue" onClick="serchCity()">Город</div>
                         <div class="citizenship-select">
                             <select class="nselect-1">
-                                <option value="01">Кемерово</option>
-                                <option value="02">Новосибирск</option>
-                                <option value="03">Иркутск</option>
-                                <option value="04">Красноярск</option>
-                                <option value="05">Барнаул</option>
+                                <option value="01" onClick="serchCity('Кемерово')" 	  	>Кемерово</option>
+                                <option value="02" onClick="serchCity('Новосибирск')" 	>Новосибирск</option>
+                                <option value="03" onClick="serchCity('Иркутск')" 		>Иркутск</option>
+                                <option value="04" onClick="serchCity('Красноярск')" 	>Красноярск</option>
+                                <option value="05" onClick="serchCity('Барнаул')" 		>Барнаул</option>
                             </select>
                         </div>
                     </div>
@@ -227,3 +227,15 @@ $this->title = 'Список резюме';
             </div>
         </div>
     </div>
+    
+    <script>
+    	function serchCity(city) {
+    		alert(city);
+    		let x;
+    		//Object.keys(obj).forEach((prop)=> x += prop);
+//     		elements = document.getElementsByClassName("nselect-1");
+//     		console.log(elements[0].value);
+    		//alert(elements);
+    	}
+    </script>
+     

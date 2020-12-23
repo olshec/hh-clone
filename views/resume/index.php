@@ -92,14 +92,14 @@ $this->title = 'Список резюме';
                         <a href="<?= $addressServer ?>resume?gender=female" class="signin-modal__switch-btn  <?= $gender == 'female'?'active':'' ?>">Женщины</a>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
-                        <div class="paragraph cadet-blue" onClick="serchCity()">Город</div>
-                        <div class="citizenship-select">
-                            <select class="nselect-1">
-                                <option value="01" onClick="serchCity('Кемерово')" 	  	>Кемерово</option>
-                                <option value="02" onClick="serchCity('Новосибирск')" 	>Новосибирск</option>
-                                <option value="03" onClick="serchCity('Иркутск')" 		>Иркутск</option>
-                                <option value="04" onClick="serchCity('Красноярск')" 	>Красноярск</option>
-                                <option value="05" onClick="serchCity('Барнаул')" 		>Барнаул</option>
+                        <div class="paragraph cadet-blue" >Город</div>
+                        <div class="citizenship-select" onClick="serchCity(this)">
+                            <select class="nselect-1"  >
+                                <option value="Кемерово">Кемерово</option>
+                                <option value="Новосибирск">Новосибирск</option>
+                                <option value="Иркутск">Иркутск</option>
+                                <option value="Красноярск">Красноярск</option>
+                                <option value="Барнаул">Барнаул</option>
                             </select>
                         </div>
                     </div>
@@ -191,7 +191,7 @@ $this->title = 'Список резюме';
                         <div class="profile-info">
                             <div class="form-check d-flex">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck10">
-                                <label class="form-check-label" for="exampleCheck10"></label>
+                                <label class="form-check-label" for="exampleCheck10"></label>+
                                 <label for="exampleCheck10" class="profile-info__check-text">Полный день</label>
                             </div>
                             <div class="form-check d-flex">
@@ -228,14 +228,16 @@ $this->title = 'Список резюме';
         </div>
     </div>
     
+    <script src="<?= $addressServer?>js/my_script.js"> </script>
     <script>
-    	function serchCity(city) {
-    		alert(city);
-    		let x;
-    		//Object.keys(obj).forEach((prop)=> x += prop);
-//     		elements = document.getElementsByClassName("nselect-1");
-//     		console.log(elements[0].value);
-    		//alert(elements);
-    	}
+//     	function serchCity(city) {
+//     		var qw = $('.nselect-1').nSelect();
+//     		console.log(qw.value);
+//     		//let x;
+//     		//Object.keys(obj).forEach((prop)=> x += prop);
+//      		//elements = document.getElementsByClassName("nselect-1");
+//      		//console.log(elements[0].value);
+//     		//alert(elements);
+//     	}
     </script>
      

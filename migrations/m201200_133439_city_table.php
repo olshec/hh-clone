@@ -25,6 +25,11 @@ class m201200_133439_city_table extends Migration
         $this->addCity('Барнаул');
     }
     
+    /**
+     * Adds city.
+     * 
+     * @param string $name
+     */
     private function addCity(string $name) {
         $city = City::getNewCity($name);
         $city->save();

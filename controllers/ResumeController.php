@@ -81,6 +81,9 @@ class ResumeController extends Controller
         $command = Yii::$app->db->createCommand('SELECT * FROM "city"');
         $dataCities = $command->queryAll();
         
+        $command = Yii::$app->db->createCommand('SELECT * FROM "specialization"');
+        $dataSpecializations = $command->queryAll();
+        
         //filling in resume data
         
        // $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
@@ -91,14 +94,14 @@ class ResumeController extends Controller
         for ($i=0; $i < count($dataProvider->models); $i++) {
             $resume=$dataProvider->models[$i];
             $user = $this->getUser($dataProvider->models[$i]['user_id']);
-            $resumeModels[$i]['city'] = $this->getCity($user['id']);
-            $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
-            $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
-            $resumeModels[$i]['experience'] = $this->getExperience($resume['id']);
-            $resumeModels[$i]['dateUpdate'] = $this->getDataUpdate($resume);
-            $resumeModels[$i]['photo'] = $resume->photo;
-            $resumeModels[$i]['name'] = $resume->name;
-            $resumeModels[$i]['salary'] = $resume->salary;
+            $resumeModels[$i]['city']               = $this->getCity($user['id']);
+            $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
+            $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
+            $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
+            $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
+            $resumeModels[$i]['photo']              = $resume->photo;
+            $resumeModels[$i]['name']               = $resume->name;
+            $resumeModels[$i]['salary']             = $resume->salary;
             //print_r($dateDiff);
            // exit();
         }
@@ -109,10 +112,11 @@ class ResumeController extends Controller
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels' => $resumeModels,
-            'typeSort' => $typeSort,
-            'gender' => $gender,
-            'dataCities' => $dataCities
+            'resumeModels'          => $resumeModels,
+            'typeSort'              => $typeSort,
+            'gender'                => $gender,
+            'dataCities'            => $dataCities,
+            'dataSpecializations'   => $dataSpecializations
         ]);
     }
 

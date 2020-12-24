@@ -112,10 +112,9 @@ $this->title = 'Список резюме';
                         <div class="paragraph cadet-blue">Специализация</div>
                         <div class="citizenship-select">
                             <select class="nselect-1" data-title="Любая">
-                                <option value="01">Фронтенд</option>
-                                <option value="02">Бекенд</option>
-                                <option value="03">Дизайн</option>
-                                <option value="04">Тестировщик</option>
+                            	<?php foreach ($dataSpecializations as $specialization): ?>
+                                    <option value="<?= $specialization['id'] ?>"><?= $specialization['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>

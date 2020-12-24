@@ -13,7 +13,7 @@ use Yii;
  * @property string $email
  * @property string $telephone
  * @property string $date_birth
- * @property string $city
+ * @property int $city
  * @property string $gender
  *
  * @property Resume[] $resumes
@@ -36,19 +36,19 @@ class User extends \yii\db\ActiveRecord
      * @param string $email
      * @param string $telephone
      * @param string $date_birth
-     * @param string $city
+     * @param int $city_id
      * @param string $gender
      * @return \app\models\User
      */
     public static function getNewUser(string $name, string $surname, string $email, string $telephone, 
-        string $date_birth, string $city, string $gender) {
+        string $date_birth, int $idCity, string $gender) {
         $user = new User();
         $user->name = $name;
         $user->surname = $surname;
         $user->email = $email;
         $user->telephone = $telephone;
         $user->date_birth = $date_birth;
-        $user->city = $city;
+        $user->city_id = $idCity;
         $user->gender = $gender;
         return $user;
     }
@@ -59,11 +59,10 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'surname', 'email', 'telephone', 'date_birth', 'city', 'gender'], 'required'],
+            [['name', 'surname', 'email', 'telephone', 'date_birth', 'city_id', 'gender'], 'required'],
             [['date_birth'], 'safe'],
             [['gender'], 'string'],
             [['name', 'surname', 'email', 'telephone'], 'string', 'max' => 50],
-            [['city'], 'string', 'max' => 100],
         ];
     }
 
@@ -79,7 +78,7 @@ class User extends \yii\db\ActiveRecord
             'email' => 'Email',
             'telephone' => 'Telephone',
             'date_birth' => 'Date Birth',
-            'city' => 'City',
+            'city_id' => 'city_id',
             'gender' => 'Gender',
         ];
     }

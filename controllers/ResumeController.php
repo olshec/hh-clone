@@ -88,7 +88,7 @@ class ResumeController extends Controller
         for ($i=0; $i < count($dataProvider->models); $i++) {
             $resume=$dataProvider->models[$i];
             $user = $this->getUser($dataProvider->models[$i]['user_id']);
-            $resumeModels[$i]['city'] = $user['city'];
+            $resumeModels[$i]['city'] = $this->getCity($user['id']);
             $resumeModels[$i]['age'] = $this->getFormatAge($user['date_birth']);
             $resumeModels[$i]['infoAboutLastWork'] = $this->getInfoAboutLastPlaceOfWork($resume['id']);
             $resumeModels[$i]['experience'] = $this->getExperience($resume['id']);
@@ -221,6 +221,20 @@ class ResumeController extends Controller
         $command->bindValue(':user_id', $idUser);
         $user = $command->queryOne();
         return $user;
+    }
+    
+    /**
+     * Returns the city of user.
+     *
+     * @param int $idUser
+     * @return string
+     */
+    private function getCity(int $idUser): string {
+        $command = Yii::$app->db->createCommand('SELECT "name" FROM "city" WHERE id=:user_id');
+        $command->bindValue(':user_id', $idUser);
+        $city = $command->queryOne();
+        $nameCity = $city['name'];
+        return $nameCity;
     }
     
     /**

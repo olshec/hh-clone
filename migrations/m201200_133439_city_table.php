@@ -35,9 +35,7 @@ class m201200_133439_city_table extends Migration
      */
     public function safeDown()
     {
-        echo "m201224_133439_city_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%city}}');
     }
 
     /*

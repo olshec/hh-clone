@@ -77,7 +77,10 @@ class ResumeController extends Controller
         $queryParams['gender'] = $gender;
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
-       
+        
+        $command = Yii::$app->db->createCommand('SELECT * FROM "city"');
+        $dataCities = $command->queryAll();
+        
         //filling in resume data
         
        // $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
@@ -108,7 +111,8 @@ class ResumeController extends Controller
         return $this->render('index', [
             'resumeModels' => $resumeModels,
             'typeSort' => $typeSort,
-            'gender' => $gender
+            'gender' => $gender,
+            'dataCities' => $dataCities
         ]);
     }
 

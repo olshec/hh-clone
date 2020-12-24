@@ -95,11 +95,9 @@ $this->title = 'Список резюме';
                         <div class="paragraph cadet-blue" >Город</div>
                         <div class="citizenship-select" onclick="serchCity(this)">
                             <select class="nselect-1"  >
-                                <option value="Кемерово">Кемерово</option>
-                                <option value="Новосибирск">Новосибирск</option>
-                                <option value="Иркутск">Иркутск</option>
-                                <option value="Красноярск">Красноярск</option>
-                                <option value="Барнаул">Барнаул</option>
+                             	<?php foreach ($dataCities as $city): ?>
+                                    <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>

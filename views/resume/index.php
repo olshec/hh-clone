@@ -93,7 +93,7 @@ $this->title = 'Список резюме';
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue" >Город</div>
-                        <div class="citizenship-select" onClick="serchCity(this)">
+                        <div class="citizenship-select" onclick="serchCity(this)">
                             <select class="nselect-1"  >
                                 <option value="Кемерово">Кемерово</option>
                                 <option value="Новосибирск">Новосибирск</option>

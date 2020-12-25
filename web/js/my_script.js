@@ -1,30 +1,55 @@
+class City {
+    //#idCity = 0;
+    constructor(idCity) {
+         this.setIdCity(idCity);
+    }
+    setIdCity(idCity) {
+        this.idCity = idCity;
+    }
+    getIdCity() {
+        return this.idCity;
+    }
+    
+    serchIdCity(idCitySerch) {
+        if (this.idCity != idCitySerch) {
+            window.location.href = "http://localhost/hh-clone/web/resume/?city="+idCitySerch;
+        }
+    }
+}
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
 	if(params.has("city")){
-		city = params.get("city");
+		idCity = params.get("city");
+        city = new City(idCity);
 	} else {
-		city = '1';
+        city = new City('1');
 	}
-	
 }
 
 function serchCity() {
-	elements = document.getElementsByClassName("nselect-1");
-	citySerch = elements[0].value;
-	if (citySerch != city) {
-		// Simulate a mouse click:
-		window.location.href = "http://localhost/hh-clone/web/resume/?city="+citySerch;
-	}
-	
-	//alert(city);
-	
-	//var x = elm.getAttribute('value');
-  	//console.log(x)
-  	
-	//let x;
-	//     		//Object.keys(obj).forEach((prop)=> x += prop);
-	
-	//console.log(elements[0].value);
-	//alert(elements);
+    elements = document.getElementsByClassName("nselect-1");
+    idCitySerch = elements[0].value;
+    city.serchIdCity(idCitySerch);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

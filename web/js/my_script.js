@@ -52,7 +52,12 @@ function serchCity() {
 }
 
 
-
+function serchGender(genderName) {
+	if(genderName != gender.getName){
+		gender = new Gender(gend);
+    	window.location.href = "http://localhost/hh-clone/web/resume/?"+"gender="+gender.getName()+"&city="+city.getIdCity;
+	}
+}
 
 
 

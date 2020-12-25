@@ -99,6 +99,12 @@ $this->title = 'Список резюме';
                                     <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
+                            <select class="nselect-1"  >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
@@ -225,16 +231,9 @@ $this->title = 'Список резюме';
         </div>
     </div>
     
-    <script src="<?= $addressServer?>js/my_script.js"> </script>
-    <script>
-//     	function serchCity(city) {
-//     		var qw = $('.nselect-1').nSelect();
-//     		console.log(qw.value);
-//     		//let x;
-//     		//Object.keys(obj).forEach((prop)=> x += prop);
-//      		//elements = document.getElementsByClassName("nselect-1");
-//      		//console.log(elements[0].value);
-//     		//alert(elements);
-//     	}
-    </script>
+    
+<script src="<?= $addressServer?>js/my_script.js"> </script>
+<script> 
+   window.onload = afterPageLoad();
+</script>
      

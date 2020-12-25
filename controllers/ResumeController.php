@@ -45,9 +45,9 @@ class ResumeController extends Controller
 //             'dataProvider' => $dataProvider,
 //         ]);
 
-        $citySelect = '1';
+        $cityIdSelect = '0';
         if(array_key_exists('city', Yii::$app->request->queryParams)){
-            $citySelect = Yii::$app->request->queryParams['city'];
+            $cityIdSelect = Yii::$app->request->queryParams['city'];
         }
 
          $orderType = 'DESC';
@@ -80,12 +80,14 @@ class ResumeController extends Controller
         $queryParams['orderTable'] = $orderTable;
         $queryParams['orderType'] = $orderType;
         $queryParams['gender'] = $gender;
+        $queryParams['cityId'] = $cityIdSelect;
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         
         $command = Yii::$app->db->createCommand('SELECT * FROM "city"');
         $dataCities = $command->queryAll();
-        
+        $dataCitiesFirst = array(0 => ['id' => 0, 'name' => 'Все']);
+        $dataCities = array_merge($dataCitiesFirst, $dataCities);
         $command = Yii::$app->db->createCommand('SELECT * FROM "specialization"');
         $dataSpecializations = $command->queryAll();
         
@@ -111,8 +113,8 @@ class ResumeController extends Controller
            // exit();
         }
         
-//          print_r($resumeModels);
-//          exit();
+//         print_r($dataCities);
+//           exit();
         //$idUser = $post['id'];
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
@@ -121,7 +123,7 @@ class ResumeController extends Controller
             'typeSort'              => $typeSort,
             'gender'                => $gender,
             'dataCities'            => $dataCities,
-            'citySelect'            => $citySelect,
+            'citySelect'            => $cityIdSelect,
             'dataSpecializations'   => $dataSpecializations
         ]);
     }

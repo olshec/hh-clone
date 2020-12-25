@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Resume;
+use Yii;
 
 /**
  * ResumeSearch represents the model behind the search form of `app\models\Resume`.
@@ -40,19 +41,21 @@ class ResumeSearch extends Resume
      */
     public function search($params)
     {
-        $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
         $gender = $params['gender'];
-        if($gender != 'all'){
-            $query = Resume::find()
-            ->innerJoin('user', '"resume"."user_id" = "user"."id"')
-            ->where('"user"."gender" = \''.$gender.'\'')
-            ->orderBy([$params['orderTable'] => $orderType]);
+        $query = Resume::find()
+        ->innerJoin('user', '"resume"."user_id" = "user"."id"');
+        $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
+        if(array_key_exists('cityId', $params)) {
+            $cityId = $params['cityId'];
+            if($cityId != 0){
+                $query->innerJoin('city', '"user"."city_id" = ' . $cityId);
+            }
         }
-        else {
-            $query = Resume::find()
-            ->innerJoin('user', '"user"."id" = "resume"."user_id"')
-            ->orderBy([$params['orderTable'] => $orderType]);
+        if($gender != 'all') {
+            $query->where('"user"."gender" = \''.$gender.'\'');
         }
+        $query->orderBy([$params['orderTable'] => $orderType]);
+        
 
         // add conditions that should always apply here
 

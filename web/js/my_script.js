@@ -18,11 +18,11 @@ class City {
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
-	if(params.has("city")){
+	if(params.has('city')){
 		idCity = params.get('city');
         city = new City(idCity);
 	} else {
-        city = new City('1');
+        city = new City('0');
 	}
 }
 

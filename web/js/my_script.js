@@ -11,9 +11,21 @@ class City {
     
     serchIdCity(idCitySerch) {
         if (this.idCity != idCitySerch) {
-            window.location.href = "http://localhost/hh-clone/web/resume/?city="+idCitySerch;
+            window.location.href = "http://localhost/hh-clone/web/resume/?"+"gender="+gender.getName()+"&city="+idCitySerch;
         }
     }
+}
+
+class Gender {
+	constructor(genderName) {
+		this.setName(genderName);
+	}
+	setName(genderName) {
+		this.genderName = genderName;
+	}
+	getName() {
+		return this.genderName;
+	}
 }
 
 function afterPageLoad() {
@@ -23,6 +35,13 @@ function afterPageLoad() {
         city = new City(idCity);
 	} else {
         city = new City('0');
+	}
+	
+	if(params.has('gender')){
+		genderString = params.get('gender');
+    	gender = new Gender(genderString);
+	} else {
+        gender = new Gender('all');
 	}
 }
 

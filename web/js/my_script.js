@@ -1,10 +1,12 @@
-var city = '1';
 
 function afterPageLoad() {
-	elements = document.getElementsByClassName("nselect-1");
+	let params = (new URL(document.location)).searchParams; 
+	if(params.has("city")){
+		city = params.get("city");
+	} else {
+		city = '1';
+	}
 	
-	elements[0].value =3;
-	city = elements[0].value;
 }
 
 function serchCity() {

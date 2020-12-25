@@ -94,16 +94,10 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue" >Город</div>
                         <div class="citizenship-select" onclick="serchCity(this)">
-                            <select class="nselect-1"  >
+							 <select class="nselect-1"  >
                              	<?php foreach ($dataCities as $city): ?>
-                                    <option value="<?= $city['id'] ?>"><?= $city['name'] ?></option>
+                                    <option <?= ($city['id']==$citySelect)? 'selected':''?> value="<?= $city['id'] ?>"> <?= $city['name'] ?></option>
                                 <?php endforeach; ?>
-                            </select>
-                            <select class="nselect-1"  >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
                             </select>
                         </div>
                     </div>

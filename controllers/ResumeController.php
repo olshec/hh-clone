@@ -45,6 +45,11 @@ class ResumeController extends Controller
 //             'dataProvider' => $dataProvider,
 //         ]);
 
+        $citySelect = '1';
+        if(array_key_exists('city', Yii::$app->request->queryParams)){
+            $citySelect = Yii::$app->request->queryParams['city'];
+        }
+
          $orderType = 'DESC';
          $orderTable = 'date_update';
          $typeSort = 'По новизне';
@@ -116,6 +121,7 @@ class ResumeController extends Controller
             'typeSort'              => $typeSort,
             'gender'                => $gender,
             'dataCities'            => $dataCities,
+            'citySelect'            => $citySelect,
             'dataSpecializations'   => $dataSpecializations
         ]);
     }

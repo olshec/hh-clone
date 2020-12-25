@@ -10,7 +10,7 @@ $this->title = 'Список резюме';
 
         <div class="content">
         <div class="container">
-            <h1 class="main-title mt24 mb16">PHP разработчики в Кемерово</h1>
+            <h1 class="main-title mt24 mb16">PHP разработчики <?= $cityIdSelect == 0? '': 'в '.$cityNameSelect?></h1>
             <button class="vacancy-filter-btn">Фильтр</button>
             <div class="row">
                 <div class="col-lg-9 desctop-992-pr-16">
@@ -96,7 +96,7 @@ $this->title = 'Список резюме';
                         <div class="citizenship-select" onclick="serchCity(this)">
 							 <select class="nselect-1"  >
                              	<?php foreach ($dataCities as $city): ?>
-                                    <option <?= ($city['id']==$citySelect)? 'selected':''?> 
+                                    <option <?= ($city['id'] == $cityIdSelect)? 'selected':''?> 
                                     value="<?= $city['id'] ?>"> <?= $city['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>

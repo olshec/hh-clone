@@ -88,7 +88,8 @@ class ResumeController extends Controller
         $dataCities = $command->queryAll();
         $dataCitiesFirst = array(0 => ['id' => 0, 'name' => 'Все']);
         $dataCities = array_merge($dataCitiesFirst, $dataCities);
-        $cityNameSelect = $dataCities[$cityIdSelect]['name'];
+        $cityName = $dataCities[$cityIdSelect]['name'];
+        $cityNameSelect = $cityName;
         
         $command = Yii::$app->db->createCommand('SELECT * FROM "specialization"');
         $dataSpecializations = $command->queryAll();

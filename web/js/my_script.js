@@ -1,5 +1,4 @@
 class City {
-    //#idCity = 0;
     constructor(idCity) {
          this.setIdCity(idCity);
     }
@@ -20,7 +19,7 @@ class City {
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
 	if(params.has("city")){
-		idCity = params.get("city");
+		idCity = params.get('city');
         city = new City(idCity);
 	} else {
         city = new City('1');

@@ -35,6 +35,7 @@ class ResumeController extends Controller
     
     /**
      * Returns the sort parameters.
+     * 
      * @return array
      */
     private function getSortParams(){

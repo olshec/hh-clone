@@ -51,9 +51,22 @@ class ResumeSearch extends Resume
                 $query->innerJoin('city', '"user"."city_id" = ' . $cityId);
             }
         }
-        if($gender != 'all') {
-            $query->where('"user"."gender" = \''.$gender.'\'');
+        
+        $where = '';
+        if(array_key_exists('idSpecialization', $params)) {
+            $idSpecialization = $params['idSpecialization'];
+            if($idSpecialization != 0){
+                $query->innerJoin('place_of_work', '"resume"."id" = ' . '"place_of_work"."resume_id"');
+                $where = '"place_of_work"."specialization_id" = \''.$idSpecialization.'\'';
+            }
         }
+        
+        if($gender != 'all') {
+            $where .= ' AND "user"."gender" = \''.$gender.'\'';
+        }
+        $query->where($where);
+       
+        
         $query->orderBy([$params['orderTable'] => $orderType]);
         
 

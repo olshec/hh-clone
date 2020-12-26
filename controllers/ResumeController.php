@@ -147,12 +147,13 @@ class ResumeController extends Controller
      * @param string $gender
      * @return ActiveDataProvider
      */
-    private function getDataProvider(array $sortData, array $cityData, string $gender):ActiveDataProvider {
+    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
-        $queryParams['orderTable']  = $sortData['orderTable'];
-        $queryParams['orderType']   = $sortData['orderType'];
-        $queryParams['cityId']      = $cityData['cityIdSelect'];
-        $queryParams['gender']      = $gender;
+        $queryParams['orderTable']        = $sortData['orderTable'];
+        $queryParams['orderType']         = $sortData['orderType'];
+        $queryParams['cityId']            = $cityData['cityIdSelect'];
+        $queryParams['idSpecialization']  = $idSpecialization;
+        $queryParams['gender']            = $gender;
         
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
@@ -170,8 +171,9 @@ class ResumeController extends Controller
         $sortData   = $this->getSortParams();
         $cityData   = $this->getCitiesData();
         $gender     = $this->getGender();
+        $dataSpecializations    = $this->getSpecializationsData();
       
-        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender);
+        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, $dataSpecializations['selectId']);
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
@@ -187,7 +189,7 @@ class ResumeController extends Controller
             $resumeModels[$i]['salary']             = $resume->salary;
         }
         
-        $dataSpecializations    = $this->getSpecializationsData();
+        
         $typeEmployments        = $this->getTypeEmploymentsData();
         $schedules              = $this->getSchedulesData();
         

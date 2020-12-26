@@ -156,32 +156,13 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Тип занятости</div>
                         <div class="profile-info">
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                                <label class="form-check-label" for="exampleCheck5"></label>
-                                <label for="exampleCheck5" class="profile-info__check-text">Полная занятость</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck6">
-                                <label class="form-check-label" for="exampleCheck6"></label>
-                                <label for="exampleCheck6" class="profile-info__check-text">Частичная
-                                    занятость</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck7">
-                                <label class="form-check-label" for="exampleCheck7"></label>
-                                <label for="exampleCheck7" class="profile-info__check-text">Проектная работа</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck8">
-                                <label class="form-check-label" for="exampleCheck8"></label>
-                                <label for="exampleCheck8" class="profile-info__check-text">Стажировка</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck9">
-                                <label class="form-check-label" for="exampleCheck9"></label>
-                                <label for="exampleCheck9" class="profile-info__check-text">Волонтёрство</label>
-                            </div>
+                        	<?php foreach ($typeEmployments as $typeEmployment): ?>
+                            	<div class="form-check d-flex">
+                                    <input type="checkbox" class="form-check-input" id="<?= 'scheduleCheck'.$typeEmployment['id'] ?>" value="<?= $typeEmployment['id'] ?>">
+                                    <label class="form-check-label" for="exampleCheck5"></label>
+                                    <label for="<?= 'scheduleCheck'.$typeEmployment['id'] ?>" class="profile-info__check-text"><?= $typeEmployment['name'] ?></label>
+                            	</div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
@@ -224,8 +205,7 @@ $this->title = 'Список резюме';
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>   
     
 <script src="<?= $addressServer?>js/my_script.js"> </script>
 <script> 

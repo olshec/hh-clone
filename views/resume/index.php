@@ -112,9 +112,10 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Специализация</div>
                         <div class="citizenship-select" onclick="serchSpecialization()">
-                            <select class="nselect-1" data-title="Любая">
+                            <select class="nselect-1">
                             	<?php foreach ($dataSpecializations as $specialization): ?>
-                                    <option value="<?= $specialization['id'] ?>"><?= $specialization['name'] ?></option>
+                                	  <option <?= ($specialization['id'] == $specializationIdSelect)? 'selected':''?>
+                                         value="<?= $specialization['id'] ?>"><?= $specialization['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

@@ -99,9 +99,21 @@ class ResumeController extends Controller
      * 
      * @return array
      */
-    private function getSpecializationData():array {
+    private function getSpecializationsData():array {
+        $specializationIdSelect = '0';
+        if(array_key_exists('specialization', Yii::$app->request->queryParams)){
+            $specializationIdSelect = Yii::$app->request->queryParams['specialization'];
+        }
+        
         $command = Yii::$app->db->createCommand('SELECT * FROM "specialization"');
-        $dataSpecializations = $command->queryAll();
+        $arraySpecializationsAll = $command->queryAll();
+        
+        $arraySpecializationFirst = array(0 => ['id' => 0, 'name' => 'Любая']);
+        $arraySpecializations = array_merge($arraySpecializationFirst, $arraySpecializationsAll);
+        $selectName = $arraySpecializations[$specializationIdSelect]['name'];
+        $dataSpecializations = ['specializations' => $arraySpecializations, 'selectId' => $specializationIdSelect, 
+            'selectName' => $selectName];
+        
         return $dataSpecializations;
     }
     
@@ -159,8 +171,7 @@ class ResumeController extends Controller
         $cityData   = $this->getCitiesData();
         $gender     = $this->getGender();
       
-        $dataProvider = $this->getDataProvider($sortData, $cityData, $gender);
-        
+        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender);
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
@@ -176,21 +187,22 @@ class ResumeController extends Controller
             $resumeModels[$i]['salary']             = $resume->salary;
         }
         
-        $dataSpecializations    = $this->getSpecializationData();
+        $dataSpecializations    = $this->getSpecializationsData();
         $typeEmployments        = $this->getTypeEmploymentsData();
         $schedules              = $this->getSchedulesData();
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels'          => $resumeModels,
-            'typeSort'              => $sortData['typeSort'],
-            'gender'                => $gender,
-            'dataCities'            => $cityData['dataCities'],
-            'cityIdSelect'          => $cityData['cityIdSelect'],
-            'cityNameSelect'        => $cityData['cityNameSelect'],
-            'dataSpecializations'   => $dataSpecializations,
-            'typeEmployments'       => $typeEmployments,
-            'schedules'             => $schedules
+            'resumeModels'            => $resumeModels,
+            'typeSort'                => $sortData['typeSort'],
+            'gender'                  => $gender,
+            'dataCities'              => $cityData['dataCities'],
+            'cityIdSelect'            => $cityData['cityIdSelect'],
+            'cityNameSelect'          => $cityData['cityNameSelect'],
+            'dataSpecializations'     => $dataSpecializations['specializations'],
+            'specializationIdSelect'  => $dataSpecializations['selectId'],
+            'typeEmployments'         => $typeEmployments,
+            'schedules'               => $schedules
         ]);
     }
 

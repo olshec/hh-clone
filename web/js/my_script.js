@@ -87,7 +87,7 @@ function afterPageLoad() {
 	specializationString = params.get('specialization');
 	specialization = new Specialization(specializationString);
 	} else {
-        specialization = new Specialization('all');
+        specialization = new Specialization('0');
 	}
 }
 

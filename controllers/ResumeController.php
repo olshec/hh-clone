@@ -32,27 +32,15 @@ class ResumeController extends Controller
             ],
         ];
     }
-
+    
     /**
-     * Lists all Resume models.
-     * @return mixed
+     * Returns the sort parameters.
+     * @return array
      */
-    public function actionIndex()
-    {
-       
-//         return $this->render('index', [
-//             'searchModel' => $searchModel,
-//             'dataProvider' => $dataProvider,
-//         ]);
-
-        $cityIdSelect = '0';
-        if(array_key_exists('city', Yii::$app->request->queryParams)){
-            $cityIdSelect = Yii::$app->request->queryParams['city'];
-        }
-
-         $orderType = 'DESC';
-         $orderTable = 'date_update';
-         $typeSort = 'По новизне';
+    private function getSortParams(){
+        $orderType = 'DESC';
+        $orderTable = 'date_update';
+        $typeSort = 'По новизне';
         if(array_key_exists('type_sort', Yii::$app->request->queryParams)){
             if(Yii::$app->request->queryParams['type_sort'] == 'inc-salary') {
                 $orderType = 'ASC';
@@ -64,9 +52,16 @@ class ResumeController extends Controller
                 $typeSort = 'По убыванию зарплаты';
             }
         }
-        
-       
-        
+        $sortParams = ['orderType' => $orderType, 'orderTable' => $orderTable, 'typeSort' => $typeSort];
+        return $sortParams;
+    }
+    
+    /**
+     * Returns gender;
+     * 
+     * @return string
+     */
+    private function getGender() {
         $gender = 'all';
         if (array_key_exists('gender', Yii::$app->request->queryParams)) {
             if(Yii::$app->request->queryParams['gender'] == 'male') {
@@ -75,37 +70,98 @@ class ResumeController extends Controller
                 $gender = 'female';
             }
         }
-
-        $queryParams = Yii::$app->request->queryParams;
-        $queryParams['orderTable'] = $orderTable;
-        $queryParams['orderType'] = $orderType;
-        $queryParams['gender'] = $gender;
-        $queryParams['cityId'] = $cityIdSelect;
-        $searchModel = new ResumeSearch();
-        $dataProvider = $searchModel->search($queryParams);
+        return $gender;
+    }
+    
+    /**
+     * Returns cities data.
+     * 
+     * @return array
+     */
+    private function getCitiesData() {
+        $cityIdSelect = '0';
+        if(array_key_exists('city', Yii::$app->request->queryParams)){
+            $cityIdSelect = Yii::$app->request->queryParams['city'];
+        }
         
         $command = Yii::$app->db->createCommand('SELECT * FROM "city"');
         $dataCities = $command->queryAll();
         $dataCitiesFirst = array(0 => ['id' => 0, 'name' => 'Все']);
         $dataCities = array_merge($dataCitiesFirst, $dataCities);
         $cityName = $dataCities[$cityIdSelect]['name'];
-        $cityNameSelect = $cityName;
-        
+        $cityParams = ['cityIdSelect' => $cityIdSelect, 'dataCities' => $dataCities, 'cityNameSelect' => $cityName];
+        return $cityParams;
+    }
+    
+    /**
+     * Returns specialization.
+     * 
+     * @return array
+     */
+    private function getSpecializationData():array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "specialization"');
         $dataSpecializations = $command->queryAll();
-        
+        return $dataSpecializations;
+    }
+    
+    /**
+     *  Returns data about type employments.
+     *  
+     * @return array
+     */
+    private function getTypeEmploymentsData():array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
         $typeEmployments = $command->queryAll();
-        
-        $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
+        return $typeEmployments;
+    }
+
+    /**
+     * Returns data about schedules.
+     * 
+     * @return array
+     */
+    private function getSchedulesData():array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
         $schedules = $command->queryAll();
-        //filling in resume data
+        return $schedules;
+    }
+    
+    /**
+     * Returns active data provider whith values.
+     * 
+     * @param array $sortData
+     * @param array $cityData
+     * @param string $gender
+     * @return ActiveDataProvider
+     */
+    private function getDataProvider(array $sortData, array $cityData, string $gender):ActiveDataProvider {
+        $queryParams = Yii::$app->request->queryParams;
+        $queryParams['orderTable']  = $sortData['orderTable'];
+        $queryParams['orderType']   = $sortData['orderType'];
+        $queryParams['cityId']      = $cityData['cityIdSelect'];
+        $queryParams['gender']      = $gender;
         
-       // $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
-        //$resumeModels = $command->queryAll();
+        $searchModel = new ResumeSearch();
+        $dataProvider = $searchModel->search($queryParams);
+        
+        return $dataProvider;
+    }
+    
+    /**
+     * Lists all Resume models.
+     * 
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $sortData   = $this->getSortParams();
+        $cityData   = $this->getCitiesData();
+        $gender     = $this->getGender();
+      
+        $dataProvider = $this->getDataProvider($sortData, $cityData, $gender);
+        
+        //filling in resume data
         $resumeModels = array();
-//         print_r($resumeModels[0]);
-//         exit();
         for ($i=0; $i < count($dataProvider->models); $i++) {
             $resume=$dataProvider->models[$i];
             $user = $this->getUser($dataProvider->models[$i]['user_id']);
@@ -117,22 +173,20 @@ class ResumeController extends Controller
             $resumeModels[$i]['photo']              = $resume->photo;
             $resumeModels[$i]['name']               = $resume->name;
             $resumeModels[$i]['salary']             = $resume->salary;
-            //print_r($dateDiff);
-           // exit();
         }
         
-//         print_r($dataCities);
-//           exit();
-        //$idUser = $post['id'];
+        $dataSpecializations    = $this->getSpecializationData();
+        $typeEmployments        = $this->getTypeEmploymentsData();
+        $schedules              = $this->getSchedulesData();
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
             'resumeModels'          => $resumeModels,
-            'typeSort'              => $typeSort,
+            'typeSort'              => $sortData['typeSort'],
             'gender'                => $gender,
-            'dataCities'            => $dataCities,
-            'cityIdSelect'          => $cityIdSelect,
-            'cityNameSelect'        => $cityNameSelect,
+            'dataCities'            => $cityData['dataCities'],
+            'cityIdSelect'          => $cityData['cityIdSelect'],
+            'cityNameSelect'        => $cityData['cityNameSelect'],
             'dataSpecializations'   => $dataSpecializations,
             'typeEmployments'       => $typeEmployments,
             'schedules'             => $schedules

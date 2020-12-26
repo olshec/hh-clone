@@ -1,5 +1,5 @@
 
-sercherUrl =  "http://localhost/hh-clone/web/resume/?";
+serchURL =  "http://localhost/hh-clone/web/resume/?";
 city = '';
 gender = '';
 
@@ -16,9 +16,12 @@ class City {
     
     addSerchParams(idCitySerch) {
 		city = new City(idCitySerch);
-		sercherUrl += "city="+idCitySerch;
-        //window.location.href = "http://localhost/hh-clone/web/resume/?"+"gender="+gender.getName()+"&city="+idCitySerch;
+		serchURL += "city="+idCitySerch;
     }
+
+	setParams() {
+		serchURL += "city="+this.getIdCity();
+	}
 }
 
 
@@ -34,8 +37,11 @@ class Gender {
 	}
 	addSerchParams(genderName) {
 		gender = new Gender(genderName);
-		sercherUrl += "&gender="+genderName;
+		serchURL += "&gender="+genderName;
     }
+	setParams() {
+		serchURL += "&gender="+this.getName();
+	}
 }
 
 function afterPageLoad() {
@@ -61,23 +67,17 @@ function serchCity() {
 	idCitySerch = elements[0].value;
 	if (city.getIdCity() != idCitySerch){
 	    city.addSerchParams(idCitySerch);
-		gender.addSerchParams(gender.getName());
-		window.location.href = sercherUrl;
+		gender.setParams();
+		window.location.href = serchURL;
 	}
 	
 }
 
-function addCityParams() {
-	elements = document.getElementsByClassName("nselect-1");
-	idCitySerch = elements[0].value;
-	sercherUrl += "city="+idCitySerch;
-}
-
 function serchGender(genderName) {
 	if(genderName != gender.getName()){
-		addCityParams();
+		city.setParams();
 		gender.addSerchParams(genderName);
-		window.location.href = sercherUrl;
+		window.location.href = serchURL;
 	}
 	
 }

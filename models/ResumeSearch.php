@@ -62,7 +62,11 @@ class ResumeSearch extends Resume
         }
         
         if($gender != 'all') {
-            $where .= ' AND "user"."gender" = \''.$gender.'\'';
+            if($where != '') {
+                $where .= ' AND "user"."gender" = \''.$gender.'\'';
+            } else {
+                $where .= '"user"."gender" = \''.$gender.'\'';
+            }
         }
         $query->where($where);
        

@@ -3,6 +3,7 @@ serchURL =  "http://localhost/hh-clone/web/resume/?";
 city = '';
 gender = '';
 specialization = '';
+typeSort = '';
 
 class City {
     constructor(idCity) {
@@ -66,6 +67,25 @@ class Specialization {
 	}
 }
 
+class TypeSort {
+	constructor(sortName) {
+		this.setName(sortName);
+	}
+	setName(sortName) {
+		this.sortName = sortName;
+	}
+	getName() {
+		return this.sortName;
+	}
+	addSerchParams(sortName) {
+		typeSort = new TypeSort(sortName);
+		serchURL += "&type_sort="+sortName;
+    }
+	setParams() {
+		serchURL += "&type_sort="+this.getName();
+	}
+}
+
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
@@ -76,19 +96,27 @@ function afterPageLoad() {
         city = new City('0');
 	}
 	
-	if(params.has('gender')){
+	if(params.has('gender')) {
 		genderString = params.get('gender');
     	gender = new Gender(genderString);
 	} else {
         gender = new Gender('all');
 	}
 	
-	if(params.has('specialization')){
-	specializationString = params.get('specialization');
-	specialization = new Specialization(specializationString);
+	if(params.has('specialization')) {
+		specializationString = params.get('specialization');
+		specialization = new Specialization(specializationString);
 	} else {
         specialization = new Specialization('0');
 	}
+	
+	if(params.has('type_sort')) {
+		typeSortString = params.get('type_sort');
+		typeSort = new TypeSort(typeSortString);
+	} else {
+        typeSort = new TypeSort('new');
+	}
+	
 }
 
 function serchCity() {
@@ -99,6 +127,7 @@ function serchCity() {
 	    city.addSerchParams(idCitySerch);
 		gender.setParams();
 		specialization.setParams();
+		typeSort.setParams();
 		window.location.href = serchURL;
 	}
 	
@@ -109,6 +138,7 @@ function serchGender(genderName) {
 		city.setParams();
 		gender.addSerchParams(genderName);
 		specialization.setParams();
+		typeSort.setParams();
 		window.location.href = serchURL;
 	}
 }
@@ -121,11 +151,20 @@ function serchSpecialization() {
 		city.setParams();
 		gender.setParams();
 		specialization.addSerchParams(idSpecializationSerch);
+		typeSort.setParams();
 		window.location.href = serchURL;
 	}
 }
 
-
+function serchTypeSort(sortName) {
+	if(sortName != typeSort.getName()){
+		city.setParams();
+		gender.setParams();
+		specialization.setParams();
+		typeSort.addSerchParams(sortName);
+		window.location.href = serchURL;
+	}
+}
 
 
 

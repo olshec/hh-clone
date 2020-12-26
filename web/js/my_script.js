@@ -2,6 +2,7 @@
 serchURL =  "http://localhost/hh-clone/web/resume/?";
 city = '';
 gender = '';
+specialization = '';
 
 class City {
     constructor(idCity) {
@@ -44,6 +45,28 @@ class Gender {
 	}
 }
 
+class Specialization {
+    constructor(id) {
+         this.setId(id);
+    }
+    setId(id) {
+        this.id = id;
+    }
+    getId() {
+        return this.id;
+    }
+    
+    addSerchParams(id) {
+		specialization = new Specialization(id)
+		serchURL += "&specialization="+id;
+    }
+
+	setParams() {
+		serchURL += "&specialization="+this.getId();
+	}
+}
+
+
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
 	if(params.has('city')){
@@ -59,6 +82,13 @@ function afterPageLoad() {
 	} else {
         gender = new Gender('all');
 	}
+	
+	if(params.has('specialization')){
+	specializationString = params.get('specialization');
+	specialization = new Specialization(specializationString);
+	} else {
+        specialization = new Specialization('all');
+	}
 }
 
 function serchCity() {
@@ -68,6 +98,7 @@ function serchCity() {
 	if (city.getIdCity() != idCitySerch){
 	    city.addSerchParams(idCitySerch);
 		gender.setParams();
+		specialization.setParams();
 		window.location.href = serchURL;
 	}
 	
@@ -77,13 +108,22 @@ function serchGender(genderName) {
 	if(genderName != gender.getName()){
 		city.setParams();
 		gender.addSerchParams(genderName);
+		specialization.setParams();
 		window.location.href = serchURL;
 	}
-	
 }
 
 
-
+function serchSpecialization() {
+	elements = document.getElementsByClassName("nselect-1");
+	idSpecializationSerch = elements[1].value;
+	if(idSpecializationSerch != specialization.getId()){
+		city.setParams();
+		gender.setParams();
+		specialization.addSerchParams(idSpecializationSerch);
+		window.location.href = serchURL;
+	}
+}
 
 
 

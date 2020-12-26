@@ -96,6 +96,9 @@ class ResumeController extends Controller
         
         $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
         $typeEmployments = $command->queryAll();
+        
+        $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
+        $schedules = $command->queryAll();
         //filling in resume data
         
        // $command = Yii::$app->db->createCommand('SELECT * FROM "resume" '.$order);
@@ -131,7 +134,8 @@ class ResumeController extends Controller
             'cityIdSelect'          => $cityIdSelect,
             'cityNameSelect'        => $cityNameSelect,
             'dataSpecializations'   => $dataSpecializations,
-            'typeEmployments'       => $typeEmployments
+            'typeEmployments'       => $typeEmployments,
+            'schedules'             => $schedules
         ]);
     }
 

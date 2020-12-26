@@ -158,9 +158,9 @@ $this->title = 'Список резюме';
                         <div class="profile-info">
                         	<?php foreach ($typeEmployments as $typeEmployment): ?>
                             	<div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="<?= 'scheduleCheck'.$typeEmployment['id'] ?>" value="<?= $typeEmployment['id'] ?>">
-                                    <label class="form-check-label" for="exampleCheck5"></label>
-                                    <label for="<?= 'scheduleCheck'.$typeEmployment['id'] ?>" class="profile-info__check-text"><?= $typeEmployment['name'] ?></label>
+                                    <input type="checkbox" class="form-check-input" id="<?= 'type_employment'.$typeEmployment['id'] ?>" value="<?= $typeEmployment['id'] ?>">
+                                    <label class="form-check-label" for="<?= 'type_employment'.$typeEmployment['id'] ?>"></label>
+                                    <label for="<?= 'type_employment'.$typeEmployment['id'] ?>" class="profile-info__check-text"> <?= $typeEmployment['name'] ?></label>
                             	</div>
                             <?php endforeach; ?>
                         </div>
@@ -168,32 +168,14 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">График работы</div>
                         <div class="profile-info">
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck10">
-                                <label class="form-check-label" for="exampleCheck10"></label>+
-                                <label for="exampleCheck10" class="profile-info__check-text">Полный день</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck11">
-                                <label class="form-check-label" for="exampleCheck11"></label>
-                                <label for="exampleCheck11" class="profile-info__check-text">Сменный график</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck12">
-                                <label class="form-check-label" for="exampleCheck12"></label>
-                                <label for="exampleCheck12" class="profile-info__check-text">Вахтовый метод</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck13">
-                                <label class="form-check-label" for="exampleCheck13"></label>
-                                <label for="exampleCheck13" class="profile-info__check-text">Гибкий график</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck14">
-                                <label class="form-check-label" for="exampleCheck14"></label>
-                                <label for="exampleCheck14" class="profile-info__check-text">Удалённая
-                                    работа</label>
-                            </div>
+                        	<?php foreach ($schedules as $schedule): ?>
+                            	<div class="form-check d-flex">
+                                    <input type="checkbox" class="form-check-input" id="<?= 'schedule'.$schedule['id'] ?>" value="<?= $schedule['id'] ?>">
+                                    <label class="form-check-label" for="<?= 'schedule'.$schedule['id'] ?>"></label>
+                                    <label for="<?= 'schedule'.$schedule['id'] ?>" class="profile-info__check-text"> 
+                                    	<?= ($schedule['name'] == 'Полный день')? '+':'' ?> <?= $schedule['name'] ?> </label>
+                                </div>
+                        	<?php endforeach; ?>
                         </div>
                     </div>
                     <div

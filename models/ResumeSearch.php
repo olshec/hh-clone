@@ -55,6 +55,17 @@ class ResumeSearch extends Resume
         return $query;
     }
     
+//     private function getListExperients(ActiveQuery $query, array $params): ActiveQuery{
+//         if(array_key_exists('experients', $params)) {
+//             $listTypeEmployments = $params['experients'];
+//             if(!empty($listTypeEmployments)) {
+//                 $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
+//                 $query->where['"resume_type_employment"."type_employment_id"'] = $listTypeEmployments;
+//             }
+//         }
+//         return $query;
+//     }
+    
     private function getListTypeEmployments(ActiveQuery $query, array $params): ActiveQuery{
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
@@ -102,6 +113,7 @@ class ResumeSearch extends Resume
         $query = $this->getCityId($query, $params);
         $query = $this->getSpecializationId($query, $params);
         
+        //$query = $this->getListExperience($query, $params);
         $query = $this->getListTypeEmployments($query, $params);
         $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);

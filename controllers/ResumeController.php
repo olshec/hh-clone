@@ -210,12 +210,14 @@ class ResumeController extends Controller
         $sortData   = $this->getSortParams();
         $cityData   = $this->getCitiesData();
         $gender     = $this->getGender();
+        
         $specializationsData    = $this->getSpecializations();
         
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
-        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, 
-            $specializationsData['selectId'], $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
+        
+        $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
+            $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
         
         //filling in resume data
         $resumeModels = array();
@@ -439,8 +441,8 @@ class ResumeController extends Controller
             $interval = $dateFinishWork->diff($dateStartWork);
             $days += $interval->y*365 + $interval->m*30 + $interval->d;
         }
-        $countExperience = $this->countExperience($days);
-        return $countExperience;
+        $experience = $this->countExperience($days);
+        return $experience;
     }
     
     /**

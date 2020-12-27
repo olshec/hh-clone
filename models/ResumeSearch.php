@@ -138,12 +138,15 @@ class ResumeSearch extends Resume
         
         $query = $this->getCityId($query, $params);
         $query = $this->getSpecializationId($query, $params);
-        $query = $this->getlistTypeEmployments($query, $params);
+        $query = $this->getListTypeEmployments($query, $params);
         $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);
         
         $query->orderBy([$params['orderTable'] => $orderType]);
 
+        print_r($query->where);
+        exit();
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -156,15 +159,15 @@ class ResumeSearch extends Resume
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'salary' => $this->salary,
-            'user_id' => $this->user_id,
-        ]);
+//         // grid filtering conditions
+//         $query->andFilterWhere([
+//             'id' => $this->id,
+//             'salary' => $this->salary,
+//             'user_id' => $this->user_id,
+//         ]);
 
-        $query->andFilterWhere(['ilike', 'photo', $this->photo])
-            ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
+//         $query->andFilterWhere(['ilike', 'photo', $this->photo])
+//             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
 
         return $dataProvider;
     }

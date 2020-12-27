@@ -82,6 +82,34 @@ class ResumeSearch extends Resume
         return $query;
     }
     
+    private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
+        $where = $query->where;
+        $hasParentheses = false;
+        if(array_key_exists('schedule', $params)) {
+            $listSchedule = $params['schedule'];
+            if($where != '') {
+                $where .= ' AND (';
+                $hasParentheses = true;
+            }
+            $query->innerJoin('resume_schedule', '"resume_schedule"."resume_id" = ' . '"resume"."id"');
+            
+            for($i=0; $i<count( $listSchedule); $i++) {
+                if($i>=1 && $i<count( $listSchedule)) {
+                    $or = ' OR ';
+                }
+                else {
+                    $or = ' ';
+                }
+                $where .= $or.'"resume_schedule"."schedule_id" = \''. $listSchedule[$i].'\'';
+            }
+            if($hasParentheses == true){
+                $where .= ') ';
+            }
+        }
+        $query->where = $where;
+        return $query;
+    }
+    
     private function getGender(ActiveQuery $query, array $params): ActiveQuery{
         $gender = $params['gender'];
         if($gender != 'all') {
@@ -110,6 +138,7 @@ class ResumeSearch extends Resume
         $query = $this->getCityId($query, $params);
         $query = $this->getSpecializationId($query, $params);
         $query = $this->getlistTypeEmployments($query, $params);
+        $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);
 
         //$listCheckBoxSchedules

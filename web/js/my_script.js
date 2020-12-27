@@ -4,6 +4,7 @@ city = '';
 gender = '';
 specialization = '';
 typeSort = '';
+typeEmployment = '';
 
 class City {
     constructor(idCity) {
@@ -86,6 +87,21 @@ class TypeSort {
 	}
 }
 
+class TypeEmployment {
+	constructor() {
+		let elements = document.getElementsByName("type_employment");
+		this.elements = elements;
+	}
+	setParams() {
+		for(let i=0; i<this.elements.length; i++) {
+			if(this.elements[i].checked == true)
+			{
+				serchURL += "&type_employment="+this.elements[i].value;
+			}
+		}
+	}
+}
+
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
@@ -117,6 +133,7 @@ function afterPageLoad() {
         typeSort = new TypeSort('new');
 	}
 	
+	typeEmployment = new TypeEmployment();
 }
 
 function serchCity() {
@@ -128,6 +145,7 @@ function serchCity() {
 		gender.setParams();
 		specialization.setParams();
 		typeSort.setParams();
+		typeEmployment.setParams();
 		window.location.href = serchURL;
 	}
 	
@@ -139,6 +157,7 @@ function serchGender(genderName) {
 		gender.addSerchParams(genderName);
 		specialization.setParams();
 		typeSort.setParams();
+		typeEmployment.setParams();
 		window.location.href = serchURL;
 	}
 }
@@ -152,6 +171,7 @@ function serchSpecialization() {
 		gender.setParams();
 		specialization.addSerchParams(idSpecializationSerch);
 		typeSort.setParams();
+		typeEmployment.setParams();
 		window.location.href = serchURL;
 	}
 }
@@ -162,19 +182,29 @@ function serchTypeSort(sortName) {
 		gender.setParams();
 		specialization.setParams();
 		typeSort.addSerchParams(sortName);
+		typeEmployment.setParams();
 		window.location.href = serchURL;
 	}
 }
 
-function SerchTypeEmployment(htmlElement) {
+function SerchTypeEmployment() {
 	//type=checkbox[name='type_employment']
-	//let elements = document.querySelectorAll("input:checked");
-	let elements = document.querySelectorAll("type=[input]");
+	//let elements = document.querySelectorAll("input:checked")
+	
+	/*let elements = document.getElementsByName("type_employment");
 	let str = '';
 	for(i=0; i<elements.length; i++) {
-		str += elements[i].id + ' ';
-	}
-	alert(str);
+		if(elements[i].checked == true) {
+			str += elements[i].value + ' ';
+		}
+	}*/
+	city.setParams();
+	gender.setParams();
+	specialization.setParams();
+	typeSort.setParams();
+	typeEmployment.setParams();
+	window.location.href = serchURL;
+	//alert(str);
 }
 
 

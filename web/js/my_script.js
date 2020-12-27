@@ -1,5 +1,5 @@
 
-serchURL =  "http://localhost/hh-clone/web/resume/?";
+//
 city = '';
 gender = '';
 specialization = '';
@@ -17,13 +17,15 @@ class City {
         return this.idCity;
     }
     
-    addSerchParams(idCitySerch) {
+    getNewSerchParams(idCitySerch) {
 		city = new City(idCitySerch);
-		serchURL += "city="+idCitySerch;
+		let params = "city="+idCitySerch;
+		return params;
     }
 
-	setParams() {
-		serchURL += "city="+this.getIdCity();
+	getSerchParams() {
+		let params = "city="+this.getIdCity();
+		return params;
 	}
 }
 
@@ -38,12 +40,14 @@ class Gender {
 	getName() {
 		return this.genderName;
 	}
-	addSerchParams(genderName) {
+	getNewSerchParams(genderName) {
 		gender = new Gender(genderName);
-		serchURL += "&gender="+genderName;
+		let params = "&gender="+genderName;
+		return params;
     }
-	setParams() {
-		serchURL += "&gender="+this.getName();
+	getSerchParams() {
+		let params = "&gender="+this.getName();
+		return params;
 	}
 }
 
@@ -58,13 +62,15 @@ class Specialization {
         return this.id;
     }
     
-    addSerchParams(id) {
+    getNewSerchParams(id) {
 		specialization = new Specialization(id)
-		serchURL += "&specialization="+id;
+		let params = "&specialization="+id;
+		return params;
     }
 
-	setParams() {
-		serchURL += "&specialization="+this.getId();
+	getSerchParams() {
+		let params = "&specialization="+this.getId();
+		return params;
 	}
 }
 
@@ -78,12 +84,14 @@ class TypeSort {
 	getName() {
 		return this.sortName;
 	}
-	addSerchParams(sortName) {
+	getNewSerchParams(sortName) {
 		typeSort = new TypeSort(sortName);
-		serchURL += "&type_sort="+sortName;
+		let params = "&type_sort="+sortName;
+		return params;
     }
-	setParams() {
-		serchURL += "&type_sort="+this.getName();
+	getSerchParams() {
+		let params = "&type_sort="+this.getName();
+		return params;
 	}
 }
 
@@ -92,13 +100,15 @@ class TypeEmployment {
 		let elements = document.getElementsByName("type_employment");
 		this.elements = elements;
 	}
-	setParams() {
+	getSerchParams() {
+		let params ="";
 		for(let i=0; i<this.elements.length; i++) {
 			if(this.elements[i].checked == true)
 			{
-				serchURL += "&type_employment="+this.elements[i].value;
+				params += "&type_employment="+this.elements[i].value;
 			}
 		}
+		return params;
 	}
 }
 
@@ -136,54 +146,62 @@ function afterPageLoad() {
 	typeEmployment = new TypeEmployment();
 }
 
+class ServiceLocator {
+	static serchURL =  "http://localhost/hh-clone/web/resume/?";
+}
+
 function serchCity() {
-	//city.addSerchParams(idCitySerch);
-	elements = document.getElementsByClassName("nselect-1");
+	//city.getNewSerchParams(idCitySerch);
+	let elements = document.getElementsByClassName("nselect-1");
 	idCitySerch = elements[0].value;
 	if (city.getIdCity() != idCitySerch){
-	    city.addSerchParams(idCitySerch);
-		gender.setParams();
-		specialization.setParams();
-		typeSort.setParams();
-		typeEmployment.setParams();
-		window.location.href = serchURL;
+		let serchUrl = ServiceLocator.serchURL;
+	    serchUrl += city.getNewSerchParams(idCitySerch);
+		serchUrl += gender.getSerchParams();
+		serchUrl += specialization.getSerchParams();
+		serchUrl += typeSort.getSerchParams();
+		serchUrl += typeEmployment.getSerchParams();
+		window.location.href = serchUrl;
 	}
 	
 }
 
 function serchGender(genderName) {
 	if(genderName != gender.getName()){
-		city.setParams();
-		gender.addSerchParams(genderName);
-		specialization.setParams();
-		typeSort.setParams();
-		typeEmployment.setParams();
-		window.location.href = serchURL;
+		let serchUrl = ServiceLocator.serchURL;
+		serchUrl += city.getSerchParams();
+		serchUrl += gender.getNewSerchParams(genderName);
+		serchUrl += specialization.getSerchParams();
+		serchUrl += typeSort.getSerchParams();
+		serchUrl += typeEmployment.getSerchParams();
+		window.location.href = serchUrl;
 	}
 }
 
 
 function serchSpecialization() {
-	elements = document.getElementsByClassName("nselect-1");
+	let elements = document.getElementsByClassName("nselect-1");
 	idSpecializationSerch = elements[1].value;
 	if(idSpecializationSerch != specialization.getId()){
-		city.setParams();
-		gender.setParams();
-		specialization.addSerchParams(idSpecializationSerch);
-		typeSort.setParams();
-		typeEmployment.setParams();
-		window.location.href = serchURL;
+		let serchUrl = ServiceLocator.serchURL;
+		serchUrl += city.getSerchParams();
+		serchUrl += gender.getSerchParams();
+		serchUrl += specialization.getNewSerchParams(idSpecializationSerch);
+		serchUrl += typeSort.getSerchParams();
+		serchUrl += typeEmployment.getSerchParams();
+		window.location.href = serchUrl;
 	}
 }
 
 function serchTypeSort(sortName) {
 	if(sortName != typeSort.getName()){
-		city.setParams();
-		gender.setParams();
-		specialization.setParams();
-		typeSort.addSerchParams(sortName);
-		typeEmployment.setParams();
-		window.location.href = serchURL;
+		let serchUrl = ServiceLocator.serchURL;
+		serchUrl += city.getSerchParams();
+		serchUrl += gender.getSerchParams();
+		serchUrl += specialization.getSerchParams();
+		serchUrl += typeSort.getNewSerchParams(sortName);
+		serchUrl += typeEmployment.getSerchParams();
+		window.location.href = serchUrl;
 	}
 }
 
@@ -198,12 +216,13 @@ function SerchTypeEmployment() {
 			str += elements[i].value + ' ';
 		}
 	}*/
-	city.setParams();
-	gender.setParams();
-	specialization.setParams();
-	typeSort.setParams();
-	typeEmployment.setParams();
-	window.location.href = serchURL;
+	let serchUrl = ServiceLocator.serchURL;
+	serchUrl += city.getSerchParams();
+	serchUrl += gender.getSerchParams();
+	serchUrl += specialization.getSerchParams();
+	serchUrl += typeSort.getSerchParams();
+	serchUrl += typeEmployment.getSerchParams();
+	window.location.href = serchUrl;
 	//alert(str);
 }
 

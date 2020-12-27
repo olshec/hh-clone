@@ -164,10 +164,10 @@ class ResumeController extends Controller
         return $employments;
     }
     
-    private function getListSchedules() {
+    private function getListTypeSchedules() {
         $schedules = [];
-        if (array_key_exists('schedule', Yii::$app->request->queryParams)) {
-            $schedules = Yii::$app->request->queryParams['schedule'];
+        if (array_key_exists('type_schedule', Yii::$app->request->queryParams)) {
+            $schedules = Yii::$app->request->queryParams['type_schedule'];
         }
         return $schedules;
     }
@@ -213,7 +213,7 @@ class ResumeController extends Controller
         $specializationsData    = $this->getSpecializations();
         
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
-        $listCheckBoxSchedules       = $this->getListSchedules();
+        $listCheckBoxSchedules       = $this->getListTypeSchedules();
         $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, 
             $specializationsData['selectId'], $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
         

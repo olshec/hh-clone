@@ -51,6 +51,7 @@ class ResumeSearch extends Resume
                 $query->where = '"place_of_work"."specialization_id" = \''.$idSpecialization.'\'';
             }
         }
+        
         return $query;
     }
     
@@ -85,8 +86,8 @@ class ResumeSearch extends Resume
     private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
         $where = $query->where;
         $hasParentheses = false;
-        if(array_key_exists('schedule', $params)) {
-            $listSchedule = $params['schedule'];
+        if(array_key_exists('type_schedule', $params)) {
+            $listSchedule = $params['type_schedule'];
             if($where != '') {
                 $where .= ' AND (';
                 $hasParentheses = true;
@@ -140,15 +141,15 @@ class ResumeSearch extends Resume
         $query = $this->getlistTypeEmployments($query, $params);
         $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);
-
+        
         //$listCheckBoxSchedules
         
 
         
        
-       // $query->where($query->where);
-//         print_r($query->where);
-//         exit();
+        //$query->where($query->where);
+        
+        
         
         $query->orderBy([$params['orderTable'] => $orderType]);
         

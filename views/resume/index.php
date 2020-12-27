@@ -172,7 +172,8 @@ $this->title = 'Список резюме';
                         <div class="profile-info">
                         	<?php foreach ($schedules as $schedule): ?>
                             	<div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="<?= 'schedule'.$schedule['id'] ?>" value="<?= $schedule['id'] ?>">
+                                    <input type="checkbox" name="type_schedule[]" class="form-check-input" id="<?= 'schedule'.$schedule['id'] ?>"
+                                    	onclick="SerchSchedule()"  value="<?= $schedule['id'] ?>"  <?= ($schedule['checked']==true)? 'checked="true"':'' ?> >
                                     <label class="form-check-label" for="<?= 'schedule'.$schedule['id'] ?>"></label>
                                     <label for="<?= 'schedule'.$schedule['id'] ?>" class="profile-info__check-text"> 
                                     	<?= ($schedule['name'] == 'Полный день')? '+':'' ?> <?= $schedule['name'] ?> </label>

@@ -97,7 +97,7 @@ class TypeSort {
 
 class TypeEmployment {
 	constructor() {
-		let elements = document.getElementsByName("type_employment");
+		let elements = document.getElementsByName("type_employment[]");
 		this.elements = elements;
 	}
 	getSerchParams() {
@@ -105,7 +105,7 @@ class TypeEmployment {
 		for(let i=0; i<this.elements.length; i++) {
 			if(this.elements[i].checked == true)
 			{
-				params += "&type_employment="+this.elements[i].value;
+				params += "&type_employment[]="+this.elements[i].value;
 			}
 		}
 		return params;

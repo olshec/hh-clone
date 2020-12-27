@@ -99,7 +99,7 @@ class ResumeController extends Controller
      * 
      * @return array
      */
-    private function getSpecializationsData():array {
+    private function getSpecializations():array {
         $specializationIdSelect = '0';
         if(array_key_exists('specialization', Yii::$app->request->queryParams)){
             $specializationIdSelect = Yii::$app->request->queryParams['specialization'];
@@ -117,14 +117,26 @@ class ResumeController extends Controller
         return $dataSpecializations;
     }
     
-    /**
-     *  Returns data about type employments.
-     *  
-     * @return array
-     */
-    private function getTypeEmploymentsData():array {
+   /**
+    *  Returns data about type employments.
+    *  
+    * @param array $listCheckBoxTypeEmployments
+    * @return array
+    */
+    private function getTypeEmploymentsData(array $listCheckBoxTypeEmployments):array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
         $typeEmployments = $command->queryAll();
+//         print_r($typeEmployments);
+//         exit;
+        for($i=0; $i<count($typeEmployments); $i++) {
+            $typeEmployments[$i]['checked'] = false;
+        }
+        for($i=0; $i<count($listCheckBoxTypeEmployments); $i++) {
+            $indexChecked = $listCheckBoxTypeEmployments[$i]-1;
+            $typeEmployments[$indexChecked]['checked'] = true;
+        }
+//          print_r($typeEmployments);
+//          exit;
         return $typeEmployments;
     }
 
@@ -134,9 +146,17 @@ class ResumeController extends Controller
      * @return array
      */
     private function getSchedulesData():array {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
+        $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
         $schedules = $command->queryAll();
         return $schedules;
+    }
+    
+    private function getListTypeEmployments() {
+        $employments = [];
+        if (array_key_exists('type_employment', Yii::$app->request->queryParams)) {
+            $employments = Yii::$app->request->queryParams['type_employment'];
+        }
+        return $employments;
     }
     
     /**
@@ -145,22 +165,25 @@ class ResumeController extends Controller
      * @param array $sortData
      * @param array $cityData
      * @param string $gender
+     * @param int $idSpecialization
+     * @param array $listTypeEmployments
      * @return ActiveDataProvider
      */
-    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization):ActiveDataProvider {
+    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, array $listTypeEmployments):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
-        $queryParams['orderTable']        = $sortData['orderTable'];
-        $queryParams['orderType']         = $sortData['orderType'];
-        $queryParams['cityId']            = $cityData['cityIdSelect'];
-        $queryParams['idSpecialization']  = $idSpecialization;
-        $queryParams['gender']            = $gender;
+        $queryParams['orderTable']            = $sortData['orderTable'];
+        $queryParams['orderType']             = $sortData['orderType'];
+        $queryParams['cityId']                = $cityData['cityIdSelect'];
+        $queryParams['gender']                = $gender;
+        $queryParams['idSpecialization']      = $idSpecialization;
+        $queryParams['listTypeEmployments']   = $listTypeEmployments;
         
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         
         return $dataProvider;
     }
-    
+
     /**
      * Lists all Resume models.
      * 
@@ -171,9 +194,10 @@ class ResumeController extends Controller
         $sortData   = $this->getSortParams();
         $cityData   = $this->getCitiesData();
         $gender     = $this->getGender();
-        $dataSpecializations    = $this->getSpecializationsData();
-      
-        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, $dataSpecializations['selectId']);
+        $specializationsData    = $this->getSpecializations();
+        
+        $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
+        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], $listCheckBoxTypeEmployments);
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
@@ -190,21 +214,21 @@ class ResumeController extends Controller
         }
         
         
-        $typeEmployments        = $this->getTypeEmploymentsData();
+        $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
         $schedules              = $this->getSchedulesData();
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels'            => $resumeModels,
-            'typeSort'                => $sortData['typeSort'],
-            'gender'                  => $gender,
-            'dataCities'              => $cityData['dataCities'],
-            'cityIdSelect'            => $cityData['cityIdSelect'],
-            'cityNameSelect'          => $cityData['cityNameSelect'],
-            'dataSpecializations'     => $dataSpecializations['specializations'],
-            'specializationIdSelect'  => $dataSpecializations['selectId'],
-            'typeEmployments'         => $typeEmployments,
-            'schedules'               => $schedules
+            'resumeModels'                    => $resumeModels,
+            'typeSort'                        => $sortData['typeSort'],
+            'gender'                          => $gender,
+            'dataCities'                      => $cityData['dataCities'],
+            'cityIdSelect'                    => $cityData['cityIdSelect'],
+            'cityNameSelect'                  => $cityData['cityNameSelect'],
+            'dataSpecializations'             => $specializationsData['specializations'],
+            'specializationIdSelect'          => $specializationsData['selectId'],
+            'typeEmployments'                 => $typeEmployments,
+            'schedules'                       => $schedules
         ]);
     }
 

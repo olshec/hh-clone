@@ -159,8 +159,8 @@ $this->title = 'Список резюме';
                         <div class="profile-info">
                         	<?php foreach ($typeEmployments as $typeEmployment): ?>
                             	<div class="form-check d-flex">
-                                    <input type="checkbox" name="type_employment" class="form-check-input" id="<?= 'type_employment'.$typeEmployment['id'] ?>" 
-                                    	onclick="SerchTypeEmployment()" value="<?= $typeEmployment['id'] ?>">
+                                    <input type="checkbox" name="type_employment[]" class="form-check-input" id="<?= 'type_employment'.$typeEmployment['id'] ?>" 
+                                    	onclick="SerchTypeEmployment()" value="<?= $typeEmployment['id'] ?>" <?= ($typeEmployment['checked']==true)? 'checked="true"':'' ?> >
                                     <label class="form-check-label" for="<?= 'type_employment'.$typeEmployment['id'] ?>"></label>
                                     <label for="<?= 'type_employment'.$typeEmployment['id'] ?>" class="profile-info__check-text"> <?= $typeEmployment['name'] ?></label>
                             	</div>

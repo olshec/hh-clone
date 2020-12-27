@@ -57,16 +57,16 @@ class ResumeSearch extends Resume
     
     private function getListTypeEmployments(ActiveQuery $query, array $params): ActiveQuery{
         $where = $query->where;
-        $hasParentheses = false;
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
-            if($where != '') {
-                $where .= ' AND (';
-                $hasParentheses = true;
-            }
             $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
             
-            for($i=0; $i<count($listTypeEmployments); $i++) {
+            if($where != '') {
+                $where .= ' AND ';
+            }
+            $countList = count($listTypeEmployments);
+            if($countList>=1) $where .= ' (';
+            for($i=0; $i<$countList; $i++) {
                 if($i>=1 && $i<count($listTypeEmployments)) {
                     $or = ' OR ';
                 }
@@ -75,9 +75,7 @@ class ResumeSearch extends Resume
                 }
                 $where .= $or.'"resume_type_employment"."type_employment_id" = \''.$listTypeEmployments[$i].'\'';
             }
-            if($hasParentheses == true){
-                $where .= ') ';
-            }
+            if($countList>=1) $where .= ') ';
         }
         $query->where = $where;
         return $query;
@@ -85,16 +83,16 @@ class ResumeSearch extends Resume
     
     private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
         $where = $query->where;
-        $hasParentheses = false;
         if(array_key_exists('type_schedule', $params)) {
             $listSchedule = $params['type_schedule'];
-            if($where != '') {
-                $where .= ' AND (';
-                $hasParentheses = true;
-            }
             $query->innerJoin('resume_schedule', '"resume_schedule"."resume_id" = ' . '"resume"."id"');
             
-            for($i=0; $i<count( $listSchedule); $i++) {
+            if($where != '') {
+                $where .= ' AND ';
+            }
+            $countList = count($listSchedule);
+            if($countList>=1) $where .= ' (';
+            for($i=0; $i<$countList; $i++) {
                 if($i>=1 && $i<count( $listSchedule)) {
                     $or = ' OR ';
                 }
@@ -103,9 +101,7 @@ class ResumeSearch extends Resume
                 }
                 $where .= $or.'"resume_schedule"."schedule_id" = \''. $listSchedule[$i].'\'';
             }
-            if($hasParentheses == true){
-                $where .= ') ';
-            }
+            if($countList>=1) $where .= ') ';
         }
         $query->where = $where;
         return $query;
@@ -135,17 +131,21 @@ class ResumeSearch extends Resume
         $query = Resume::find()
         ->innerJoin('user', '"resume"."user_id" = "user"."id"');
         $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
-        
-        $query = $this->getCityId($query, $params);
-        $query = $this->getSpecializationId($query, $params);
-        $query = $this->getListTypeEmployments($query, $params);
-        $query = $this->getListSchedules($query, $params);
-        $query = $this->getGender($query, $params);
-        
-        $query->orderBy([$params['orderTable'] => $orderType]);
-
+        $query->where(['id' => [1, 2, 3], 'status' => 2] );
+        print_r($query->where);
+        echo '<br>';
+        $query->where['resume_id']= ['12345', '6', '7'];
         print_r($query->where);
         exit();
+//         $query = $this->getCityId($query, $params);
+//         $query = $this->getSpecializationId($query, $params);
+//         $query = $this->getListTypeEmployments($query, $params);
+//         $query = $this->getListSchedules($query, $params);
+//         $query = $this->getGender($query, $params);
+        //$query->where()
+        $query->orderBy([$params['orderTable'] => $orderType]);
+
+       
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

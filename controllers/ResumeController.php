@@ -177,7 +177,8 @@ class ResumeController extends Controller
         $queryParams['gender']                = $gender;
         $queryParams['idSpecialization']      = $idSpecialization;
         $queryParams['listTypeEmployments']   = $listTypeEmployments;
-        
+//         print_r($listTypeEmployments);
+//         exit();
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         

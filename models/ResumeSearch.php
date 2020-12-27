@@ -61,24 +61,30 @@ class ResumeSearch extends Resume
             }
         }
         
+        $hasParentheses = false;
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
             if($where != '') {
-                $where .= ' AND ';
+                $where .= ' AND (';
+                $hasParentheses = true;
             }
             $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
-            
+
             for($i=0; $i<count($listTypeEmployments); $i++) {
-                if($i<count($listTypeEmployments)-1) {
-                    $and = ' AND ';
+                if($i>=1 && $i<count($listTypeEmployments)) {
+                    $or = ' OR ';
                 }
                 else {
-                    $and = '';
+                    $or = ' ';
                 }
-                $where = '"resume_type_employment"."type_employment_id" = \''.$listTypeEmployments[$i].'\''.$and;
-                
+                $where .= $or.'"resume_type_employment"."type_employment_id" = \''.$listTypeEmployments[$i].'\''; 
+            }
+            if($hasParentheses == true){
+                $where .= ') ';
             }
         }
+//         print_r($where);
+//         exit();
         
         if($gender != 'all') {
             if($where != '') {

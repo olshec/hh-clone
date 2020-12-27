@@ -93,7 +93,7 @@ $this->title = 'Список резюме';
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue" >Город</div>
-                        <div class="citizenship-select" onclick="serchCity(this)">
+                        <div class="citizenship-select" onclick="serchCity()">
 							 <select class="nselect-1"  >
                              	<?php foreach ($dataCities as $city): ?>
                                     <option <?= ($city['id'] == $cityIdSelect)? 'selected':''?> 
@@ -159,7 +159,8 @@ $this->title = 'Список резюме';
                         <div class="profile-info">
                         	<?php foreach ($typeEmployments as $typeEmployment): ?>
                             	<div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="<?= 'type_employment'.$typeEmployment['id'] ?>" value="<?= $typeEmployment['id'] ?>">
+                                    <input type="checkbox" name="type_employment" class="form-check-input" id="<?= 'type_employment'.$typeEmployment['id'] ?>" 
+                                    	onclick="SerchTypeEmployment(this)" value="<?= $typeEmployment['id'] ?>">
                                     <label class="form-check-label" for="<?= 'type_employment'.$typeEmployment['id'] ?>"></label>
                                     <label for="<?= 'type_employment'.$typeEmployment['id'] ?>" class="profile-info__check-text"> <?= $typeEmployment['name'] ?></label>
                             	</div>

@@ -166,6 +166,17 @@ function serchTypeSort(sortName) {
 	}
 }
 
+function SerchTypeEmployment(htmlElement) {
+	//type=checkbox[name='type_employment']
+	//let elements = document.querySelectorAll("input:checked");
+	let elements = document.querySelectorAll("type=[input]");
+	let str = '';
+	for(i=0; i<elements.length; i++) {
+		str += elements[i].id + ' ';
+	}
+	alert(str);
+}
+
 
 
 

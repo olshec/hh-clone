@@ -142,19 +142,7 @@ class ResumeSearch extends Resume
         $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);
         
-        //$listCheckBoxSchedules
-        
-
-        
-       
-        //$query->where($query->where);
-        
-        
-        
         $query->orderBy([$params['orderTable'] => $orderType]);
-        
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -223,15 +223,20 @@ class ResumeController extends Controller
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
             $resume=$dataProvider->models[$i];
-            $user = $this->getUser($dataProvider->models[$i]['user_id']);
-            $resumeModels[$i]['city']               = $this->getCity($user['id']);
-            $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
-            $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
-            $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
-            $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
-            $resumeModels[$i]['photo']              = $resume->photo;
-            $resumeModels[$i]['name']               = $resume->name;
-            $resumeModels[$i]['salary']             = $resume->salary;
+            //$experienceDays = $this->getDaysExperience($resume['id']);
+            $experienceDays = true;
+            if($experienceDays){
+                $user = $this->getUser($dataProvider->models[$i]['user_id']);
+                $resumeModels[$i]['city']               = $this->getCity($user['id']);
+                $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
+                $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
+                $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
+                $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
+                $resumeModels[$i]['photo']              = $resume->photo;
+                $resumeModels[$i]['name']               = $resume->name;
+                $resumeModels[$i]['salary']             = $resume->salary;
+            }
+            
         }
         
         
@@ -425,12 +430,12 @@ class ResumeController extends Controller
     }
     
     /**
-     * Returns experience.
+     * Return days experience.
      * 
      * @param string $resumeId
-     * @return string
+     * @return int
      */
-    private function getExperience(string $resumeId): string {
+    private function getDaysExperience(string $resumeId):int {
         $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
         $command->bindValue(':resume_id', $resumeId);
         $placesOfWork = $command->queryAll();
@@ -441,6 +446,17 @@ class ResumeController extends Controller
             $interval = $dateFinishWork->diff($dateStartWork);
             $days += $interval->y*365 + $interval->m*30 + $interval->d;
         }
+        return $days;
+    }
+    
+    /**
+     * Returns experience.
+     * 
+     * @param string $resumeId
+     * @return string
+     */
+    private function getExperience(string $resumeId): string {
+        $days = getDaysExperience($resumeId);
         $experience = $this->countExperience($days);
         return $experience;
     }

@@ -126,8 +126,6 @@ class ResumeController extends Controller
     private function getTypeEmploymentsData(array $listCheckBoxTypeEmployments):array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
         $typeEmployments = $command->queryAll();
-//         print_r($typeEmployments);
-//         exit;
         for($i=0; $i<count($typeEmployments); $i++) {
             $typeEmployments[$i]['checked'] = false;
         }
@@ -135,19 +133,26 @@ class ResumeController extends Controller
             $indexChecked = $listCheckBoxTypeEmployments[$i]-1;
             $typeEmployments[$indexChecked]['checked'] = true;
         }
-//          print_r($typeEmployments);
-//          exit;
         return $typeEmployments;
     }
 
-    /**
-     * Returns data about schedules.
-     * 
-     * @return array
-     */
-    private function getSchedulesData():array {
+   /**
+    * Returns data about schedules.
+    * 
+    * @param array $listCheckBoxSchedules
+    * @return array
+    */
+    private function getSchedulesData(array $listCheckBoxSchedules):array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
         $schedules = $command->queryAll();
+        
+        for($i=0; $i<count($schedules); $i++) {
+            $schedules[$i]['checked'] = false;
+        }
+        for($i=0; $i<count($listCheckBoxSchedules); $i++) {
+            $indexChecked = $listCheckBoxSchedules[$i]-1;
+            $schedules[$indexChecked]['checked'] = true;
+        }
         return $schedules;
     }
     
@@ -157,6 +162,14 @@ class ResumeController extends Controller
             $employments = Yii::$app->request->queryParams['type_employment'];
         }
         return $employments;
+    }
+    
+    private function getListSchedules() {
+        $schedules = [];
+        if (array_key_exists('schedule', Yii::$app->request->queryParams)) {
+            $schedules = Yii::$app->request->queryParams['schedule'];
+        }
+        return $schedules;
     }
     
     /**
@@ -169,14 +182,16 @@ class ResumeController extends Controller
      * @param array $listTypeEmployments
      * @return ActiveDataProvider
      */
-    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, array $listTypeEmployments):ActiveDataProvider {
+    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
+        array $listTypeEmployments, array $listCheckBoxSchedules):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
-        $queryParams['orderTable']            = $sortData['orderTable'];
-        $queryParams['orderType']             = $sortData['orderType'];
-        $queryParams['cityId']                = $cityData['cityIdSelect'];
-        $queryParams['gender']                = $gender;
-        $queryParams['idSpecialization']      = $idSpecialization;
-        $queryParams['listTypeEmployments']   = $listTypeEmployments;
+        $queryParams['orderTable']              = $sortData['orderTable'];
+        $queryParams['orderType']               = $sortData['orderType'];
+        $queryParams['cityId']                  = $cityData['cityIdSelect'];
+        $queryParams['gender']                  = $gender;
+        $queryParams['idSpecialization']        = $idSpecialization;
+        $queryParams['listTypeEmployments']     = $listTypeEmployments;
+        $queryParams['listCheckBoxSchedules']   = $listCheckBoxSchedules;
 //         print_r($listTypeEmployments);
 //         exit();
         $searchModel = new ResumeSearch();
@@ -198,7 +213,10 @@ class ResumeController extends Controller
         $specializationsData    = $this->getSpecializations();
         
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
-        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], $listCheckBoxTypeEmployments);
+        $listCheckBoxSchedules       = $this->getListSchedules();
+        $dataProvider           = $this->getDataProvider($sortData, $cityData, $gender, 
+            $specializationsData['selectId'], $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
+        
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
@@ -216,7 +234,7 @@ class ResumeController extends Controller
         
         
         $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
-        $schedules              = $this->getSchedulesData();
+        $schedules              = $this->getSchedulesData($listCheckBoxSchedules);
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [

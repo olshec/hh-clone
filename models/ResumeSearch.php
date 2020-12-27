@@ -83,6 +83,8 @@ class ResumeSearch extends Resume
                 $where .= ') ';
             }
         }
+        //$listCheckBoxSchedules
+        
 //         print_r($where);
 //         exit();
         

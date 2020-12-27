@@ -6,6 +6,7 @@ specialization = '';
 typeSort = '';
 typeEmployment = '';
 typeSchedule = '';
+experience = '';
 
 class City {
     constructor(idCity) {
@@ -130,6 +131,22 @@ class TypeSchedule {
 	}
 }
 
+class Experience {
+	constructor() {
+		let elements = document.getElementsByName("experience[]");
+		this.elements = elements;
+	}
+	getSerchParams() {
+		let params ="";
+		for(let i=0; i<this.elements.length; i++) {
+			if(this.elements[i].checked == true)
+			{
+				params += "&experience[]="+this.elements[i].value;
+			}
+		}
+		return params;
+	}
+}
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
@@ -163,6 +180,7 @@ function afterPageLoad() {
 	
 	typeEmployment = new TypeEmployment();
 	typeSchedule = new TypeSchedule();
+	experience = new Experience();
 }
 
 class ServiceLocator {
@@ -181,6 +199,7 @@ function serchCity() {
 		serchUrl += typeSort.getSerchParams();
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
+		serchUrl += experience.getSerchParams();
 		window.location.href = serchUrl;
 	}
 	
@@ -195,6 +214,7 @@ function serchGender(genderName) {
 		serchUrl += typeSort.getSerchParams();
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
+		serchUrl += experience.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -211,6 +231,7 @@ function serchSpecialization() {
 		serchUrl += typeSort.getSerchParams();
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
+		serchUrl += experience.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -224,21 +245,12 @@ function serchTypeSort(sortName) {
 		serchUrl += typeSort.getNewSerchParams(sortName);
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
+		serchUrl += experience.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
 
 function SerchTypeEmployment() {
-	//type=checkbox[name='type_employment']
-	//let elements = document.querySelectorAll("input:checked")
-	
-	/*let elements = document.getElementsByName("type_employment");
-	let str = '';
-	for(i=0; i<elements.length; i++) {
-		if(elements[i].checked == true) {
-			str += elements[i].value + ' ';
-		}
-	}*/
 	let serchUrl = ServiceLocator.serchURL;
 	serchUrl += city.getSerchParams();
 	serchUrl += gender.getSerchParams();
@@ -246,6 +258,7 @@ function SerchTypeEmployment() {
 	serchUrl += typeSort.getSerchParams();
 	serchUrl += typeEmployment.getSerchParams();
 	serchUrl += typeSchedule.getSerchParams();
+	serchUrl += experience.getSerchParams();
 	window.location.href = serchUrl;
 	//alert(str);
 }
@@ -258,9 +271,21 @@ function SerchSchedule() {
 	serchUrl += typeSort.getSerchParams();
 	serchUrl += typeEmployment.getSerchParams();
 	serchUrl += typeSchedule.getSerchParams();
+	serchUrl += experience.getSerchParams();
 	window.location.href = serchUrl;
 }
 
+function SerchExperience() {
+	let serchUrl = ServiceLocator.serchURL;
+	serchUrl += city.getSerchParams();
+	serchUrl += gender.getSerchParams();
+	serchUrl += specialization.getSerchParams();
+	serchUrl += typeSort.getSerchParams();
+	serchUrl += typeEmployment.getSerchParams();
+	serchUrl += typeSchedule.getSerchParams();
+	serchUrl += experience.getSerchParams();
+	window.location.href = serchUrl;
+}
 
 
 

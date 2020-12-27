@@ -48,7 +48,7 @@ class ResumeSearch extends Resume
             $idSpecialization = $params['idSpecialization'];
             if($idSpecialization != 0){
                 $query->innerJoin('place_of_work', '"resume"."id" = ' . '"place_of_work"."resume_id"');
-                $query->where = '"place_of_work"."specialization_id" = \''.$idSpecialization.'\'';
+                $query->where['"place_of_work"."specialization_id"'] = [$idSpecialization];
             }
         }
         
@@ -56,64 +56,31 @@ class ResumeSearch extends Resume
     }
     
     private function getListTypeEmployments(ActiveQuery $query, array $params): ActiveQuery{
-        $where = $query->where;
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
-            $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
-            
-            if($where != '') {
-                $where .= ' AND ';
+            if(!empty($listTypeEmployments)) {
+                $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
+                $query->where['"resume_type_employment"."type_employment_id"'] = $listTypeEmployments;
             }
-            $countList = count($listTypeEmployments);
-            if($countList>=1) $where .= ' (';
-            for($i=0; $i<$countList; $i++) {
-                if($i>=1 && $i<count($listTypeEmployments)) {
-                    $or = ' OR ';
-                }
-                else {
-                    $or = ' ';
-                }
-                $where .= $or.'"resume_type_employment"."type_employment_id" = \''.$listTypeEmployments[$i].'\'';
-            }
-            if($countList>=1) $where .= ') ';
         }
-        $query->where = $where;
         return $query;
     }
     
     private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
-        $where = $query->where;
-        if(array_key_exists('type_schedule', $params)) {
-            $listSchedule = $params['type_schedule'];
-            $query->innerJoin('resume_schedule', '"resume_schedule"."resume_id" = ' . '"resume"."id"');
-            
-            if($where != '') {
-                $where .= ' AND ';
+        if(array_key_exists('listCheckBoxSchedules', $params)) {
+            $listSchedule = $params['listCheckBoxSchedules'];
+            if(!empty($listSchedule)) {
+                $query->innerJoin('resume_schedule', '"resume_schedule"."resume_id" = ' . '"resume"."id"');
+                $query->where['"resume_schedule"."schedule_id"'] = $listSchedule;
             }
-            $countList = count($listSchedule);
-            if($countList>=1) $where .= ' (';
-            for($i=0; $i<$countList; $i++) {
-                if($i>=1 && $i<count( $listSchedule)) {
-                    $or = ' OR ';
-                }
-                else {
-                    $or = ' ';
-                }
-                $where .= $or.'"resume_schedule"."schedule_id" = \''. $listSchedule[$i].'\'';
-            }
-            if($countList>=1) $where .= ') ';
         }
-        $query->where = $where;
         return $query;
     }
     
     private function getGender(ActiveQuery $query, array $params): ActiveQuery{
         $gender = $params['gender'];
         if($gender != 'all') {
-            if($query->where != '') {
-                $query->where = '('.$query->where.') AND ';
-            }
-            $query->where .= '"user"."gender" = \''.$gender.'\'';
+            $query->where['"user"."gender"'] = [$gender];
         }
         return $query;
     }
@@ -131,22 +98,26 @@ class ResumeSearch extends Resume
         $query = Resume::find()
         ->innerJoin('user', '"resume"."user_id" = "user"."id"');
         $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
-        $query->where(['id' => [1, 2, 3], 'status' => 2] );
-        print_r($query->where);
-        echo '<br>';
-        $query->where['resume_id']= ['12345', '6', '7'];
-        print_r($query->where);
-        exit();
-//         $query = $this->getCityId($query, $params);
-//         $query = $this->getSpecializationId($query, $params);
-//         $query = $this->getListTypeEmployments($query, $params);
-//         $query = $this->getListSchedules($query, $params);
-//         $query = $this->getGender($query, $params);
-        //$query->where()
+
+        $query = $this->getCityId($query, $params);
+        $query = $this->getSpecializationId($query, $params);
+        
+        $query = $this->getListTypeEmployments($query, $params);
+        $query = $this->getListSchedules($query, $params);
+        $query = $this->getGender($query, $params);
+
         $query->orderBy([$params['orderTable'] => $orderType]);
 
+        // $query->where(['id' => [1, 2, 3], 'status' => 2] );
+       //  $query->where['AAA'] = '2' ;
+       //  print_r($query->where);
+//         echo '<br>';
+//         $query->where['resume_id']= ['12345', '6', '7'];
+       // $query->where['resume_id']= ['12345', '6', '7'];
        
-        
+//         var_dump($query->where);
+//         exit();
+       
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -159,15 +130,15 @@ class ResumeSearch extends Resume
             return $dataProvider;
         }
 
-//         // grid filtering conditions
-//         $query->andFilterWhere([
-//             'id' => $this->id,
-//             'salary' => $this->salary,
-//             'user_id' => $this->user_id,
-//         ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'salary' => $this->salary,
+            'user_id' => $this->user_id,
+        ]);
 
-//         $query->andFilterWhere(['ilike', 'photo', $this->photo])
-//             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
+        $query->andFilterWhere(['ilike', 'photo', $this->photo])
+            ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
 
         return $dataProvider;
     }

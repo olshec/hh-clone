@@ -105,7 +105,8 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Зарплата</div>
                         <div class="p-rel">
-                            <input placeholder="Любая" type="text" class="dor-input w100">
+                            <input placeholder="Любая" type="text" class="dor-input w100" 
+                            	 onchange="SerchSalary(this.value)" >
                             <img class="rub-icon" src="<?= $addressServer ?>images/rub-icon.svg" alt="rub-icon">
                         </div>
                     </div>
@@ -126,7 +127,7 @@ $this->title = 'Список резюме';
                             <input placeholder="От" type="text" class="dor-input w100">
                             <input placeholder="До" type="text" class="dor-input w100">
                         </div>
-                    </div>$experience
+                    </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Опыт работы</div>
                         <div class="profile-info">

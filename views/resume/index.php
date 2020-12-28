@@ -130,32 +130,14 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Опыт работы</div>
                         <div class="profile-info">
+                        <?php foreach ($experience as $typeExperience): ?>
                             <div class="form-check d-flex">
-                                <input type="checkbox" name="experience[]" class="form-check-input" id="experienceCheck1"
-                                	onclick="SerchExperience()" value="1">
-                                <label class="form-check-label" for="experienceCheck1"></label>
-                                <label for="experienceCheck1" class="profile-info__check-text">Без опыта</label>
+                                <input type="checkbox" name="experience[]" class="form-check-input" id="<?= '?>experienceCheck'.$typeExperience['id'] ?>"
+                                	onclick="SerchExperience()" value="<?= $typeExperience['id'] ?>" <?= ($typeExperience['checked']==true)? 'checked="true"':'' ?> >
+                                <label class="form-check-label" for="<?= 'experienceCheck'.$typeExperience['id'] ?>" ></label>
+                                <label for="<?= 'experienceCheck'.$typeExperience['id'] ?>" class="profile-info__check-text"> <?= $typeExperience['name'] ?></label>
                             </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" name="experience[]" class="form-check-input" id="experienceCheck2" 
-                                	onclick="SerchExperience()" value="2">
-                                <label class="form-check-label" for="experienceCheck2"></label>
-                                <label for="experienceCheck2" class="profile-info__check-text">От 1 года до 3
-                                    лет</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" name="experience[]" class="form-check-input" id="experienceCheck3" 
-                                	onclick="SerchExperience()" value="3">
-                                <label class="form-check-label" for="experienceCheck3"></label>
-                                <label for="experienceCheck3" class="profile-info__check-text">От 3 лет до 6
-                                    лет</label>
-                            </div>
-                            <div class="form-check d-flex">
-                                <input type="checkbox" name="experience[]" class="form-check-input" id="experienceCheck4" 
-                                	onclick="SerchExperience()" value="4">
-                                <label class="form-check-label" for="experienceCheck4"></label>
-                                <label for="experienceCheck4" class="profile-info__check-text">Более 6 лет</label>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">

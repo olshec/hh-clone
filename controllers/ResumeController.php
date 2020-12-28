@@ -156,6 +156,31 @@ class ResumeController extends Controller
         return $schedules;
     }
     
+    /**
+     * Returns data about experience.
+     *
+     * @param array $listCheckBoxSchedules
+     * @return array
+     */
+    private function getExperienceData():array {
+        $listCheckBoxExperience = $this->getListCheckBoxExperience();
+        $experience = [];
+        $experience[0]['name'] = 'Без опыта';
+        $experience[1]['name'] = 'От 1 года до 3 лет';
+        $experience[2]['name'] = 'От 3 лет до 6 лет';
+        $experience[3]['name'] = 'Более 6 лет';
+        
+        for($i=0; $i<count($experience); $i++) {
+            $experience[$i]['id'] = $i+1;
+            $experience[$i]['checked'] = false;
+        }
+        for($i=0; $i<count($listCheckBoxExperience); $i++) {
+            $indexChecked = $listCheckBoxExperience[$i]-1;
+            $experience[$indexChecked]['checked'] = true;
+        }
+        return $experience;
+    }
+    
     private function getListTypeEmployments() {
         $employments = [];
         if (array_key_exists('type_employment', Yii::$app->request->queryParams)) {
@@ -170,6 +195,14 @@ class ResumeController extends Controller
             $schedules = Yii::$app->request->queryParams['type_schedule'];
         }
         return $schedules;
+    }
+    
+    private function getListCheckBoxExperience() {
+        $experience= [];
+        if (array_key_exists('experience', Yii::$app->request->queryParams)) {
+            $experience = Yii::$app->request->queryParams['experience'];
+        }
+        return $experience;
     }
     
     /**
@@ -199,6 +232,37 @@ class ResumeController extends Controller
         
         return $dataProvider;
     }
+    
+    /**
+     * Checks experience.
+     * 
+     * @param int $experienceDays
+     * @return bool
+     */
+    private function checkExperience(int $experienceDays): bool {
+        $listCheckBoxExperience = $this->getListCheckBoxExperience();
+        if(count($listCheckBoxExperience) == 0){
+            return true;
+        }
+        for($i=0; $i < count($listCheckBoxExperience); $i++){
+            $expCase = $listCheckBoxExperience[$i];
+            switch ($expCase){
+                case 1:
+                    if($experienceDays == 0) return true;
+                    break;
+                case 2:
+                    if($experienceDays >= 365 && $experienceDays <= 1095) return true;
+                    break;
+                case 3:
+                    if($experienceDays > 1095 && $experienceDays <= 2190) return true;
+                    break;
+                case 4:
+                    if($experienceDays > 2190) return true;
+                    break;
+            }
+        }
+        return false;
+    }
 
     /**
      * Lists all Resume models.
@@ -215,17 +279,19 @@ class ResumeController extends Controller
         
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
+       
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
         
+        
+        //experience
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider->models); $i++) {
             $resume=$dataProvider->models[$i];
-            //$experienceDays = $this->getDaysExperience($resume['id']);
-            $experienceDays = true;
-            if($experienceDays){
+            $experienceDays = $this->getDaysExperience($resume['id']);
+            if($this->checkExperience($experienceDays)){
                 $user = $this->getUser($dataProvider->models[$i]['user_id']);
                 $resumeModels[$i]['city']               = $this->getCity($user['id']);
                 $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
@@ -242,6 +308,10 @@ class ResumeController extends Controller
         
         $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
         $schedules              = $this->getSchedulesData($listCheckBoxSchedules);
+        $experience             = $this->getExperienceData();
+        
+//         var_dump($experience);
+//         exit();
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
@@ -254,7 +324,8 @@ class ResumeController extends Controller
             'dataSpecializations'             => $specializationsData['specializations'],
             'specializationIdSelect'          => $specializationsData['selectId'],
             'typeEmployments'                 => $typeEmployments,
-            'schedules'                       => $schedules
+            'schedules'                       => $schedules,
+            'experience'                      => $experience
         ]);
     }
 
@@ -456,7 +527,7 @@ class ResumeController extends Controller
      * @return string
      */
     private function getExperience(string $resumeId): string {
-        $days = getDaysExperience($resumeId);
+        $days = $this->getDaysExperience($resumeId);
         $experience = $this->countExperience($days);
         return $experience;
     }

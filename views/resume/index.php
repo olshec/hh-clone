@@ -24,14 +24,14 @@ $this->title = 'Список резюме';
                                     <a class="dropdown-item" href="#">За все время</a>
                                 </div>
                             </div>
-                            <div class="vakancy-page-wrap show">
+                            <div class="vakancy-page-wrap show"  >
                                 <a class="vakancy-page-btn vakancy-btn dropdown-toggle" href="#" role="button"
                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="false">
                                     <?= $typeSort ?>
                                     <i class="fas fa-angle-down arrowDown"></i>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
                                     <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('new'); return false;">По новизне</a>
                                     <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('inc-salary'); return false;">По возрастанию зарплаты</a>
                                     <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('desc-salary'); return false;">По убыванию зарплаты</a>
@@ -124,8 +124,8 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Возраст</div>
                         <div class="d-flex">
-                            <input placeholder="От" type="text" class="dor-input w100">
-                            <input placeholder="До" type="text" class="dor-input w100">
+                            <input placeholder="От" type="text" class="dor-input w100" onchange="SerchAgeFrom(this.value)" >
+                            <input placeholder="До" type="text" class="dor-input w100" onchange="SerchAgeUp(this.value)">
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">

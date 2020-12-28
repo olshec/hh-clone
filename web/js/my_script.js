@@ -10,6 +10,8 @@ class ServiceLocator {
 	static typeSchedule = '';
 	static experience = '';
 	static salary = '';
+	static ageFrom = '';
+	static ageUp = '';
 }
 
 class City {
@@ -344,9 +346,37 @@ function SerchSalary(salary) {
 }
 
 
+/*function SerchAgeFrom(age) {
+	let serchUrl = ServiceLocator.serchURL;
+	serchUrl += ServiceLocator.city.getSerchParams();
+	serchUrl += ServiceLocator.gender.getSerchParams();
+	serchUrl += ServiceLocator.specialization.getSerchParams();
+	serchUrl += ServiceLocator.typeSort.getSerchParams();
+	serchUrl += ServiceLocator.typeEmployment.getSerchParams();
+	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
+	serchUrl += ServiceLocator.experience.getSerchParams();
+	serchUrl += ServiceLocator.salary.getSerchParams();
+	
+	serchUrl += ServiceLocator.ageFrom.getNewSerchParams(age);
+	window.location.href = serchUrl;
+}*/
 
 
-
+/*function SerchAgeUp(age) {
+	let serchUrl = ServiceLocator.serchURL;
+	serchUrl += ServiceLocator.city.getSerchParams();
+	serchUrl += ServiceLocator.gender.getSerchParams();
+	serchUrl += ServiceLocator.specialization.getSerchParams();
+	serchUrl += ServiceLocator.typeSort.getSerchParams();
+	serchUrl += ServiceLocator.typeEmployment.getSerchParams();
+	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
+	serchUrl += ServiceLocator.experience.getSerchParams();
+	serchUrl += ServiceLocator.salary.getSerchParams();
+	
+	serchUrl += ServiceLocator.ageFrom.getSerchParams();
+	serchUrl += ServiceLocator.ageUp.getNewSerchParams(age);
+	window.location.href = serchUrl;
+}*/
 
 
 

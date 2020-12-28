@@ -155,7 +155,7 @@ class Salary {
 		this.setSalary(salary);
 	}
 	
-	setSalary() {
+	setSalary(salary) {
 		this.salary = salary;
 	}
 	
@@ -165,12 +165,12 @@ class Salary {
 	
 	getNewSerchParams(salary) {
 		userSalary = new Salary(salary);
-		params += "&salary="+salary;
+		let params = "&salary="+salary;
 		return params;
 	}
 	
 	getSerchParams() {
-		params += "&salary="+this.getSalary();
+		let params = "&salary="+this.getSalary();
 		return params;
 	}
 }

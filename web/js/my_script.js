@@ -25,12 +25,12 @@ class City {
     
     getNewSerchParams(idCitySerch) {
 		ServiceLocator.city = new City(idCitySerch);
-		let params = "city="+idCitySerch;
+		let params = "&city="+idCitySerch;
 		return params;
     }
 
 	getSerchParams() {
-		let params = "city="+this.getIdCity();
+		let params = "&city="+this.getIdCity();
 		return params;
 	}
 }

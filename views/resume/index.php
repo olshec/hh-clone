@@ -126,13 +126,13 @@ $this->title = 'Список резюме';
                             <input placeholder="От" type="text" class="dor-input w100">
                             <input placeholder="До" type="text" class="dor-input w100">
                         </div>
-                    </div>
+                    </div>$experience
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Опыт работы</div>
                         <div class="profile-info">
-                        <?php foreach ($experience as $typeExperience): ?>
+                           <?php foreach ($experience as $typeExperience): ?>
                             <div class="form-check d-flex">
-                                <input type="checkbox" name="experience[]" class="form-check-input" id="<?= '?>experienceCheck'.$typeExperience['id'] ?>"
+                                <input type="checkbox" name="experience[]" class="form-check-input" id="<?= 'experienceCheck'.$typeExperience['id'] ?>"
                                 	onclick="SerchExperience()" value="<?= $typeExperience['id'] ?>" <?= ($typeExperience['checked']==true)? 'checked="true"':'' ?> >
                                 <label class="form-check-label" for="<?= 'experienceCheck'.$typeExperience['id'] ?>" ></label>
                                 <label for="<?= 'experienceCheck'.$typeExperience['id'] ?>" class="profile-info__check-text"> <?= $typeExperience['name'] ?></label>

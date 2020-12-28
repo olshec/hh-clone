@@ -103,6 +103,7 @@ class TypeEmployment {
 		let elements = document.getElementsByName("type_employment[]");
 		this.elements = elements;
 	}
+	
 	getSerchParams() {
 		let params ="";
 		for(let i=0; i<this.elements.length; i++) {
@@ -234,7 +235,7 @@ function serchCity() {
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
 		serchUrl += experience.getSerchParams();
-		serchUrl += salary.getSerchParams();
+		serchUrl += userSalary.getSerchParams();
 		window.location.href = serchUrl;
 	}
 	
@@ -250,7 +251,7 @@ function serchGender(genderName) {
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
 		serchUrl += experience.getSerchParams();
-		serchUrl += salary.getSerchParams();
+		serchUrl += userSalary.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -268,7 +269,7 @@ function serchSpecialization() {
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
 		serchUrl += experience.getSerchParams();
-		serchUrl += salary.getSerchParams();
+		serchUrl += userSalary.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -283,7 +284,7 @@ function serchTypeSort(sortName) {
 		serchUrl += typeEmployment.getSerchParams();
 		serchUrl += typeSchedule.getSerchParams();
 		serchUrl += experience.getSerchParams();
-		serchUrl += salary.getSerchParams();
+		serchUrl += userSalary.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -297,7 +298,7 @@ function SerchTypeEmployment() {
 	serchUrl += typeEmployment.getSerchParams();
 	serchUrl += typeSchedule.getSerchParams();
 	serchUrl += experience.getSerchParams();
-	serchUrl += salary.getSerchParams();
+	serchUrl += userSalary.getSerchParams();
 	window.location.href = serchUrl;
 	//alert(str);
 }
@@ -311,7 +312,7 @@ function SerchSchedule() {
 	serchUrl += typeEmployment.getSerchParams();
 	serchUrl += typeSchedule.getSerchParams();
 	serchUrl += experience.getSerchParams();
-	serchUrl += salary.getSerchParams();
+	serchUrl += userSalary.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -324,7 +325,7 @@ function SerchExperience() {
 	serchUrl += typeEmployment.getSerchParams();
 	serchUrl += typeSchedule.getSerchParams();
 	serchUrl += experience.getSerchParams();
-	serchUrl += salary.getSerchParams();
+	serchUrl += userSalary.getSerchParams();
 	window.location.href = serchUrl;
 }
 

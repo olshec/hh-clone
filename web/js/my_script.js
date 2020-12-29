@@ -160,7 +160,11 @@ class Salary {
 	}
 	
 	setSalary(salary) {
-		this.salary = salary;
+		if(!Number.isInteger(salary)){
+			this.salary = 0;
+		} else {
+			this.salary = salary;
+		}
 	}
 	
 	getSalary() {
@@ -169,7 +173,7 @@ class Salary {
 	
 	getNewSerchParams(salary) {
 		ServiceLocator.salary = new Salary(salary);
-		let params = "&salary="+salary;
+		let params = "&salary="+ServiceLocator.salary.getSalary();
 		return params;
 	}
 	

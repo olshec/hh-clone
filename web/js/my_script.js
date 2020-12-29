@@ -1,5 +1,4 @@
 
-//
 class ServiceLocator {
 	static serchURL =  "http://localhost/hh-clone/web/resume/?";
 	static city = '';
@@ -183,35 +182,35 @@ class Salary {
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
 	if(params.has('city')){
-		idCity = params.get('city');
+		let idCity = params.get('city');
         ServiceLocator.city = new City(idCity);
 	} else {
         ServiceLocator.city = new City('0');
 	}
 	
 	if(params.has('gender')) {
-		genderString = params.get('gender');
+		let genderString = params.get('gender');
     	ServiceLocator.gender = new Gender(genderString);
 	} else {
         ServiceLocator.gender = new Gender('all');
 	}
 	
 	if(params.has('specialization')) {
-		specializationString = params.get('specialization');
+		let specializationString = params.get('specialization');
 		ServiceLocator.specialization = new Specialization(specializationString);
 	} else {
         ServiceLocator.specialization = new Specialization('0');
 	}
 	
 	if(params.has('type_sort')) {
-		typeSortString = params.get('type_sort');
+		let typeSortString = params.get('type_sort');
 		ServiceLocator.typeSort = new TypeSort(typeSortString);
 	} else {
         ServiceLocator.typeSort = new TypeSort('new');
 	}
 	
 	if(params.has('salary')) {
-		salaryString = params.get('salary');
+		let salaryString = params.get('salary');
 		ServiceLocator.salary = new Salary(salaryString);
 	} else {
         ServiceLocator.salary = new Salary('0');
@@ -226,9 +225,8 @@ function afterPageLoad() {
 
 
 function serchCity() {
-	//city.getNewSerchParams(idCitySerch);
 	let elements = document.getElementsByClassName("nselect-1");
-	idCitySerch = elements[0].value;
+	let idCitySerch = elements[0].value;
 	if (ServiceLocator.city.getIdCity() != idCitySerch){
 		let serchUrl = ServiceLocator.serchURL;
 	    serchUrl += ServiceLocator.city.getNewSerchParams(idCitySerch);
@@ -262,7 +260,7 @@ function serchGender(genderName) {
 
 function serchSpecialization() {
 	let elements = document.getElementsByClassName("nselect-1");
-	idSpecializationSerch = elements[1].value;
+	let idSpecializationSerch = elements[1].value;
 	if(idSpecializationSerch != ServiceLocator.specialization.getId()){
 		let serchUrl = ServiceLocator.serchURL;
 		serchUrl += ServiceLocator.city.getSerchParams();
@@ -303,7 +301,6 @@ function SerchTypeEmployment() {
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	window.location.href = serchUrl;
-	//alert(str);
 }
 
 function SerchSchedule() {

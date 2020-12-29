@@ -184,13 +184,18 @@ class Salary {
 	}
 }
 
-/*class AgeFrom {
+class AgeFrom {
 	constructor(age) {
-		this.age(age);
+		this.setAge(age);
 	}
 	
 	setAge(age) {
-		this.age = age;
+		age = parseInt(age);
+		if(!Number.isInteger(age)){
+			this.age = 0;
+		} else {
+			this.age = age;
+		}
 	}
 	
 	getAge() {
@@ -199,7 +204,7 @@ class Salary {
 	
 	getNewSerchParams(age) {
 		ServiceLocator.ageFrom = new AgeFrom(age);
-		let params = "&ageFrom="+age;
+		let params = "&ageFrom=" + ServiceLocator.ageFrom.getAge();
 		return params;
 	}
 	
@@ -207,7 +212,7 @@ class Salary {
 		let params = "&ageFrom="+this.getAge();
 		return params;
 	}
-}*/
+}
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
@@ -246,12 +251,12 @@ function afterPageLoad() {
         ServiceLocator.salary = new Salary('0');
 	}
 	
-/*	if(params.has('ageFrom')) {
+	if(params.has('ageFrom')) {
 		let ageFromString = params.get('ageFrom');
-		ServiceLocator.ageFrom = new Salary(ageFromString);
+		ServiceLocator.ageFrom = new AgeFrom(ageFromString);
 	} else {
-        ServiceLocator.ageFrom = new Salary('0');
-	}*/
+        ServiceLocator.ageFrom = new AgeFrom('0');
+	}
 	
 	ServiceLocator.typeEmployment = new TypeEmployment();
 	ServiceLocator.typeSchedule = new TypeSchedule();
@@ -274,6 +279,7 @@ function serchCity() {
 		serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 		serchUrl += ServiceLocator.experience.getSerchParams();
 		serchUrl += ServiceLocator.salary.getSerchParams();
+		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		window.location.href = serchUrl;
 	}
 	
@@ -290,6 +296,7 @@ function serchGender(genderName) {
 		serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 		serchUrl += ServiceLocator.experience.getSerchParams();
 		serchUrl += ServiceLocator.salary.getSerchParams();
+		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -308,6 +315,7 @@ function serchSpecialization() {
 		serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 		serchUrl += ServiceLocator.experience.getSerchParams();
 		serchUrl += ServiceLocator.salary.getSerchParams();
+		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -323,6 +331,7 @@ function serchTypeSort(sortName) {
 		serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 		serchUrl += ServiceLocator.experience.getSerchParams();
 		serchUrl += ServiceLocator.salary.getSerchParams();
+		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -337,6 +346,7 @@ function SerchTypeEmployment() {
 	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getSerchParams();
+	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -350,6 +360,7 @@ function SerchSchedule() {
 	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getSerchParams();
+	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -363,6 +374,7 @@ function SerchExperience() {
 	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getSerchParams();
+	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -376,11 +388,12 @@ function SerchSalary(salary) {
 	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getNewSerchParams(salary);
+	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	window.location.href = serchUrl;
 }
 
 
-/*function SerchAgeFrom(age) {
+function SerchAgeFrom(age) {
 	let serchUrl = ServiceLocator.serchURL;
 	serchUrl += ServiceLocator.city.getSerchParams();
 	serchUrl += ServiceLocator.gender.getSerchParams();
@@ -390,10 +403,9 @@ function SerchSalary(salary) {
 	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
 	serchUrl += ServiceLocator.experience.getSerchParams();
 	serchUrl += ServiceLocator.salary.getSerchParams();
-	
 	serchUrl += ServiceLocator.ageFrom.getNewSerchParams(age);
 	window.location.href = serchUrl;
-}*/
+}
 
 
 /*function SerchAgeUp(age) {

@@ -218,6 +218,19 @@ class ResumeController extends Controller
         return $salary;
     }
     
+    private function getAgeFrom() {
+        $ageFrom = '';
+        if (array_key_exists('ageFrom', Yii::$app->request->queryParams)) {
+            $ageFrom = Yii::$app->request->queryParams['ageFrom'];
+        }
+        if (!is_numeric($ageFrom)){
+            return 0;
+        } else if ($ageFrom < 0) {
+            return 0;
+        }
+        return $ageFrom;
+    }
+    
     /**
      * Returns active data provider whith values.
      *  
@@ -294,6 +307,7 @@ class ResumeController extends Controller
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
         $salary                      = $this->getSalary();
+        $ageFrom                     = $this->getAgeFrom();
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
@@ -307,14 +321,19 @@ class ResumeController extends Controller
             $experienceDays = $this->getDaysExperience($resume['id']);
             if($this->checkExperience($experienceDays)){
                 $user = $this->getUser($dataProvider->models[$i]['user_id']);
-                $resumeModels[$i]['city']               = $this->getCity($user['id']);
-                $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
-                $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
-                $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
-                $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
-                $resumeModels[$i]['photo']              = $resume->photo;
-                $resumeModels[$i]['name']               = $resume->name;
-                $resumeModels[$i]['salary']             = $resume->salary;
+                $userAge = $this->getAge($user['date_birth']);
+                if($userAge >= $ageFrom){
+//                     print_r('$userAge = '  .$userAge.'<br>');
+//                     print_r('$ageFrom = '.$ageFrom.'<br>');
+                    $resumeModels[$i]['city']               = $this->getCity($user['id']);
+                    $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
+                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
+                    $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
+                    $resumeModels[$i]['photo']              = $resume->photo;
+                    $resumeModels[$i]['name']               = $resume->name;
+                    $resumeModels[$i]['salary']             = $resume->salary;
+                }
             }
         }
         
@@ -340,6 +359,7 @@ class ResumeController extends Controller
             'schedules'                       => $schedules,
             'experience'                      => $experience,
             'salary'                          => $salary,
+            'ageFrom'                         => $ageFrom,
         ]);
     }
 
@@ -468,6 +488,13 @@ class ResumeController extends Controller
         return $nameCity;
     }
     
+    private function getAge(string $dateBirthString):int {
+        $dateNow = new DateTime(date('Y-m-d'));
+        $dateBirth = new DateTime($dateBirthString);
+        $age = $dateNow->diff($dateBirth);
+        return $age->y;
+    }
+    
     /**
      * Returns formatted age
      * 
@@ -475,19 +502,17 @@ class ResumeController extends Controller
      * @return string
      */
     private function getFormatAge(string $dateBirthString): string {
-        $dateNow = new DateTime(date('Y-m-d'));
-        $dateBirth = new DateTime($dateBirthString);
-        $year = $dateNow->diff($dateBirth);
-        $stringYear = strval($year->y);
+        $age = $this->getAge($dateBirthString);
+        $stringYear = strval($age);
         $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
         if ($lastFigureYear == "1") {
-            $age = $year->y . " год";
+            $formatAge = $age . " год";
         } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
-            $age = $year->y . " года";
+            $formatAge = $age . " года";
         } else {
-            $age = $year->y . " лет";
+            $formatAge = $age . " лет";
         }
-       return $age;
+       return $formatAge;
     }
     
     /**

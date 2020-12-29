@@ -160,6 +160,7 @@ class Salary {
 	}
 	
 	setSalary(salary) {
+		salary = parseInt(salary);
 		if(!Number.isInteger(salary)){
 			this.salary = 0;
 		} else {
@@ -173,7 +174,7 @@ class Salary {
 	
 	getNewSerchParams(salary) {
 		ServiceLocator.salary = new Salary(salary);
-		let params = "&salary="+ServiceLocator.salary.getSalary();
+		let params = "&salary=" + ServiceLocator.salary.getSalary();
 		return params;
 	}
 	
@@ -183,7 +184,7 @@ class Salary {
 	}
 }
 
-class AgeFrom {
+/*class AgeFrom {
 	constructor(age) {
 		this.age(age);
 	}
@@ -206,7 +207,7 @@ class AgeFrom {
 		let params = "&ageFrom="+this.getAge();
 		return params;
 	}
-}
+}*/
 
 function afterPageLoad() {
 	let params = (new URL(document.location)).searchParams; 
@@ -245,12 +246,12 @@ function afterPageLoad() {
         ServiceLocator.salary = new Salary('0');
 	}
 	
-	if(params.has('ageFrom')) {
+/*	if(params.has('ageFrom')) {
 		let ageFromString = params.get('ageFrom');
 		ServiceLocator.ageFrom = new Salary(ageFromString);
 	} else {
         ServiceLocator.ageFrom = new Salary('0');
-	}
+	}*/
 	
 	ServiceLocator.typeEmployment = new TypeEmployment();
 	ServiceLocator.typeSchedule = new TypeSchedule();
@@ -379,7 +380,7 @@ function SerchSalary(salary) {
 }
 
 
-function SerchAgeFrom(age) {
+/*function SerchAgeFrom(age) {
 	let serchUrl = ServiceLocator.serchURL;
 	serchUrl += ServiceLocator.city.getSerchParams();
 	serchUrl += ServiceLocator.gender.getSerchParams();
@@ -392,7 +393,7 @@ function SerchAgeFrom(age) {
 	
 	serchUrl += ServiceLocator.ageFrom.getNewSerchParams(age);
 	window.location.href = serchUrl;
-}
+}*/
 
 
 /*function SerchAgeUp(age) {

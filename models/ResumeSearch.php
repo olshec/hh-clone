@@ -88,6 +88,16 @@ class ResumeSearch extends Resume
         return $query;
     }
     
+    private function getSalary(ActiveQuery $query, array $params): ActiveQuery{
+        if(array_key_exists('salary', $params)) {
+            $salary = $params['salary'];
+            if($salary != 0) {
+                $query->where['"resume"."salary"'] = $salary;
+            }
+        }
+        return $query;
+    }
+    
     private function getGender(ActiveQuery $query, array $params): ActiveQuery{
         $gender = $params['gender'];
         if($gender != 'all') {
@@ -117,7 +127,8 @@ class ResumeSearch extends Resume
         $query = $this->getListTypeEmployments($query, $params);
         $query = $this->getListSchedules($query, $params);
         $query = $this->getGender($query, $params);
-
+        $query = $this->getSalary($query, $params);
+        
         $query->orderBy([$params['orderTable'] => $orderType]);
 
         // $query->where(['id' => [1, 2, 3], 'status' => 2] );

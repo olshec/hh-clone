@@ -204,19 +204,34 @@ class ResumeController extends Controller
         }
         return $experience;
     }
+
+    private function getSalary() {
+        $salary = '';
+        if (array_key_exists('salary', Yii::$app->request->queryParams)) {
+            $salary = Yii::$app->request->queryParams['salary'];
+        }
+        if (!is_numeric($salary)){
+            return 0;
+        } else if ($salary < 0) {
+            return 0;
+        }
+        return $salary;
+    }
     
     /**
      * Returns active data provider whith values.
-     * 
+     *  
      * @param array $sortData
      * @param array $cityData
      * @param string $gender
      * @param int $idSpecialization
      * @param array $listTypeEmployments
+     * @param array $listCheckBoxSchedules
+     * @param int $salary
      * @return ActiveDataProvider
      */
     private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
-        array $listTypeEmployments, array $listCheckBoxSchedules):ActiveDataProvider {
+        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable']              = $sortData['orderTable'];
         $queryParams['orderType']               = $sortData['orderType'];
@@ -225,8 +240,7 @@ class ResumeController extends Controller
         $queryParams['idSpecialization']        = $idSpecialization;
         $queryParams['listTypeEmployments']     = $listTypeEmployments;
         $queryParams['listCheckBoxSchedules']   = $listCheckBoxSchedules;
-//         print_r($listTypeEmployments);
-//         exit();
+        $queryParams['salary']                  = $salary;
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         
@@ -279,10 +293,10 @@ class ResumeController extends Controller
         
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
-       
+        $salary                      = $this->getSalary();
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
-            $listCheckBoxTypeEmployments, $listCheckBoxSchedules);
+            $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
         
         
         //experience
@@ -302,7 +316,6 @@ class ResumeController extends Controller
                 $resumeModels[$i]['name']               = $resume->name;
                 $resumeModels[$i]['salary']             = $resume->salary;
             }
-            
         }
         
         
@@ -325,7 +338,8 @@ class ResumeController extends Controller
             'specializationIdSelect'          => $specializationsData['selectId'],
             'typeEmployments'                 => $typeEmployments,
             'schedules'                       => $schedules,
-            'experience'                      => $experience
+            'experience'                      => $experience,
+            'salary'                          => $salary,
         ]);
     }
 
@@ -676,5 +690,5 @@ class ResumeController extends Controller
         $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
         return $formatStringDataUpdate;
     }
-    
+
 }

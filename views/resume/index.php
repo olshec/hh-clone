@@ -105,8 +105,8 @@ $this->title = 'Список резюме';
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue">Зарплата</div>
                         <div class="p-rel">
-                            <input placeholder="Любая" type="text" class="dor-input w100" 
-                            	 onchange="SerchSalary(this.value)" >
+                            <input value="<?= $salary!=0? $salary:"" ?>" placeholder="<?= $salary==0? "Любая":"" ?>" type="text" class="dor-input w100" 
+                            	 onchange="SerchSalary(this.value)"  >
                             <img class="rub-icon" src="<?= $addressServer ?>images/rub-icon.svg" alt="rub-icon">
                         </div>
                     </div>

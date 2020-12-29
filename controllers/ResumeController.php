@@ -231,6 +231,19 @@ class ResumeController extends Controller
         return $ageFrom;
     }
     
+    private function getAgeUp() {
+        $ageUp = '';
+        if (array_key_exists('ageUp', Yii::$app->request->queryParams)) {
+            $ageUp = Yii::$app->request->queryParams['ageUp'];
+        }
+        if (!is_numeric($ageUp)){
+            return 0;
+        } else if ($ageUp < 0) {
+            return 0;
+        } 
+        return $ageUp;
+    }
+    
     /**
      * Returns active data provider whith values.
      *  
@@ -307,12 +320,13 @@ class ResumeController extends Controller
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
         $salary                      = $this->getSalary();
-        $ageFrom                     = $this->getAgeFrom();
+       
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
         
-        
+        $ageFrom = $this->getAgeFrom();
+        $ageUp   = $this->getAgeUp();
         //experience
         //filling in resume data
         $resumeModels = array();
@@ -322,9 +336,7 @@ class ResumeController extends Controller
             if($this->checkExperience($experienceDays)){
                 $user = $this->getUser($dataProvider->models[$i]['user_id']);
                 $userAge = $this->getAge($user['date_birth']);
-                if($userAge >= $ageFrom){
-//                     print_r('$userAge = '  .$userAge.'<br>');
-//                     print_r('$ageFrom = '.$ageFrom.'<br>');
+                if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
                     $resumeModels[$i]['city']               = $this->getCity($user['id']);
                     $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
                     $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
@@ -360,6 +372,7 @@ class ResumeController extends Controller
             'experience'                      => $experience,
             'salary'                          => $salary,
             'ageFrom'                         => $ageFrom,
+            'ageUp'                           => $ageUp,
         ]);
     }
 

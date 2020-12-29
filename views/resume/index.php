@@ -125,7 +125,7 @@ $this->title = 'Список резюме';
                         <div class="paragraph cadet-blue">Возраст</div>
                         <div class="d-flex">
                             <input value="<?= $ageFrom !=0? $ageFrom:"" ?>" placeholder="От" type="text" class="dor-input w100" onchange="SerchAgeFrom(this.value)" >
-                            <input placeholder="До" type="text" class="dor-input w100" onchange="SerchAgeUp(this.value)">
+                            <input value="<?= $ageUp   !=0? $ageUp:  "" ?>" placeholder="До" type="text" class="dor-input w100" onchange="SerchAgeUp(this.value)">
                         </div>
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">

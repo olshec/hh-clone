@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this yii\web\View */
 
 // $this->params['listResumeState'] = $listResumeState;
@@ -40,7 +39,7 @@ $this->title = 'Список резюме';
                         </div>
                     </div>
                     
-                    <?php foreach ($resumeModels as $resume): ?>
+                    <?php foreach ($resumeModels as $resume):?>
                     <div class="vakancy-page-block company-list-search__block resume-list__block p-rel mb16">
                         <div class="company-list-search__block-left">
                             <div class="resume-list__block-img mb8">

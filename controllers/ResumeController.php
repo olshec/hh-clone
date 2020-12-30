@@ -13,6 +13,7 @@ use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use phpDocumentor\Reflection\Types\Array_;
 use yii\data\Pagination;
+use app\models\DataProvider;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -305,7 +306,7 @@ class ResumeController extends Controller
         return false;
     }
     
-    private function paginize(array $models, int $length): \app\Util\DataProvider{
+    private function paginize(array $models, int $limit): DataProvider{
         
         $numberPage = 0;
         if (array_key_exists('page', Yii::$app->request->queryParams)) {
@@ -313,10 +314,10 @@ class ResumeController extends Controller
         }
         if (!is_numeric($numberPage)){
             $numberPage = 0;
-        } else if ($numberPage <= 0) {
-            $numberPage = 0;
+        } else if ($numberPage <= 1) {
+            $numberPage = 1;
         } 
-        $provider = new \app\Util\DataProvider($models, $length, $numberPage);
+        $provider = new DataProvider($models, $limit, $numberPage-1);
         return $provider;
     }
 
@@ -372,10 +373,17 @@ class ResumeController extends Controller
         
 //         var_dump($experience);
 //         exit();
+        $dataProvider = $this->paginize($resumeModels, 2);
+//         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
+//         echo 'start = '.$indexStart.'<br>';
 
+        $models = $dataProvider->getModels(); 
+       // echo '$model = '.$models[0]['city'].'<br>';
+        //var_dump($models);
+//         exit();
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels'                    => $resumeModels,
+            'resumeModels'                    => $models,
             'typeSort'                        => $sortData['typeSort'],
             'gender'                          => $gender,
             'dataCities'                      => $cityData['dataCities'],

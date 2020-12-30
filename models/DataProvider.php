@@ -1,9 +1,9 @@
 <?php
-namespace app\Util;
+namespace app\models;
 
 class DataProvider
 {
-    private $models;
+    public $models;
     private $limit;
     private $offset;
     private $page;
@@ -20,8 +20,22 @@ class DataProvider
      */
     public function getModels():array
     {
-        $indexStart = $this->page-1;
-        $this->models = array_slice($this->models, $indexStart, $this->limit);
+        $countModelsOnPage = $this->limit;
+        $countPages = $this->getCountPages();
+        if($this->offset >= $countPages) {
+            $size = count($this->models);
+            $length = intdiv($size, $this->limit);
+            $countModelsOnPage = $size - $length*$this->limit;
+//             echo '$length = '.$length.'<br>';
+//             echo '$$countModelsOnPage = '.$countModelsOnPage.'<br>';
+        }
+        
+        $indexStart = ($this->offset * $this->limit);
+        $this->models = array_slice($this->models, $indexStart, $countModelsOnPage);
+//         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
+//         echo 'start = '.$indexStart.'<br>';
+//         var_dump($this->models);
+//         exit();
         return $this->models;
     }
 
@@ -95,7 +109,7 @@ class DataProvider
     {
         $size = count($this->models);
         $length = intdiv($size, $this->limit);
-        if(($size % $length) != 0) {
+        if($size - $length*$this->limit != 0) {
             $length++;
         }
         $countPages = $length;

@@ -356,6 +356,20 @@ class ResumeController extends Controller
         
 //         var_dump($experience);
 //         exit();
+
+//         $pages = new \yii\data\Pagination(['totalCount' => count($resumeModels)]);
+//         $models = $query->offset($pages->offset)
+//         ->limit($pages->limit)
+//         ->all();
+
+        $pagination = new \yii\data\Pagination(['totalCount' => count($resumeModels), 'pageSize' => 2]);
+        
+        $provider = new yii\data\ActiveDataProvider([
+            'allModels' => $resumeModels,
+            'pagination' => $pagination
+        ]);
+        
+        
         
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
@@ -373,6 +387,7 @@ class ResumeController extends Controller
             'salary'                          => $salary,
             'ageFrom'                         => $ageFrom,
             'ageUp'                           => $ageUp,
+            'provider'                        => $provider
         ]);
     }
 

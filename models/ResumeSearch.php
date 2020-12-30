@@ -153,15 +153,15 @@ class ResumeSearch extends Resume
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'salary' => $this->salary,
-            'user_id' => $this->user_id,
-        ]);
+//         // grid filtering conditions
+//         $query->andFilterWhere([
+//             'id' => $this->id,
+//             'salary' => $this->salary,
+//             'user_id' => $this->user_id,
+//         ]);
 
-        $query->andFilterWhere(['ilike', 'photo', $this->photo])
-            ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
+//         $query->andFilterWhere(['ilike', 'photo', $this->photo])
+//             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
 
         return $dataProvider;
     }

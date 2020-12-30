@@ -340,7 +340,7 @@ class ResumeController extends Controller
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
-        
+
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
         //experience

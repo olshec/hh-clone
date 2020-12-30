@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use phpDocumentor\Reflection\Types\Array_;
+use yii\data\Pagination;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -303,6 +304,21 @@ class ResumeController extends Controller
         }
         return false;
     }
+    
+    private function paginize(array $models, int $length): \app\Util\DataProvider{
+        
+        $numberPage = 0;
+        if (array_key_exists('page', Yii::$app->request->queryParams)) {
+            $numberPage = Yii::$app->request->queryParams['page'];
+        }
+        if (!is_numeric($numberPage)){
+            $numberPage = 0;
+        } else if ($numberPage <= 0) {
+            $numberPage = 0;
+        } 
+        $provider = new \app\Util\DataProvider($models, $length, $numberPage);
+        return $provider;
+    }
 
     /**
      * Lists all Resume models.
@@ -357,20 +373,6 @@ class ResumeController extends Controller
 //         var_dump($experience);
 //         exit();
 
-//         $pages = new \yii\data\Pagination(['totalCount' => count($resumeModels)]);
-//         $models = $query->offset($pages->offset)
-//         ->limit($pages->limit)
-//         ->all();
-
-        $pagination = new \yii\data\Pagination(['totalCount' => count($resumeModels), 'pageSize' => 2]);
-        
-        $provider = new yii\data\ActiveDataProvider([
-            'allModels' => $resumeModels,
-            'pagination' => $pagination
-        ]);
-        
-        
-        
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
             'resumeModels'                    => $resumeModels,
@@ -387,7 +389,6 @@ class ResumeController extends Controller
             'salary'                          => $salary,
             'ageFrom'                         => $ageFrom,
             'ageUp'                           => $ageUp,
-            'provider'                        => $provider
         ]);
     }
 

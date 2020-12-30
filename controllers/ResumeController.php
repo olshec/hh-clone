@@ -11,8 +11,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use phpDocumentor\Reflection\Types\Array_;
-use yii\data\Pagination;
 use app\models\DataProvider;
 
 /**
@@ -306,7 +304,7 @@ class ResumeController extends Controller
         return false;
     }
     
-    private function paginize(array $models, int $limit): DataProvider{
+    private function paginize(array $models, int $limit): \app\Util\DataProvider{
         
         $numberPage = 0;
         if (array_key_exists('page', Yii::$app->request->queryParams)) {
@@ -317,7 +315,7 @@ class ResumeController extends Controller
         } else if ($numberPage <= 1) {
             $numberPage = 1;
         } 
-        $provider = new DataProvider($models, $limit, $numberPage-1);
+        $provider = new \app\Util\DataProvider($models, $limit, $numberPage-1);
         return $provider;
     }
 

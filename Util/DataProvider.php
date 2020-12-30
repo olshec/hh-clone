@@ -1,5 +1,5 @@
 <?php
-namespace app\models;
+namespace app\Util;
 
 class DataProvider
 {

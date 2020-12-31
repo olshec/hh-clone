@@ -320,9 +320,10 @@ class ResumeController extends Controller
     
     private function getPaginationLinks(\app\Util\DataProvider $dataProvider){
         $stringPagination = '';
-        $currentPage = $dataProvider->getOffset();
+        $currentPage = $dataProvider->getOffset()+1;
         $pageBack = ($currentPage<=1)? 1: ($currentPage - 1);
         
+      
         
         $stringPagination = '
                              <ul class="dor-pagination mb128">
@@ -331,9 +332,19 @@ class ResumeController extends Controller
                                  src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>
                                  ';
         $countPages = $dataProvider->getCountPages();
-        if($countPages <=4) {
+        
+//         var_dump($currentPage);
+//         exit();
+        if($countPages <= 4) {
             for($i = 0; $i<4; $i++) {
-               // $stringPagination += 
+                if($currentPage == $i+1){
+                    $stringPagination .= '
+                                    <li class="active"> <a href="/hh-clone/web/resume#">'.($i+1).'</a></li>';
+                } else {
+                    $stringPagination .= '
+                                   <li><a href="/hh-clone/web/resume#">'.($i+1).'</a></li>';
+                }
+                                 
             }
         }
         '<li><a href="#">1</a></li>

@@ -6,7 +6,6 @@ class DataProvider
     public $models;
     private $limit;
     private $offset;
-    private $page;
     
     public function __construct(array $models, int $limit, int $offset) {
         $this->setModels($models);
@@ -82,23 +81,6 @@ class DataProvider
     public function setOffset(int $offset)
     {
         $this->offset = $offset;
-    }
-    /**
-     * 
-     * @return int
-     */
-    public function getPage():int
-    {
-        return $this->page;
-    }
-
-    /**
-     * 
-     * @param int $page
-     */
-    public function setPage(int $page)
-    {
-        $this->page = $page;
     }
     
     /**

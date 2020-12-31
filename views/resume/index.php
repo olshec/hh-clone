@@ -63,21 +63,21 @@ $this->title = 'Список резюме';
                         </div>
                     </div>
                    <?php endforeach; ?>
-                   
-                    <ul class="dor-pagination mb128">
-                        <li class="page-link-prev"><a href="#"><img class="mr8"
-                                                                    src="<?= $addressServer ?>images/mini-left-arrow.svg" alt="arrow"> Назад</a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a class="grey" href="#">...</a></li>
-                        <li class="active"><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a class="grey" href="#">...</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="page-link-next"><a href="#">Далее <img class="ml8"
-                                                                          src="<?= $addressServer ?>images/mini-right-arrow.svg" alt="arrow"></a>
-                        </li>
-                    </ul>
+                   	<?= $stringPagination?>
+<!--                     <ul class="dor-pagination mb128"> -->
+<!--                         <li class="page-link-prev"><a href="#"><img class="mr8" -->
+<!--                                                                     src="< ?= $addressServer ?>images/mini-left-arrow.svg" alt="arrow"> Назад</a> -->
+<!--                         </li> -->
+<!--                         <li><a href="#">1</a></li> -->
+<!--                         <li><a class="grey" href="#">...</a></li> -->
+<!--                         <li class="active"><a href="#">4</a></li> -->
+<!--                         <li><a href="#">5</a></li> -->
+<!--                         <li><a class="grey" href="#">...</a></li> -->
+<!--                         <li><a href="#">10</a></li> -->
+<!--                         <li class="page-link-next"><a href="#">Далее <img class="ml8" -->
+<!--                                                                           src="< ?= $addressServer ?>images/mini-right-arrow.svg" alt="arrow"></a> -->
+<!--                         </li> -->
+<!--                     </ul> -->
                 </div>
                 <div class="col-lg-3 desctop-992-pl-16 d-flex flex-column vakancy-page-filter-block vakancy-page-filter-block-dnone">
                     <div

@@ -320,14 +320,16 @@ class ResumeController extends Controller
     
     private function getPaginationLinks(\app\Util\DataProvider $dataProvider){
         $stringPagination = '';
-        $currentPage = $dataProvider->getPage();
+        $currentPage = $dataProvider->getOffset();
         $pageBack = ($currentPage<=1)? 1: ($currentPage - 1);
         
         
-        $stringPagination = '<ul class="dor-pagination mb128">
-                                <li class="page-link-prev"><a href="/hh-clone/web/resume#"'.
+        $stringPagination = '
+                             <ul class="dor-pagination mb128">
+                                <li class="page-link-prev"> <a href="/hh-clone/web/resume#" '.
                                 'onclick="SerchPage(this); return false;"'.' value="'.$pageBack.'"><img class="mr8"
-                                 src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>';
+                                 src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>
+                                 ';
         $countPages = $dataProvider->getCountPages();
         if($countPages <=4) {
             for($i = 0; $i<4; $i++) {
@@ -343,9 +345,10 @@ class ResumeController extends Controller
         
         $countPages = $dataProvider->getCountPages();
         $pageForward = ($currentPage>=$countPages)? $currentPage: ($currentPage + 1);
-        $stringPagination .= '<li class="page-link-next"><a href="/hh-clone/web/resume#"'.
-                                'onclick="SerchPage(this); return false;"'.' value="'.$pageForward.'"><img class="ml8"
-                                src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li></ul>';
+        $stringPagination .= '<li class="page-link-next"> <a href="/hh-clone/web/resume#" '.
+                                'onclick="SerchPage(this); return false;"'.' value="'.$pageForward.'">Далее <img class="ml8" 
+                                 src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li>
+                             </ul>';
         
         return $stringPagination;
         
@@ -404,6 +407,7 @@ class ResumeController extends Controller
 //         var_dump($experience);
 //         exit();
         $dataProvider = $this->setPaginizeDataProvider($resumeModels, 2);
+        $stringPagination = $this->getPaginationLinks($dataProvider);
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
 
@@ -427,6 +431,7 @@ class ResumeController extends Controller
             'salary'                          => $salary,
             'ageFrom'                         => $ageFrom,
             'ageUp'                           => $ageUp,
+            'stringPagination'                => $stringPagination
         ]);
     }
 

@@ -11,7 +11,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use app\models\DataProvider;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -304,7 +303,7 @@ class ResumeController extends Controller
         return false;
     }
     
-    private function paginize(array $models, int $limit): \app\Util\DataProvider{
+    private function setPaginizeDataProvider(array $models, int $limit): \app\Util\DataProvider{
         
         $numberPage = 0;
         if (array_key_exists('page', Yii::$app->request->queryParams)) {
@@ -317,6 +316,39 @@ class ResumeController extends Controller
         } 
         $provider = new \app\Util\DataProvider($models, $limit, $numberPage-1);
         return $provider;
+    }
+    
+    private function getPaginationLinks(\app\Util\DataProvider $dataProvider){
+        $stringPagination = '';
+        $currentPage = $dataProvider->getPage();
+        $pageBack = ($currentPage<=1)? 1: ($currentPage - 1);
+        
+        
+        $stringPagination = '<ul class="dor-pagination mb128">
+                                <li class="page-link-prev"><a href="/hh-clone/web/resume#"'.
+                                'onclick="SerchPage(this); return false;"'.' value="'.$pageBack.'"><img class="mr8"
+                                 src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>';
+        $countPages = $dataProvider->getCountPages();
+        if($countPages <=4) {
+            for($i = 0; $i<4; $i++) {
+               // $stringPagination += 
+            }
+        }
+        '<li><a href="#">1</a></li>
+         <li><a class="grey" href="#">...</a></li>
+         <li class="active"><a href="#">4</a></li>
+         <li><a href="#">5</a></li>
+         <li><a class="grey" href="#">...</a></li>
+         <li><a href="#">10</a></li>';
+        
+        $countPages = $dataProvider->getCountPages();
+        $pageForward = ($currentPage>=$countPages)? $currentPage: ($currentPage + 1);
+        $stringPagination .= '<li class="page-link-next"><a href="/hh-clone/web/resume#"'.
+                                'onclick="SerchPage(this); return false;"'.' value="'.$pageForward.'"><img class="ml8"
+                                src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li></ul>';
+        
+        return $stringPagination;
+        
     }
 
     /**
@@ -371,17 +403,17 @@ class ResumeController extends Controller
         
 //         var_dump($experience);
 //         exit();
-        $dataProvider = $this->paginize($resumeModels, 2);
+        $dataProvider = $this->setPaginizeDataProvider($resumeModels, 2);
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
 
-        $models = $dataProvider->getModels(); 
+        $resumeModels = $dataProvider->getModels(); 
        // echo '$model = '.$models[0]['city'].'<br>';
         //var_dump($models);
 //         exit();
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels'                    => $models,
+            'resumeModels'                    => $resumeModels,
             'typeSort'                        => $sortData['typeSort'],
             'gender'                          => $gender,
             'dataCities'                      => $cityData['dataCities'],

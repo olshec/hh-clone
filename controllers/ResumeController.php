@@ -356,8 +356,8 @@ class ResumeController extends Controller
         
         $countPages = $dataProvider->getCountPages();
         $pageForward = ($currentPage>=$countPages)? $currentPage: ($currentPage + 1);
-        $stringPagination .= '<li class="page-link-next"> <a href="/hh-clone/web/resume#" '.
-                                'onclick="SerchPage(this); return false;"'.' value="'.$pageForward.'">Далее <img class="ml8" 
+        $stringPagination .= '<li class="page-link-next"> <a href="/hh-clone/web/resume#" value="'.$pageForward.'" '.
+                                'onclick="SerchPage(this.value); return false;"'.' >Далее <img class="ml8" 
                                  src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li>
                              </ul>';
         

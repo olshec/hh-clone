@@ -250,7 +250,12 @@ class Page {
          this.setNumber(number);
     }
     setNumber(number) {
-        this.number = number;
+		number = parseInt(number);
+		if(!Number.isInteger(number)){
+			this.number = 1;
+		} else {
+			this.number = number;
+		}
     }
     getNumber() {
         return this.number;

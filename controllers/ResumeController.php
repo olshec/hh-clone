@@ -310,7 +310,7 @@ class ResumeController extends Controller
             $numberPage = Yii::$app->request->queryParams['page'];
         }
         if (!is_numeric($numberPage)){
-            $numberPage = 0;
+            $numberPage = 1;
         } else if ($numberPage <= 1) {
             $numberPage = 1;
         } 
@@ -372,12 +372,12 @@ class ResumeController extends Controller
         
 //         var_dump($experience);
 //         exit();
-        $dataProvider = $this->setPaginizeDataProvider($resumeModels, 2);
-        $stringPagination = $dataProvider->getPaginationLinks($dataProvider);
+        $paginator = $this->setPaginizeDataProvider($resumeModels, 2);
+        $stringPagination = $paginator->getPaginationLinks();
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
 
-        $resumeModels = $dataProvider->getModels(); 
+        $resumeModels = $paginator->getModels(); 
        // echo '$model = '.$models[0]['city'].'<br>';
         //var_dump($models);
 //         exit();

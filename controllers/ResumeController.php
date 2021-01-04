@@ -328,7 +328,7 @@ class ResumeController extends Controller
         $stringPagination = '
                              <ul class="dor-pagination mb128">
                                 <li class="page-link-prev"> <a href="/hh-clone/web/resume#" '.
-                                'onclick="SerchPage(this); return false;"'.' value="'.$pageBack.'"><img class="mr8"
+                                'onclick="SerchPage('.$pageBack.'); return false;"'.' value="'.$pageBack.'"><img class="mr8"
                                  src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>
                                  ';
         $countPages = $dataProvider->getCountPages();
@@ -336,13 +336,13 @@ class ResumeController extends Controller
 //         var_dump($currentPage);
 //         exit();
         if($countPages <= 4) {
-            for($i = 0; $i<4; $i++) {
+            for($i = 0; $i<$countPages; $i++) {
                 if($currentPage == $i+1){
                     $stringPagination .= '
-                                    <li class="active"> <a href="/hh-clone/web/resume#">'.($i+1).'</a></li>';
+                                    <li class="active"> <a href="/hh-clone/web/resume#" onclick="SerchPage('.($i+1).'); return false;">'.($i+1).'</a></li>';
                 } else {
                     $stringPagination .= '
-                                   <li><a href="/hh-clone/web/resume#">'.($i+1).'</a></li>';
+                                   <li><a href="/hh-clone/web/resume#" onclick="SerchPage('.($i+1).'); return false;">'.($i+1).'</a></li>';
                 }
                                  
             }
@@ -357,7 +357,7 @@ class ResumeController extends Controller
         $countPages = $dataProvider->getCountPages();
         $pageForward = ($currentPage>=$countPages)? $currentPage: ($currentPage + 1);
         $stringPagination .= '<li class="page-link-next"> <a href="/hh-clone/web/resume#" value="'.$pageForward.'" '.
-                                'onclick="SerchPage(this.value); return false;"'.' >Далее <img class="ml8" 
+                                'onclick="SerchPage('.$pageForward.'); return false;"'.' >Далее <img class="ml8" 
                                  src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li>
                              </ul>';
         

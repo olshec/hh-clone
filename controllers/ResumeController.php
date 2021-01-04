@@ -303,7 +303,7 @@ class ResumeController extends Controller
         return false;
     }
     
-    private function setPaginizeDataProvider(array $models, int $limit): \app\Util\DataProvider{
+    private function setPaginizeDataProvider(array $models, int $limit): \app\Util\Paginator{
         
         $numberPage = 0;
         if (array_key_exists('page', Yii::$app->request->queryParams)) {
@@ -314,56 +314,11 @@ class ResumeController extends Controller
         } else if ($numberPage <= 1) {
             $numberPage = 1;
         } 
-        $provider = new \app\Util\DataProvider($models, $limit, $numberPage-1);
+        $provider = new \app\Util\Paginator($models, $limit, $numberPage-1);
         return $provider;
     }
     
-    private function getPaginationLinks(\app\Util\DataProvider $dataProvider){
-        $stringPagination = '';
-        $currentPage = $dataProvider->getOffset()+1;
-        $pageBack = ($currentPage<=1)? 1: ($currentPage - 1);
-        
-      
-        
-        $stringPagination = '
-                             <ul class="dor-pagination mb128">
-                                <li class="page-link-prev"> <a href="/hh-clone/web/resume#" '.
-                                'onclick="SerchPage('.$pageBack.'); return false;"'.' value="'.$pageBack.'"><img class="mr8"
-                                 src="/hh-clone/web/images/mini-left-arrow.svg" alt="arrow"> Назад</a></li>
-                                 ';
-        $countPages = $dataProvider->getCountPages();
-        
-//         var_dump($currentPage);
-//         exit();
-        if($countPages <= 4) {
-            for($i = 0; $i<$countPages; $i++) {
-                if($currentPage == $i+1){
-                    $stringPagination .= '
-                                    <li class="active"> <a href="/hh-clone/web/resume#" onclick="SerchPage('.($i+1).'); return false;">'.($i+1).'</a></li>';
-                } else {
-                    $stringPagination .= '
-                                   <li><a href="/hh-clone/web/resume#" onclick="SerchPage('.($i+1).'); return false;">'.($i+1).'</a></li>';
-                }
-                                 
-            }
-        }
-        '<li><a href="#">1</a></li>
-         <li><a class="grey" href="#">...</a></li>
-         <li class="active"><a href="#">4</a></li>
-         <li><a href="#">5</a></li>
-         <li><a class="grey" href="#">...</a></li>
-         <li><a href="#">10</a></li>';
-        
-        $countPages = $dataProvider->getCountPages();
-        $pageForward = ($currentPage>=$countPages)? $currentPage: ($currentPage + 1);
-        $stringPagination .= '<li class="page-link-next"> <a href="/hh-clone/web/resume#" value="'.$pageForward.'" '.
-                                'onclick="SerchPage('.$pageForward.'); return false;"'.' >Далее <img class="ml8" 
-                                 src="/hh-clone/web/images/mini-right-arrow.svg" alt="arrow"></a> </li>
-                             </ul>';
-        
-        return $stringPagination;
-        
-    }
+  
 
     /**
      * Lists all Resume models.
@@ -418,7 +373,7 @@ class ResumeController extends Controller
 //         var_dump($experience);
 //         exit();
         $dataProvider = $this->setPaginizeDataProvider($resumeModels, 2);
-        $stringPagination = $this->getPaginationLinks($dataProvider);
+        $stringPagination = $dataProvider->getPaginationLinks($dataProvider);
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
 

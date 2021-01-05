@@ -36,8 +36,17 @@ class m201204_130236_create_resume_table extends Migration
         
         $this->addResume('Ekaterina', 'Shahmotova', '1997-12-30', 'Java middle developer', 
             70000, 'about me', 'Ekaterina_Shahmotova_1997-12-30_57689034/photo-6.jpeg', '2020-11-14 16:05');
+        
         $this->addResume('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer' , 
             200000, 'about me', 'Andrey_Rumov_2001-08-11_576890435/photo-2.jpg', '2020-1-5 16:05');
+        $this->addResume('Andrey', 'Rumov', '1999-08-11', 'PHP middle developer' ,
+            200000, 'about me', 'Andrey_Rumov_2001-08-11_576890435/photo-2.jpg', '2020-1-5 16:15');
+        $this->addResume('Andrey', 'Rumov', '1999-08-11', 'Java middle developer' ,
+            200000, 'about me', 'Andrey_Rumov_2001-08-11_576890435/photo-2.jpg', '2020-1-5 16:35');
+        $this->addResume('Andrey', 'Rumov', '1999-08-11', 'C# sinior developer' ,
+            200000, 'about me', 'Andrey_Rumov_2001-08-11_576890435/photo-2.jpg', '2020-1-5 16:45');
+        $this->addResume('Andrey', 'Rumov', '1999-08-11', 'C++ sinior developer' ,
+            200000, 'about me', 'Andrey_Rumov_2001-08-11_576890435/photo-2.jpg', '2020-1-5 16:55');
     }
     
     /**

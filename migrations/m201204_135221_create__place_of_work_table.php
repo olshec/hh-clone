@@ -53,6 +53,15 @@ class m201204_135221_create__place_of_work_table extends Migration
             'High tecnology', 'Python developer', '2018-11-25', '2019-08-27', '----');
         $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 
             'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
+        
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'PHP middle developer', 'Программирование, Разработка',
+            'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Java middle developer', 'Программирование, Разработка',
+            'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'C# sinior developer', 'Программирование, Разработка',
+            'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
+        $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'C++ sinior developer', 'Программирование, Разработка',
+            'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
     
     }
 

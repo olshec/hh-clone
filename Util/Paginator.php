@@ -127,10 +127,27 @@ class Paginator
                 
             }
         } else if ($countPages >= 7) {
-            $secondDigit = intval((1 + $currentPage)/2);
-            $penultimateDigit = intval((($currentPage + 1) + $countPages)/2);
-            $middleDigit =  intval(($currentPage)/2);
-            $secondMiddleDigit =  intval(($currentPage)/2)+1;
+            
+            $middleDigit =  intval(($countPages+$currentPage)/2);
+            $secondDigit = intval((1 + $middleDigit)/2);
+            $secondMiddleDigit =  $middleDigit+1;
+            $penultimateDigit = intval(($secondMiddleDigit + $countPages)/2);
+            
+//              echo '$currentPage= '.$currentPage.'<br>';
+//             echo '$secondDigit= '.$secondDigit.'<br>';
+//             echo '$middleDigit= '.$middleDigit.'<br>';
+//             echo '$secondMiddleDigit= '.$secondMiddleDigit.'<br>';
+//             echo '$penultimateDigit= '.$penultimateDigit.'<br>';
+//             exit();
+            
+            
+            if($currentPage == 1){
+                $stringPagination .= '
+                                    <li class="active"> <a href="/hh-clone/web/resume#" onclick="SerchPage(1); return false;">1</a></li>';
+            } else {
+                $stringPagination .= '
+                                   <li><a href="/hh-clone/web/resume#" onclick="SerchPage(1); return false;">1</a></li>';
+            }
             
             if($secondDigit == $currentPage) {
                 $stringPagination .= '

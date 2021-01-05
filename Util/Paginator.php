@@ -128,10 +128,32 @@ class Paginator
             }
         } else if ($countPages >= 7) {
             
-            $middleDigit =  intval(($countPages+$currentPage)/2);
-            $secondDigit = intval((1 + $middleDigit)/2);
-            $secondMiddleDigit =  $middleDigit+1;
-            $penultimateDigit = intval(($secondMiddleDigit + $countPages)/2);
+            if($currentPage == 1) {
+                $middleDigit =  intval(($countPages+$currentPage)/2);
+                $secondMiddleDigit = $middleDigit +1;
+                $penultimateDigit = intval(($secondMiddleDigit + $countPages)/2);
+                $secondDigit = intval((1 + $middleDigit)/2);
+            } else if ($currentPage == 2) {
+                $secondDigit = 2;
+                $middleDigit = 3;
+                $secondMiddleDigit = 4;
+                $penultimateDigit = intval(($secondMiddleDigit + $countPages)/2);
+            } else if ($currentPage < $countPages - 1) {
+                $middleDigit = $currentPage;
+                $secondMiddleDigit = $middleDigit + 1;
+                $secondDigit = intval((1 + $middleDigit)/2);
+                $penultimateDigit = intval(($secondMiddleDigit + $countPages)/2);
+            } else if ($currentPage == ($countPages - 1)) {
+                $middleDigit = $countPages - 3;
+                $secondMiddleDigit = $countPages - 2;
+                $penultimateDigit = $currentPage;
+                $secondDigit = intval((1 + $middleDigit)/2);
+            } else if ($currentPage == $countPages) {
+                $middleDigit = $countPages - 3;
+                $secondMiddleDigit = $countPages - 2;
+                $penultimateDigit = $countPages - 1;
+                $secondDigit = intval((1 + $middleDigit)/2);
+            }
             
 //              echo '$currentPage= '.$currentPage.'<br>';
 //             echo '$secondDigit= '.$secondDigit.'<br>';
@@ -139,8 +161,7 @@ class Paginator
 //             echo '$secondMiddleDigit= '.$secondMiddleDigit.'<br>';
 //             echo '$penultimateDigit= '.$penultimateDigit.'<br>';
 //             exit();
-            
-            
+
             if($currentPage == 1){
                 $stringPagination .= '
                                     <li class="active"> <a href="/hh-clone/web/resume#" onclick="SerchPage(1); return false;">1</a></li>';

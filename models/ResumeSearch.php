@@ -115,7 +115,6 @@ class ResumeSearch extends Resume
      */
     public function search($params)
     {
-       
         $query = Resume::find()
         ->innerJoin('user', '"resume"."user_id" = "user"."id"');
         $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;

@@ -264,7 +264,7 @@ class ResumeController extends Controller
      * @return ActiveDataProvider
      */
     private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
-        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary, string $fullTextSerch):ActiveDataProvider {
+        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable']              = $sortData['orderTable'];
         $queryParams['orderType']               = $sortData['orderType'];
@@ -336,19 +336,36 @@ class ResumeController extends Controller
      */
     public function actionIndex()
     {
-        $sortData   = $this->getSortParams();
-        $cityData   = $this->getCitiesData();
-        $gender     = $this->getGender();
+        $fullTextSerch = $this->getFullText();
+        if($fullTextSerch != '') {
+            $query = <<<EOT
+                        FULL text serch:
+                        WITH ts_city AS (
+                        select *, ts_rank(to_tsvector("city"."name" || ' ' || "city"."id"), to_tsquery('(Кемерово | Красноярск) | 4')) as "ts" from city order by "ts" DESC)
+                        select *
+                        from ts_city
+                        where "ts">0;
+                        EOT;
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                ]);
+        } else {
+            $sortData   = $this->getSortParams();
+            $cityData   = $this->getCitiesData();
+            $gender     = $this->getGender();
+            
+            $specializationsData    = $this->getSpecializations();
+            
+            $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
+            $listCheckBoxSchedules       = $this->getListTypeSchedules();
+            $salary                      = $this->getSalary();
+            
+            
+            $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'],
+                $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
+        }
         
-        $specializationsData    = $this->getSpecializations();
         
-        $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
-        $listCheckBoxSchedules       = $this->getListTypeSchedules();
-        $salary                      = $this->getSalary();
-        $fullTextSerch               = $this->getFullText();
-        
-        $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
-            $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
 
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
@@ -374,10 +391,20 @@ class ResumeController extends Controller
             }
         }
         
+        if(isset($listCheckBoxTypeEmployments)) {
+            $typeEmployments = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
+        } else {
+            $typeEmployments = [];
+        }
         
-        $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
-        $schedules              = $this->getSchedulesData($listCheckBoxSchedules);
-        $experience             = $this->getExperienceData();
+        if(isset($listCheckBoxSchedules)) {
+            $schedules = $this->getSchedulesData($listCheckBoxSchedules);
+        } else {
+            $schedules = [];
+        }
+        
+        
+        $experience = $this->getExperienceData();
         
 //         var_dump($experience);
 //         exit();

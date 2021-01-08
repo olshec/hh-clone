@@ -6,7 +6,19 @@
 $addressServer = \yii\helpers\Url::to(['/']);
 $this->title = 'Список резюме';
 ?>
-
+        <div class="header-search">
+            <div class="container">
+                <div class="header-search__wrap">
+                    <form class="header-search__form">
+                        <a href="#"><img src="<?=  \yii\helpers\Url::to(['/']) ?>images/dark-search.svg" id="full-text-serch-img" alt="search"
+                                         class="dark-search-icon header-search__icon"></a>
+                        <input id="full-text-serch" class="header-search__input" type="text" placeholder="Поиск по резюме и навыкам">
+                        <button id="btn-serch" type="button" class="blue-btn header-search__btn">Найти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
         <div class="content">
         <div class="container">
             <h1 class="main-title mt24 mb16">PHP разработчики <?= $cityIdSelect == 0? '': 'в '.$cityNameSelect?></h1>

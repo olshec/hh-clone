@@ -372,7 +372,7 @@ class ResumeController extends Controller
         
 //         var_dump($experience);
 //         exit();
-        $paginator = $this->setPaginizeDataProvider($resumeModels, 1);
+        $paginator = $this->setPaginizeDataProvider($resumeModels, 5);
         $stringPagination = $paginator->getPaginationLinks();
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';

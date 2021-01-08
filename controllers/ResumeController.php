@@ -217,6 +217,14 @@ class ResumeController extends Controller
         return $salary;
     }
     
+    private function getFullText() {
+        $text = '';
+        if (array_key_exists('serchText', Yii::$app->request->queryParams)) {
+            $text = Yii::$app->request->queryParams['serchText'];
+        }
+        return $text;
+    }
+    
     private function getAgeFrom() {
         $ageFrom = '';
         if (array_key_exists('ageFrom', Yii::$app->request->queryParams)) {
@@ -256,7 +264,7 @@ class ResumeController extends Controller
      * @return ActiveDataProvider
      */
     private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
-        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary):ActiveDataProvider {
+        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary, string $fullTextSerch):ActiveDataProvider {
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable']              = $sortData['orderTable'];
         $queryParams['orderType']               = $sortData['orderType'];
@@ -266,6 +274,7 @@ class ResumeController extends Controller
         $queryParams['listTypeEmployments']     = $listTypeEmployments;
         $queryParams['listCheckBoxSchedules']   = $listCheckBoxSchedules;
         $queryParams['salary']                  = $salary;
+        $queryParams['fullTextSerch']           = $fullTextSerch;
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         
@@ -336,10 +345,10 @@ class ResumeController extends Controller
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
         $salary                      = $this->getSalary();
-       
+        $fullTextSerch               = $this->getFullText();
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
-            $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
+            $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
 
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();

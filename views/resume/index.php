@@ -10,7 +10,7 @@ $this->title = 'Список резюме';
             <div class="container">
                 <div class="header-search__wrap">
                     <form class="header-search__form">
-                        <a href="#"><img src="<?=  \yii\helpers\Url::to(['/']) ?>images/dark-search.svg" id="full-text-serch-img" alt="search"
+                        <a href="#" id="full-text-serch-img"><img src="<?=  \yii\helpers\Url::to(['/']) ?>images/dark-search.svg" alt="search"
                                          class="dark-search-icon header-search__icon"></a>
                         <input id="full-text-serch" class="header-search__input" type="text" placeholder="Поиск по резюме и навыкам">
                         <button id="btn-serch" type="button" class="blue-btn header-search__btn">Найти</button>

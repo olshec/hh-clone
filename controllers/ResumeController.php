@@ -274,7 +274,6 @@ class ResumeController extends Controller
         $queryParams['listTypeEmployments']     = $listTypeEmployments;
         $queryParams['listCheckBoxSchedules']   = $listCheckBoxSchedules;
         $queryParams['salary']                  = $salary;
-        $queryParams['fullTextSerch']           = $fullTextSerch;
         $searchModel = new ResumeSearch();
         $dataProvider = $searchModel->search($queryParams);
         
@@ -336,10 +335,23 @@ class ResumeController extends Controller
      */
     public function actionIndex()
     {
+        $sortData   = $this->getSortParams();
+        $cityData   = $this->getCitiesData();
+        $gender     = $this->getGender();
+        
+        $specializationsData    = $this->getSpecializations();
+        
+        $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
+        $listCheckBoxSchedules       = $this->getListTypeSchedules();
+        $salary                      = $this->getSalary();
+        
         $fullTextSerch = $this->getFullText();
+//         echo $fullTextSerch;
+//         exit();
         if($fullTextSerch != '') {
+            $q = new \yii\db\Query();
+            
             $query = <<<EOT
-                        FULL text serch:
                         WITH ts_city AS (
                         select *, ts_rank(to_tsvector("city"."name" || ' ' || "city"."id"), to_tsquery('(Кемерово | Красноярск) | 4')) as "ts" from city order by "ts" DESC)
                         select *
@@ -350,17 +362,6 @@ class ResumeController extends Controller
                 'query' => $query,
                 ]);
         } else {
-            $sortData   = $this->getSortParams();
-            $cityData   = $this->getCitiesData();
-            $gender     = $this->getGender();
-            
-            $specializationsData    = $this->getSpecializations();
-            
-            $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
-            $listCheckBoxSchedules       = $this->getListTypeSchedules();
-            $salary                      = $this->getSalary();
-            
-            
             $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'],
                 $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary);
         }
@@ -391,19 +392,9 @@ class ResumeController extends Controller
             }
         }
         
-        if(isset($listCheckBoxTypeEmployments)) {
-            $typeEmployments = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
-        } else {
-            $typeEmployments = [];
-        }
-        
-        if(isset($listCheckBoxSchedules)) {
-            $schedules = $this->getSchedulesData($listCheckBoxSchedules);
-        } else {
-            $schedules = [];
-        }
-        
-        
+        $typeEmployments = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
+        $schedules       = $this->getSchedulesData($listCheckBoxSchedules);
+
         $experience = $this->getExperienceData();
         
 //         var_dump($experience);

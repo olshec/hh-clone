@@ -108,42 +108,55 @@ class ResumeSearch extends Resume
         return $query;
     }
     
-    private function getFullTextSerch(ActiveQuery $query, array $params): ActiveQuery{
-        if(array_key_exists('fullTextSerch', $params)) {
-            $fullTextSerch = $params['fullTextSerch'];
-            if($fullTextSerch != '') {
-                
-                
-                $strQuery = <<<EOT
-                            WITH ts_city AS (
-                            SELECT *, ts_rank(to_tsvector("city"."name" || ' ' || "city"."id"), to_tsquery('(Кемерово | Красноярск) | 4')) as "ts" from city order by "ts" DESC)
-                            SELECT "resume"."id"
-                            FROM ts_city
-                            INNER JOIN "user" 
-                            ON "ts_city"."id" = "user"."city_id"
-                            INNER JOIN "resume" 
-                            ON "user"."id" = "resume"."user_id"
-                            WHERE "ts">0;
-                            EOT;
-                $command = Yii::$app->db->createCommand($strQuery);
-                //$command->bindValue(':resume_id', $resumeId);
-                $resultQuery = $command->queryAll();
-                $mas=[];
-                foreach ($resultQuery as $result) {
-                    $mas[] = $result['id'];
-                }
-                
-                //$query->innerJoin('user', '"user"."city_id" = "city"."id"');
-                $query->innerJoin('user', '"resume"."user_id" = "user"."id"');
-                $query->innerJoin('city', '"city"."id" = "user"."city_id"');
-                $query->where['"resume"."id"'] = $mas;
-                
-//                 var_dump( $query->where);
-//                  exit();
-            }
+    private function serchFullText(ActiveQuery $query, string $stringFullTextSerch): ActiveQuery{
+        //    (Кемерово | Красноярск) | 4    "city"."name" || ' ' || 
+        $strQuery = <<<EOT
+                    WITH ts_city AS (
+                    SELECT "resume"."id", ts_rank(to_tsvector("resume"."name" || ' ' || "city"."name"), to_tsquery(:fullTextSerch)) as "ts" 
+                    FROM "resume" 
+                    INNER JOIN "user" 
+                    ON "user"."id"="resume"."user_id"   
+                    INNER JOIN "city" 
+                    ON "city"."id"="user"."city_id")
+                    
+                    SELECT *
+                    FROM ts_city
+                    WHERE "ts">0
+                    ORDER BY "ts" DESC;
+                    EOT;
+        $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':fullTextSerch', $stringFullTextSerch);
+        $resultQuery = $command->queryAll();
+        $mas=[];
+        foreach ($resultQuery as $result) {
+            $mas[] = $result['id'];
         }
+        
+        //$query->innerJoin('user', '"user"."city_id" = "city"."id"');
+        
+//         $query->innerJoin('user', '"resume"."user_id" = "user"."id"');
+//         $query->innerJoin('city', '"city"."id" = "user"."city_id"');
+        $query->where['"resume"."id"'] = $mas;
+        
+//         var_dump( $mas);
+//         exit();
+            
         return $query;
     }
+    
+    private function getStringFullTextSerch(array $params): string{
+        $fullTextSerch = '';
+        if(array_key_exists('fullTextSerch', $params)) {
+            $fullTextSerch = $params['fullTextSerch'];
+            $arrayFullTextSerch = explode(" ", $fullTextSerch);
+            $fullTextSerch = join("|", $arrayFullTextSerch);
+            
+//             var_dump( $fullTextSerch);
+//             exit();
+        }
+        return $fullTextSerch;
+    }
+    
     
     /**
      * Creates data provider instance with search query applied
@@ -155,26 +168,29 @@ class ResumeSearch extends Resume
     public function search($params)
     {
        
-//         $query = Resume::find()
-//         ->innerJoin('user', '"resume"."user_id" = "user"."id"');
-//         $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
-        
-        $query = Resume::find();
-        $query = $this->getFullTextSerch($query, $params);
 
-//         $query = $this->getCityId($query, $params);
-        
-//         $query = $this->getSpecializationId($query, $params);
-      
-//         $query = $this->getListTypeEmployments($query, $params);
-//         $query = $this->getListSchedules($query, $params);
-//         $query = $this->getGender($query, $params);
-//         $query = $this->getSalary($query, $params);
-        
-       // $query->orderBy([$params['orderTable'] => $orderType]);
         
         
-        
+        $stringFullTextSerch = $query = $this->getStringFullTextSerch($params);
+        if($stringFullTextSerch != '') {
+            $query = Resume::find();
+            $query = $this->serchFullText($query, $stringFullTextSerch);
+        }
+        else {
+            $query = Resume::find()
+            ->innerJoin('user', '"resume"."user_id" = "user"."id"');
+            $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
+            
+            $query = $this->getCityId($query, $params);
+            $query = $this->getSpecializationId($query, $params);
+    
+            $query = $this->getListTypeEmployments($query, $params);
+            $query = $this->getListSchedules($query, $params);
+            $query = $this->getGender($query, $params);
+            $query = $this->getSalary($query, $params);
+            
+            $query->orderBy([$params['orderTable'] => $orderType]);
+        }
         
         
 //         var_dump($query);

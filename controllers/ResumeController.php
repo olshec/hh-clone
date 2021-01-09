@@ -349,7 +349,10 @@ class ResumeController extends Controller
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
-
+       
+//         $sql ='';
+//         $rows = Yii::$app->db->createCommand($sql)->queryAll();
+        
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
         //experience

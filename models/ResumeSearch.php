@@ -33,7 +33,7 @@ class ResumeSearch extends Resume
         return Model::scenarios();
     }
     
-    private function getCityId(array $queryParams, array $params): array{
+    private function getCityId(array $queryParams, array $params): array {
         if(array_key_exists('cityId', $params)) {
             $cityId = $params['cityId'];
             if($cityId != 0){
@@ -45,7 +45,7 @@ class ResumeSearch extends Resume
         return $queryParams;
     }
 
-    private function getSpecializationId(array $queryParams, array $params): array{
+    private function getSpecializationId(array $queryParams, array $params): array {
         if(array_key_exists('idSpecialization', $params)) {
             $idSpecialization = $params['idSpecialization'];
             if($idSpecialization != 0){
@@ -58,26 +58,31 @@ class ResumeSearch extends Resume
         return $queryParams;
     }
     
-//     private function getListExperients(ActiveQuery $query, array $params): ActiveQuery{
-//         if(array_key_exists('experients', $params)) {
-//             $listTypeEmployments = $params['experients'];
-//             if(!empty($listTypeEmployments)) {
-//                 $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
-//                 $query->where['"resume_type_employment"."type_employment_id"'] = $listTypeEmployments;
-//             }
-//         }
-//         return $query;
-//     }
-    
-    private function getListTypeEmployments(ActiveQuery $query, array $params): ActiveQuery{
+    private function getListTypeEmployments(array $queryParams, array $params): array {
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
             if(!empty($listTypeEmployments)) {
-                $query->innerJoin('resume_type_employment', '"resume_type_employment"."resume_id" = ' . '"resume"."id"');
-                $query->where['"resume_type_employment"."type_employment_id"'] = $listTypeEmployments;
+                
+                $stringListTypeEmployments = '(';
+                for($i=0; $i<count($listTypeEmployments); $i++) {
+                    
+                    $stringListTypeEmployments .= $listTypeEmployments[$i];
+                    if(count($listTypeEmployments) > 1 && $i < (count($listTypeEmployments)-1)){
+                        $stringListTypeEmployments .= ', ';
+                    }    
+                }
+                $stringListTypeEmployments .= ')';
+                
+                $queryParams['join'][] = ' INNER JOIN "resume_type_employment" ON "resume"."id" = "resume_type_employment"."resume_id" ';
+                $queryWhere = ' "resume_type_employment"."type_employment_id" IN '.$stringListTypeEmployments. ' ';
+                $queryParams['where'][] = $queryWhere;
+                
+//                 var_dump($queryWhere);
+//                 exit();
+                
             }
         }
-        return $query;
+        return $queryParams;
     }
     
     private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
@@ -180,8 +185,9 @@ class ResumeSearch extends Resume
         $queryWhereParams = [];
         $queryWhereParams = $this->getCityId($queryWhereParams, $params);
         $queryWhereParams = $this->getSpecializationId($queryWhereParams, $params);
-//         var_dump( $queryWhereParams);
-//         exit();
+        $queryWhereParams = $this->getListTypeEmployments($queryWhereParams, $params);
+        
+
         if(array_key_exists('join', $queryWhereParams)) {
             if(count($queryWhereParams['join']) > 0) {
                 //$strQuery.= 'INNER JOIN ';
@@ -193,12 +199,17 @@ class ResumeSearch extends Resume
         
         if(array_key_exists('where', $queryWhereParams)) {
             if(count($queryWhereParams['where']) > 0) {
-                $strQuery.= 'WHERE ';
+                $strQuery.= ' WHERE (';
                 $strQuery.=$queryWhereParams['where'][0];
                 for($i=1; $i<count($queryWhereParams['where']); $i++) {
-                    $strQuery .= ' AND ';
+                    $strQuery .= ') AND (';
                     $strQuery .= $queryWhereParams['where'][$i];
+                    $strQuery .= ') ';
                 }
+                if(count($queryWhereParams['where']) == 1){
+                    $strQuery .= ') ';
+                }
+                
             }
         }
        
@@ -210,13 +221,39 @@ class ResumeSearch extends Resume
         $orderType = $params['orderType'] == 'DESC'? "DESC":"ASC";
         $order = "ORDER BY $orderTable $orderType;";
         $strQuery.=$order;
-//                  echo( $strQuery);
+        
+//         $strQuery = <<<EOT
+
+//                         SELECT distinct "resume"."id" as "resume_id", "resume"."photo", "resume"."name" as "resume_name", 
+//                         "resume"."salary", "resume"."date_update" as "date_update", "user"."id" as "user_id", 
+//                         "user"."date_birth" as "date_birth", "city"."name" as "city_name" 
+//                         FROM "resume" 
+//                         INNER JOIN "user" ON "resume"."user_id"="user"."id" 
+//                         INNER JOIN "city" ON "user"."city_id"="city"."id" 
+//                         INNER JOIN "resume_type_employment" ON "resume"."id" = "resume_type_employment"."resume_id" 
+//                         WHERE "user"."city_id"=2 
+//                         ORDER BY date_update DESC;
+//                     EOT;
+
+//         $strQuery = <<<EOT
+
+//                         SELECT distinct "resume"."id" as "resume_id", "resume"."photo", "resume"."name" as "resume_name", 
+//                         "resume"."salary", "resume"."date_update" as "date_update", "user"."id" as "user_id", 
+//                         "user"."date_birth" as "date_birth", "city"."name" as "city_name" 
+//                         FROM "resume" 
+//                         INNER JOIN "user" ON "resume"."user_id"="user"."id" 
+//                         INNER JOIN "city" ON "user"."city_id"="city"."id" 
+//                         WHERE ("user"."city_id" = 2 ) 
+//                         ORDER BY date_update DESC;
+//                     EOT;
+        
+//         var_dump( $strQuery);
 //         exit();
         $command = Yii::$app->db->createCommand($strQuery);
         $resultQuery = $command->queryAll();
         
-        //         var_dump( $resultQuery);
-        //         exit();
+//                 var_dump( $resultQuery);
+//                 exit();
         
         return $resultQuery;
     }

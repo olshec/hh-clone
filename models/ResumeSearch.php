@@ -58,62 +58,77 @@ class ResumeSearch extends Resume
         return $queryParams;
     }
     
+    /**
+     * Rerurns string for IN operator for SQL
+     * 
+     * @param array $listTypeEmployments
+     * @return string
+     */
+    private function getListIN(array $listTypeEmployments): string {
+        $stringListTypeEmployments = '(';
+        for($i=0; $i<count($listTypeEmployments); $i++) {
+            
+            $stringListTypeEmployments .= $listTypeEmployments[$i];
+            if(count($listTypeEmployments) > 1 && $i < (count($listTypeEmployments)-1)){
+                $stringListTypeEmployments .= ', ';
+            }
+        }
+        $stringListTypeEmployments .= ')';
+        return $stringListTypeEmployments;
+    }
+    
     private function getListTypeEmployments(array $queryParams, array $params): array {
         if(array_key_exists('listTypeEmployments', $params)) {
             $listTypeEmployments = $params['listTypeEmployments'];
             if(!empty($listTypeEmployments)) {
-                
-                $stringListTypeEmployments = '(';
-                for($i=0; $i<count($listTypeEmployments); $i++) {
-                    
-                    $stringListTypeEmployments .= $listTypeEmployments[$i];
-                    if(count($listTypeEmployments) > 1 && $i < (count($listTypeEmployments)-1)){
-                        $stringListTypeEmployments .= ', ';
-                    }    
-                }
-                $stringListTypeEmployments .= ')';
+                $stringListTypeEmployments = $this->getListIN($listTypeEmployments);
                 
                 $queryParams['join'][] = ' INNER JOIN "resume_type_employment" ON "resume"."id" = "resume_type_employment"."resume_id" ';
                 $queryWhere = ' "resume_type_employment"."type_employment_id" IN '.$stringListTypeEmployments. ' ';
                 $queryParams['where'][] = $queryWhere;
-                
 //                 var_dump($queryWhere);
 //                 exit();
-                
             }
         }
         return $queryParams;
     }
     
-    private function getListSchedules(ActiveQuery $query, array $params): ActiveQuery{
+    private function getListSchedules(array $queryParams, array $params): array {
         if(array_key_exists('listCheckBoxSchedules', $params)) {
             $listSchedule = $params['listCheckBoxSchedules'];
             if(!empty($listSchedule)) {
-                $query->innerJoin('resume_schedule', '"resume_schedule"."resume_id" = ' . '"resume"."id"');
-                $query->where['"resume_schedule"."schedule_id"'] = $listSchedule;
+                $stringListIN = $this->getListIN($listSchedule);
+                
+                $queryParams['join'][] = ' INNER JOIN "resume_schedule" ON "resume"."id" = "resume_schedule"."resume_id" ';
+                $queryWhere = ' "resume_schedule"."schedule_id" IN '.$stringListIN. ' ';
+                $queryParams['where'][] = $queryWhere;
             }
         }
-        return $query;
+        return $queryParams;
     }
     
-    private function getSalary(ActiveQuery $query, array $params): ActiveQuery{
+    private function getSalary(array $queryParams, array $params): array {
         if(array_key_exists('salary', $params)) {
             $salary = $params['salary'];
             if($salary != 0) {
-                $query->where['"resume"."salary"'] = $salary;
+                $queryParams['join'][] = '';
+                $queryWhere = '"resume"."salary" = '.$salary. ' ';
+                $queryParams['where'][] = $queryWhere;
             }
         }
-        return $query;
+        return $queryParams;
     }
     
-    private function getGender(ActiveQuery $query, array $params): ActiveQuery{
+    private function getGender(array $queryParams, array $params): array {
         if(array_key_exists('gender', $params)) {
             $gender = $params['gender'];
             if($gender != 'all') {
-                $query->where['"user"."gender"'] = [$gender];
+                $queryParams['join'][] = '';
+                $queryWhere = '"user"."gender" = \''.$gender.'\' ';
+                $queryParams['where'][] = $queryWhere;
             }
         }
-        return $query;
+        return $queryParams;
     }
     
     private function serchFullText(string $stringFullTextSerch): array{
@@ -181,12 +196,14 @@ class ResumeSearch extends Resume
                     INNER JOIN "city"
                         ON "user"."city_id"="city"."id"
                     EOT;
-        
+         
         $queryWhereParams = [];
         $queryWhereParams = $this->getCityId($queryWhereParams, $params);
         $queryWhereParams = $this->getSpecializationId($queryWhereParams, $params);
         $queryWhereParams = $this->getListTypeEmployments($queryWhereParams, $params);
-        
+        $queryWhereParams = $this->getListSchedules($queryWhereParams, $params);
+        $queryWhereParams = $this->getGender($queryWhereParams, $params);
+        $queryWhereParams = $this->getSalary($queryWhereParams, $params);
 
         if(array_key_exists('join', $queryWhereParams)) {
             if(count($queryWhereParams['join']) > 0) {
@@ -209,51 +226,16 @@ class ResumeSearch extends Resume
                 if(count($queryWhereParams['where']) == 1){
                     $strQuery .= ') ';
                 }
-                
             }
         }
        
-        
-//         var_dump($strQuery);
-//         exit();
-        
         $orderTable = $params['orderTable'];
         $orderType = $params['orderType'] == 'DESC'? "DESC":"ASC";
         $order = "ORDER BY $orderTable $orderType;";
         $strQuery.=$order;
         
-//         $strQuery = <<<EOT
-
-//                         SELECT distinct "resume"."id" as "resume_id", "resume"."photo", "resume"."name" as "resume_name", 
-//                         "resume"."salary", "resume"."date_update" as "date_update", "user"."id" as "user_id", 
-//                         "user"."date_birth" as "date_birth", "city"."name" as "city_name" 
-//                         FROM "resume" 
-//                         INNER JOIN "user" ON "resume"."user_id"="user"."id" 
-//                         INNER JOIN "city" ON "user"."city_id"="city"."id" 
-//                         INNER JOIN "resume_type_employment" ON "resume"."id" = "resume_type_employment"."resume_id" 
-//                         WHERE "user"."city_id"=2 
-//                         ORDER BY date_update DESC;
-//                     EOT;
-
-//         $strQuery = <<<EOT
-
-//                         SELECT distinct "resume"."id" as "resume_id", "resume"."photo", "resume"."name" as "resume_name", 
-//                         "resume"."salary", "resume"."date_update" as "date_update", "user"."id" as "user_id", 
-//                         "user"."date_birth" as "date_birth", "city"."name" as "city_name" 
-//                         FROM "resume" 
-//                         INNER JOIN "user" ON "resume"."user_id"="user"."id" 
-//                         INNER JOIN "city" ON "user"."city_id"="city"."id" 
-//                         WHERE ("user"."city_id" = 2 ) 
-//                         ORDER BY date_update DESC;
-//                     EOT;
-        
-//         var_dump( $strQuery);
-//         exit();
         $command = Yii::$app->db->createCommand($strQuery);
         $resultQuery = $command->queryAll();
-        
-//                 var_dump( $resultQuery);
-//                 exit();
         
         return $resultQuery;
     }
@@ -312,19 +294,17 @@ class ResumeSearch extends Resume
             $models = $this->serchQuery($params);
             return $models;
             
-            $query = Resume::find()
-            ->innerJoin('user', '"resume"."user_id" = "user"."id"');
-            $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
+           //$query = Resume::find()
+           //->innerJoin('user', '"resume"."user_id" = "user"."id"');
+           //$orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
             
            // $query = $this->getCityId($query, $params);
-//            $query = $this->getSpecializationId($query, $params);
-            
-            $query = $this->getListTypeEmployments($query, $params);
-            $query = $this->getListSchedules($query, $params);
-            $query = $this->getGender($query, $params);
-            $query = $this->getSalary($query, $params);
-            
-            $query->orderBy([$params['orderTable'] => $orderType]);
+           // $query = $this->getSpecializationId($query, $params);
+           // $query = $this->getListTypeEmployments($query, $params);
+           // $query = $this->getListSchedules($query, $params);
+           // $query = $this->getGender($query, $params);
+           // $query = $this->getSalary($query, $params); 
+           // $query->orderBy([$params['orderTable'] => $orderType]);
             
             $dataProvider = new ActiveDataProvider([
                 'query' => $query,

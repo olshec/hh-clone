@@ -30,11 +30,12 @@ class Paginator
         }
         
         $indexStart = ($this->offset * $this->limit);
+//         var_dump($indexStart);
+//         exit();
         $this->models = array_slice($this->models, $indexStart, $countModelsOnPage);
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
-//         var_dump($this->models);
-//         exit();
+        
         return $this->models;
     }
 

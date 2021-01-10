@@ -360,16 +360,17 @@ class ResumeController extends Controller
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider); $i++) {
             $resume=$dataProvider[$i];
+            
             $experienceDays = $this->getDaysExperience($resume['resume_id']);
             if($this->checkExperience($experienceDays)){
                 //$user = $this->getUser($dataProvider[$i]['user_id']);
-                $userAge = $this->getAge($resume['user_date_birth']);
+                $userAge = $this->getAge($resume['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
                     $resumeModels[$i]['city']               = $resume['city_name'];
-                    $resumeModels[$i]['age']                = $this->getFormatAge($resume['user_date_birth']);
+                    $resumeModels[$i]['age']                = $this->getFormatAge($resume['date_birth']);
                     $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['resume_id']);
                     $resumeModels[$i]['experience']         = $this->getExperience($resume['resume_id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['resume_date_update']);
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['date_update']);
                     $resumeModels[$i]['photo']              = $resume['photo'];
                     $resumeModels[$i]['name']               = $resume['resume_name'];
                     $resumeModels[$i]['salary']             = $resume['salary'];
@@ -389,10 +390,17 @@ class ResumeController extends Controller
 //         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
 //         echo 'start = '.$indexStart.'<br>';
 
-        $resumeModels = $paginator->getModels(); 
-       // echo '$model = '.$models[0]['city'].'<br>';
-        //var_dump($models);
+//         var_dump( $resumeModels);
 //         exit();
+//         var_dump($paginator);
+//         exit();
+        $resumeModels = $paginator->getModels(); 
+        
+       // echo '$model = '.$models[0]['city'].'<br>';
+       
+//         var_dump($resumeModels);
+//         exit();
+
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
             'resumeModels'                    => $resumeModels,

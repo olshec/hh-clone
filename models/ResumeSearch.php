@@ -122,9 +122,9 @@ class ResumeSearch extends Resume
                         ts_rank(to_tsvector("resume"."name" || ' ' || "city"."name"), to_tsquery(:fullTextSerch)) as "ts" 
                     FROM "resume" 
                     INNER JOIN "user" 
-                    ON "user"."id"="resume"."user_id"   
+                    ON "resume"."user_id"="user"."id"
                     INNER JOIN "city" 
-                    ON "city"."id"="user"."city_id")
+                    ON "user"."city_id"="city"."id")
                     
                     SELECT *
                     FROM ts_city

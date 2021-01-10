@@ -108,7 +108,7 @@ class ResumeSearch extends Resume
         return $query;
     }
     
-    private function serchFullText(ActiveQuery $query, string $stringFullTextSerch): ActiveQuery{
+    private function serchFullText(string $stringFullTextSerch): array{
         //    (Кемерово | Красноярск) | 4    "city"."name" || ' ' || 
         $strQuery = <<<EOT
                     WITH ts_city AS (
@@ -122,9 +122,9 @@ class ResumeSearch extends Resume
                         ts_rank(to_tsvector("resume"."name" || ' ' || "city"."name"), to_tsquery(:fullTextSerch)) as "ts" 
                     FROM "resume" 
                     INNER JOIN "user" 
-                    ON "resume"."user_id"="user"."id"
+                        ON "resume"."user_id"="user"."id"
                     INNER JOIN "city" 
-                    ON "user"."city_id"="city"."id")
+                        ON "user"."city_id"="city"."id")
                     
                     SELECT *
                     FROM ts_city
@@ -135,13 +135,14 @@ class ResumeSearch extends Resume
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':fullTextSerch', $stringFullTextSerch);
         $resultQuery = $command->queryAll();
-        var_dump( $resultQuery);
-        exit();
+        
+//         var_dump( $resultQuery);
+//         exit();
 
 //         var_dump( $query);
 //         exit();
             
-        return $query;
+        return $resultQuery;
     }
     
     private function getStringFullTextSerch(array $params): string{
@@ -157,6 +158,35 @@ class ResumeSearch extends Resume
         return $fullTextSerch;
     }
     
+    private function serchQuery(array $params) {
+        $strQuery = <<<EOT
+                    SELECT "resume"."id" as "resume_id",
+                        "resume"."photo",
+                        "resume"."name" as "resume_name", "resume"."salary",
+                        "resume"."date_update" as "resume_date_update",
+                        "user"."id" as "user_id",
+                        "user"."date_birth" as "user_date_birth",
+                        "city"."name" as "city_name",
+                    FROM "resume"
+                    INNER JOIN "user"
+                        ON "resume"."user_id"="user"."id"
+                    INNER JOIN "city"
+                        ON "user"."city_id"="city"."id"
+                        
+                    ORDER BY :orderTable :orderType;
+                    EOT;
+        $orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
+        $orderTable = $params['orderTable'];
+        $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':orderTable', $orderTable);
+        $command->bindValue(':orderType', $orderType);
+        $resultQuery = $command->queryAll();
+        
+        //         var_dump( $resultQuery);
+        //         exit();
+        
+        return $resultQuery;
+    }
     
     /**
      * Creates data provider instance with search query applied
@@ -205,9 +235,8 @@ class ResumeSearch extends Resume
         
         $stringFullTextSerch = $query = $this->getStringFullTextSerch($params);
         if($stringFullTextSerch != '') {
-            $query = Resume::find();
-            $query = $this->serchFullText($query, $stringFullTextSerch);
-            return $query;
+            $models = $this->serchFullText($stringFullTextSerch);
+            return $models;
         }
         else {
             $query = Resume::find()

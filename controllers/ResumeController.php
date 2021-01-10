@@ -360,18 +360,18 @@ class ResumeController extends Controller
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider); $i++) {
             $resume=$dataProvider[$i];
-            $experienceDays = $this->getDaysExperience($resume['id']);
+            $experienceDays = $this->getDaysExperience($resume['resume_id']);
             if($this->checkExperience($experienceDays)){
-                $user = $this->getUser($dataProvider[$i]['user_id']);
-                $userAge = $this->getAge($user['date_birth']);
+                //$user = $this->getUser($dataProvider[$i]['user_id']);
+                $userAge = $this->getAge($resume['user_date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
-                    $resumeModels[$i]['city']               = $this->getCityName($user['id']);
-                    $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
-                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
-                    $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['date_update']);
+                    $resumeModels[$i]['city']               = $resume['city_name'];
+                    $resumeModels[$i]['age']                = $this->getFormatAge($resume['user_date_birth']);
+                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['resume_id']);
+                    $resumeModels[$i]['experience']         = $this->getExperience($resume['resume_id']);
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['resume_date_update']);
                     $resumeModels[$i]['photo']              = $resume['photo'];
-                    $resumeModels[$i]['name']               = $resume['name'];
+                    $resumeModels[$i]['name']               = $resume['resume_name'];
                     $resumeModels[$i]['salary']             = $resume['salary'];
                 }
             }

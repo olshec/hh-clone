@@ -112,7 +112,14 @@ class ResumeSearch extends Resume
         //    (Кемерово | Красноярск) | 4    "city"."name" || ' ' || 
         $strQuery = <<<EOT
                     WITH ts_city AS (
-                    SELECT "resume"."id", ts_rank(to_tsvector("resume"."name" || ' ' || "city"."name"), to_tsquery(:fullTextSerch)) as "ts" 
+                    SELECT "resume"."id" as "resume_id", 
+                        "resume"."photo", 
+                        "resume"."name" as "resume_name", "resume"."salary",
+                        "resume"."date_update" as "resume_date_update",
+                        "user"."id" as "user_id",
+                        "user"."date_birth" as "user_date_birth",
+                        "city"."name" as "city_name", 
+                        ts_rank(to_tsvector("resume"."name" || ' ' || "city"."name"), to_tsquery(:fullTextSerch)) as "ts" 
                     FROM "resume" 
                     INNER JOIN "user" 
                     ON "user"."id"="resume"."user_id"   
@@ -128,20 +135,9 @@ class ResumeSearch extends Resume
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':fullTextSerch', $stringFullTextSerch);
         $resultQuery = $command->queryAll();
-//         var_dump( $resultQuery);
-//         exit();
-        $mas=[];
-        foreach ($resultQuery as $result) {
-            $mas[] = $result['id'];
-        }
-        
-        //$query->innerJoin('user', '"user"."city_id" = "city"."id"');
-        
-//         $query->innerJoin('user', '"resume"."user_id" = "user"."id"');
-//         $query->innerJoin('city', '"city"."id" = "user"."city_id"');
-        $query->where['"resume"."id"'] = $mas;
-        //$query->orderBy(["ts" => SORT_DESC]);
-        
+        var_dump( $resultQuery);
+        exit();
+
 //         var_dump( $query);
 //         exit();
             
@@ -211,6 +207,7 @@ class ResumeSearch extends Resume
         if($stringFullTextSerch != '') {
             $query = Resume::find();
             $query = $this->serchFullText($query, $stringFullTextSerch);
+            return $query;
         }
         else {
             $query = Resume::find()
@@ -226,6 +223,20 @@ class ResumeSearch extends Resume
             $query = $this->getSalary($query, $params);
             
             $query->orderBy([$params['orderTable'] => $orderType]);
+            
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            
+//             $this->load($params);
+            
+//             if (!$this->validate()) {
+//                 // uncomment the following line if you do not want to return any records when validation fails
+//                 // $query->where('0=1');
+//                 return $dataProvider;
+//             }
+            
+            return $dataProvider->models;
         }
         
         
@@ -242,17 +253,7 @@ class ResumeSearch extends Resume
         //         var_dump($query->where);
         //         exit();
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        
-        $this->load($params);
-        
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+       
         
         //         // grid filtering conditions
         //         $query->andFilterWhere([
@@ -264,6 +265,6 @@ class ResumeSearch extends Resume
         //         $query->andFilterWhere(['ilike', 'photo', $this->photo])
         //             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
         
-        return $dataProvider->models;
+        
     }
 }

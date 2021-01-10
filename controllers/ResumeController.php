@@ -365,7 +365,7 @@ class ResumeController extends Controller
                 $user = $this->getUser($dataProvider[$i]['user_id']);
                 $userAge = $this->getAge($user['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
-                    $resumeModels[$i]['city']               = $this->getCity($user['id']);
+                    $resumeModels[$i]['city']               = $this->getCityName($user['id']);
                     $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
                     $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
                     $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
@@ -530,7 +530,7 @@ class ResumeController extends Controller
      * @param int $idUser
      * @return string
      */
-    private function getCity(int $idUser): string {
+    private function getCityName(int $idUser): string {
         $command = Yii::$app->db->createCommand('SELECT "name" FROM "city" WHERE id=:user_id');
         $command->bindValue(':user_id', $idUser);
         $city = $command->queryOne();

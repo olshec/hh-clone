@@ -369,7 +369,7 @@ class ResumeController extends Controller
                     $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
                     $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
                     $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume);
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume->date_update);
                     $resumeModels[$i]['photo']              = $resume->photo;
                     $resumeModels[$i]['name']               = $resume->name;
                     $resumeModels[$i]['salary']             = $resume->salary;
@@ -759,9 +759,9 @@ class ResumeController extends Controller
      * @param array $resume
      * @return string
      */
-    private function getDataUpdate(Resume $resume): string {
-        $monthAndYear = $this->getFormatDateUpdate($resume->date_update);
-        $dayUpdate = new DateTime($resume['date_update']);
+    private function getDataUpdate(string $dateUpdate): string {
+        $monthAndYear = $this->getFormatDateUpdate($dateUpdate);
+        $dayUpdate = new DateTime($dateUpdate);
         $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
         return $formatStringDataUpdate;
     }

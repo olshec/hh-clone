@@ -121,12 +121,15 @@ class ResumeSearch extends Resume
                     
                     SELECT *
                     FROM ts_city
-                    WHERE "ts">0
+                    WHERE "ts" > 0
                     ORDER BY "ts" DESC;
                     EOT;
+       // ORDER BY "ts" DESC;
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':fullTextSerch', $stringFullTextSerch);
         $resultQuery = $command->queryAll();
+//         var_dump( $resultQuery);
+//         exit();
         $mas=[];
         foreach ($resultQuery as $result) {
             $mas[] = $result['id'];
@@ -137,8 +140,9 @@ class ResumeSearch extends Resume
 //         $query->innerJoin('user', '"resume"."user_id" = "user"."id"');
 //         $query->innerJoin('city', '"city"."id" = "user"."city_id"');
         $query->where['"resume"."id"'] = $mas;
+        //$query->orderBy(["ts" => SORT_DESC]);
         
-//         var_dump( $mas);
+//         var_dump( $query);
 //         exit();
             
         return $query;

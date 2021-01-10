@@ -261,10 +261,10 @@ class ResumeController extends Controller
      * @param array $listTypeEmployments
      * @param array $listCheckBoxSchedules
      * @param int $salary
-     * @return ActiveDataProvider
+     * @return array
      */
     private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
-        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary, string $fullTextSerch):ActiveDataProvider {
+        array $listTypeEmployments, array $listCheckBoxSchedules, int $salary, string $fullTextSerch):array {
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable']              = $sortData['orderTable'];
         $queryParams['orderType']               = $sortData['orderType'];
@@ -276,7 +276,7 @@ class ResumeController extends Controller
         $queryParams['salary']                  = $salary;
         $queryParams['fullTextSerch']           = $fullTextSerch;
         $searchModel = new ResumeSearch();
-        $dataProvider = $searchModel->search($queryParams);
+        $dataProvider = $searchModel->serchModels($queryParams);
         
         return $dataProvider;
     }
@@ -358,21 +358,21 @@ class ResumeController extends Controller
         //experience
         //filling in resume data
         $resumeModels = array();
-        for ($i=0; $i < count($dataProvider->models); $i++) {
-            $resume=$dataProvider->models[$i];
+        for ($i=0; $i < count($dataProvider); $i++) {
+            $resume=$dataProvider[$i];
             $experienceDays = $this->getDaysExperience($resume['id']);
             if($this->checkExperience($experienceDays)){
-                $user = $this->getUser($dataProvider->models[$i]['user_id']);
+                $user = $this->getUser($dataProvider[$i]['user_id']);
                 $userAge = $this->getAge($user['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
                     $resumeModels[$i]['city']               = $this->getCity($user['id']);
                     $resumeModels[$i]['age']                = $this->getFormatAge($user['date_birth']);
                     $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['id']);
                     $resumeModels[$i]['experience']         = $this->getExperience($resume['id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume->date_update);
-                    $resumeModels[$i]['photo']              = $resume->photo;
-                    $resumeModels[$i]['name']               = $resume->name;
-                    $resumeModels[$i]['salary']             = $resume->salary;
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['date_update']);
+                    $resumeModels[$i]['photo']              = $resume['photo'];
+                    $resumeModels[$i]['name']               = $resume['name'];
+                    $resumeModels[$i]['salary']             = $resume['salary'];
                 }
             }
         }

@@ -172,8 +172,40 @@ class ResumeSearch extends Resume
     public function search($params)
     {
        
-
+        $query = Resume::find();
         
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+//             uncomment the following line if you do not want to return any records when validation fails
+//             $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'salary' => $this->salary,
+            'user_id' => $this->user_id,
+        ]);
+
+        $query->andFilterWhere(['ilike', 'photo', $this->photo])
+            ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
+
+        return $dataProvider;
+    }
+    
+    /**
+     * Returns models Resume
+     * 
+     * @param array $params
+     * @return array
+     */
+    public function serchModels(array $params): array {
         
         $stringFullTextSerch = $query = $this->getStringFullTextSerch($params);
         if($stringFullTextSerch != '') {
@@ -187,7 +219,7 @@ class ResumeSearch extends Resume
             
             $query = $this->getCityId($query, $params);
             $query = $this->getSpecializationId($query, $params);
-    
+            
             $query = $this->getListTypeEmployments($query, $params);
             $query = $this->getListSchedules($query, $params);
             $query = $this->getGender($query, $params);
@@ -197,41 +229,41 @@ class ResumeSearch extends Resume
         }
         
         
-//         var_dump($query);
-//         exit();
-
+        //         var_dump($query);
+        //         exit();
+        
         // $query->where(['id' => [1, 2, 3], 'status' => 2] );
-       //  $query->where['AAA'] = '2' ;
-       //  print_r($query->where);
-//         echo '<br>';
-//         $query->where['resume_id']= ['12345', '6', '7'];
-       // $query->where['resume_id']= ['12345', '6', '7'];
-       
-//         var_dump($query->where);
-//         exit();
-       
+        //  $query->where['AAA'] = '2' ;
+        //  print_r($query->where);
+        //         echo '<br>';
+        //         $query->where['resume_id']= ['12345', '6', '7'];
+        // $query->where['resume_id']= ['12345', '6', '7'];
+        
+        //         var_dump($query->where);
+        //         exit();
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
         $this->load($params);
-
+        
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
-
-//         // grid filtering conditions
-//         $query->andFilterWhere([
-//             'id' => $this->id,
-//             'salary' => $this->salary,
-//             'user_id' => $this->user_id,
-//         ]);
-
-//         $query->andFilterWhere(['ilike', 'photo', $this->photo])
-//             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
-
-        return $dataProvider;
+        
+        //         // grid filtering conditions
+        //         $query->andFilterWhere([
+        //             'id' => $this->id,
+        //             'salary' => $this->salary,
+        //             'user_id' => $this->user_id,
+        //         ]);
+            
+        //         $query->andFilterWhere(['ilike', 'photo', $this->photo])
+        //             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
+        
+        return $dataProvider->models;
     }
 }

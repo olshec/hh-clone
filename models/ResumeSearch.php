@@ -275,8 +275,7 @@ class ResumeSearch extends Resume
      * @return array
      */
     public function serchModels(array $params): array {
-        
-        $stringFullTextSerch = $query = $this->getStringFullTextSerch($params);
+        $stringFullTextSerch = $this->getStringFullTextSerch($params);
         if($stringFullTextSerch != '') {
             $models = $this->serchFullText($stringFullTextSerch);
             return $models;
@@ -286,4 +285,31 @@ class ResumeSearch extends Resume
             return $models;
         }
     }
+    
+    public function serchMyResumes(): array {
+        $strQuery = <<<EOT
+                    SELECT distinct "resume"."id" as "resume_id",
+                        "resume"."photo",
+                        "resume"."name" as "resume_name", "resume"."salary",
+                        "resume"."date_update" as "date_update",
+                        "user"."id" as "user_id",
+                        "user"."date_birth" as "date_birth",
+                        "city"."name" as "city_name"
+                    FROM "resume"
+                    INNER JOIN "user"
+                        ON "resume"."user_id"="user"."id"
+                    INNER JOIN "city"
+                        ON "user"."city_id"="city"."id"
+                    WHERE "user"."id"=4
+                    ORDER BY "resume"."date_update"
+                    EOT;
+        
+        $query = Resume::findBySql($strQuery);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $dataProvider->models;
+        
+    }
+    
 }

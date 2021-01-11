@@ -351,22 +351,22 @@ class ResumeController extends Controller
         //filling resume data
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
-        $resumeModels = array();
+        $resumes = array();
         for ($i=0; $i < count($dataProvider); $i++) {
-            $models=$dataProvider[$i];
+            $resumeData=$dataProvider[$i];
             
-            $experienceDays = $this->getDaysExperience($models['resume_id']);
+            $experienceDays = $this->getDaysExperience($resumeData['resume_id']);
             if($this->checkExperience($experienceDays)){
-                $userAge = $this->getAge($models['date_birth']);
+                $userAge = $this->getAge($resumeData['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
-                    $resumeModels[$i]['city']               = $models['city_name'];
-                    $resumeModels[$i]['age']                = $this->getFormatAge($models['date_birth']);
-                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($models['resume_id']);
-                    $resumeModels[$i]['experience']         = $this->getExperience($models['resume_id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($models['date_update']);
-                    $resumeModels[$i]['photo']              = $models['photo'];
-                    $resumeModels[$i]['name']               = $models['resume_name'];
-                    $resumeModels[$i]['salary']             = $models['salary'];
+                    $resumes[$i]['city']               = $resumeData['city_name'];
+                    $resumes[$i]['age']                = $this->getFormatAge($resumeData['date_birth']);
+                    $resumes[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resumeData['resume_id']);
+                    $resumes[$i]['experience']         = $this->getExperience($resumeData['resume_id']);
+                    $resumes[$i]['dateUpdate']         = $this->getDataUpdate($resumeData['date_update']);
+                    $resumes[$i]['photo']              = $resumeData['photo'];
+                    $resumes[$i]['name']               = $resumeData['resume_name'];
+                    $resumes[$i]['salary']             = $resumeData['salary'];
                 }
             }
         }
@@ -376,13 +376,13 @@ class ResumeController extends Controller
         $experience             = $this->getExperienceList();
         
         //paginator
-        $paginator = $this->setPaginizeDataProvider($resumeModels, 5);
+        $paginator = $this->setPaginizeDataProvider($resumes, 5);
         $stringPagination = $paginator->getPaginationLinks();
-        $resumeModels = $paginator->getModels(); 
+        $resumes = $paginator->getModels(); 
 
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
-            'resumeModels'                    => $resumeModels,
+            'resumeModels'                    => $resumes,
             'typeSort'                        => $sortData['typeSort'],
             'gender'                          => $gender,
             'dataCities'                      => $cityData['dataCities'],
@@ -425,7 +425,9 @@ class ResumeController extends Controller
 //         return $this->render('view', [
 //             'model' => $this->findModel($id),
 //         ]);
-        return $this->render('myResumes');
+        $searchModel = new ResumeSearch();
+        $models = $searchModel->serchMyResumes();
+        return $this->render('myResumes', [$models]);
     }
 
     /**

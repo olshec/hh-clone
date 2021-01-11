@@ -327,7 +327,233 @@ class ResumeController extends Controller
         return $provider;
     }
     
-  
+    private function getAge(string $dateBirthString):int {
+        $dateNow = new DateTime(date('Y-m-d'));
+        $dateBirth = new DateTime($dateBirthString);
+        $age = $dateNow->diff($dateBirth);
+        return $age->y;
+    }
+    
+    /**
+     * Returns formatted age
+     *
+     * @param string $dateBirthString
+     * @return string
+     */
+    private function getFormatAge(string $dateBirthString): string {
+        $age = $this->getAge($dateBirthString);
+        $stringYear = strval($age);
+        $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
+        if ($lastFigureYear == "1") {
+            $formatAge = $age . " год";
+        } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
+            $formatAge = $age . " года";
+        } else {
+            $formatAge = $age . " лет";
+        }
+        return $formatAge;
+    }
+    
+    /**
+     * Returns the info about last place of work.
+     *
+     * @param string $resumeId
+     * @return string
+     */
+    private function getInfoAboutLastPlaceOfWork(string $resumeId): string {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id ORDER BY date_end DESC');
+        $command->bindValue(':resume_id', $resumeId);
+        $allPlacesOfWork = $command->queryAll();
+        $lastPlaceOfWork = $allPlacesOfWork[0];
+        $dateStartWork = $lastPlaceOfWork['date_start'];
+        $dateFinishWork = $lastPlaceOfWork['date_end'];
+        //list of month
+        $monthAndYearStart = $this->getFormatDate($dateStartWork);
+        $monthAndYearFinish = $this->getFormatDate($dateFinishWork);
+        //          echo $month;
+        //          exit;
+        
+        $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
+        ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        return $infoAboutLastWork;
+    }
+    
+    /**
+     * Return days experience.
+     *
+     * @param string $resumeId
+     * @return int
+     */
+    private function getDaysExperience(string $resumeId):int {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
+        $command->bindValue(':resume_id', $resumeId);
+        $placesOfWork = $command->queryAll();
+        $days = 0;
+        for ($i=0; $i < count($placesOfWork); $i++) {
+            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
+            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $interval = $dateFinishWork->diff($dateStartWork);
+            $days += $interval->y*365 + $interval->m*30 + $interval->d;
+        }
+        return $days;
+    }
+    
+    /**
+     * Returns experience.
+     *
+     * @param string $resumeId
+     * @return string
+     */
+    private function getExperience(string $resumeId): string {
+        $days = $this->getDaysExperience($resumeId);
+        $experience = $this->countExperience($days);
+        return $experience;
+    }
+    
+    /**
+     * Counts experience.
+     *
+     * @param int $days
+     * @return string
+     */
+    private function countExperience(int $days):string {
+        $countExperience='Опыт работы ';
+        if($days >= 365) {
+            $year = intdiv($days, 365);
+            $days -= $year * 365;
+            
+            $stringYear = strval($year);
+            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
+            if ($lastFigureYear == "1") {
+                $yearsExperience = $year . " год";
+            } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
+                $yearsExperience = $year . " года";
+            } else {
+                $yearsExperience = $year . " лет";
+            }
+            $countExperience .= $yearsExperience;
+        }
+        
+        if($days >= 30) {
+            $months = intdiv($days, 30);
+            $stringMonth = strval($months);
+            switch ($stringMonth) {
+                case '1':
+                    $monthsExperience = $months . " месяц";
+                    break;
+                case '2':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '3':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '4':
+                    $monthsExperience = $months . " месяца";
+                    break;
+                case '5':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '6':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '7':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '8':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '9':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '10':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '11':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+                case '12':
+                    $monthsExperience = $months . " месяцев";
+                    break;
+            }
+            $countExperience .= " ".$monthsExperience;
+        }
+        
+        return $countExperience;
+    }
+    
+    /**
+     * Returns formated date.
+     *
+     * @param string $dateString
+     * @return string
+     */
+    private function getFormatDate(string $dateString): string {
+        if ($dateString == '') {
+            $monthAndYear = "настоящее время";
+        } else {
+            $monthsList = array(
+                "01" => "Январь",
+                "02" => "Февраль",
+                "03" => "Март",
+                "04" => "Апрель",
+                "05" => "Май",
+                "06" => "Июнь",
+                "07" => "Июль",
+                "08" => "Август",
+                "09" => "Сентябрь",
+                "10" => "Октябрь",
+                "11" => "Ноябрь",
+                "12" => "Декабрь"
+            );
+            $date = new DateTime($dateString);
+            $month = $monthsList[$date->format('m')];
+            $monthAndYear = $month . " " . $date->format('Y');
+            return $monthAndYear;
+        }
+    }
+    
+    /**
+     * This method used for dataUpdate function.
+     * Returns formated date.
+     *
+     * @param string $dateString
+     * @return string
+     */
+    private function getFormatDateUpdate(string $dateString): string
+    {
+        $monthsList = array(
+            "01" => "января",
+            "02" => "февраля",
+            "03" => "марта",
+            "04" => "апреля",
+            "05" => "мая",
+            "06" => "июня",
+            "07" => "июля",
+            "08" => "августа",
+            "09" => "сентября",
+            "10" => "октября",
+            "11" => "ноября",
+            "12" => "декабря"
+        );
+        $date = new DateTime($dateString);
+        $month = $monthsList[$date->format('m')];
+        $monthAndYear = $month . " " . $date->format('Y');
+        return $monthAndYear;
+        
+    }
+    
+    /**
+     * Returns data update.
+     *
+     * @param array $resume
+     * @return string
+     */
+    private function getDataUpdate(string $dateUpdate): string {
+        $monthAndYear = $this->getFormatDateUpdate($dateUpdate);
+        $dayUpdate = new DateTime($dateUpdate);
+        $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
+        return $formatStringDataUpdate;
+    }
 
     /**
      * Lists all Resume models.
@@ -500,232 +726,6 @@ class ResumeController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
     
-    private function getAge(string $dateBirthString):int {
-        $dateNow = new DateTime(date('Y-m-d'));
-        $dateBirth = new DateTime($dateBirthString);
-        $age = $dateNow->diff($dateBirth);
-        return $age->y;
-    }
-    
-    /**
-     * Returns formatted age
-     * 
-     * @param string $dateBirthString
-     * @return string
-     */
-    private function getFormatAge(string $dateBirthString): string {
-        $age = $this->getAge($dateBirthString);
-        $stringYear = strval($age);
-        $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
-        if ($lastFigureYear == "1") {
-            $formatAge = $age . " год";
-        } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
-            $formatAge = $age . " года";
-        } else {
-            $formatAge = $age . " лет";
-        }
-       return $formatAge;
-    }
-    
-    /**
-     * Returns the info about last place of work.
-     * 
-     * @param string $resumeId
-     * @return string
-     */
-    private function getInfoAboutLastPlaceOfWork(string $resumeId): string {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id ORDER BY date_end DESC');
-        $command->bindValue(':resume_id', $resumeId);
-        $allPlacesOfWork = $command->queryAll();
-        $lastPlaceOfWork = $allPlacesOfWork[0];
-        $dateStartWork = $lastPlaceOfWork['date_start'];
-        $dateFinishWork = $lastPlaceOfWork['date_end'];
-        //list of month
-        $monthAndYearStart = $this->getFormatDate($dateStartWork); 
-        $monthAndYearFinish = $this->getFormatDate($dateFinishWork); 
-//          echo $month;
-//          exit;
-        
-        $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
-        ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
-        return $infoAboutLastWork;
-    }
-    
-    /**
-     * Return days experience.
-     * 
-     * @param string $resumeId
-     * @return int
-     */
-    private function getDaysExperience(string $resumeId):int {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
-        $command->bindValue(':resume_id', $resumeId);
-        $placesOfWork = $command->queryAll();
-        $days = 0;
-        for ($i=0; $i < count($placesOfWork); $i++) {
-            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
-            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
-            $interval = $dateFinishWork->diff($dateStartWork);
-            $days += $interval->y*365 + $interval->m*30 + $interval->d;
-        }
-        return $days;
-    }
-    
-    /**
-     * Returns experience.
-     * 
-     * @param string $resumeId
-     * @return string
-     */
-    private function getExperience(string $resumeId): string {
-        $days = $this->getDaysExperience($resumeId);
-        $experience = $this->countExperience($days);
-        return $experience;
-    }
-    
-    /**
-     * Counts experience.
-     * 
-     * @param int $days
-     * @return string
-     */
-    private function countExperience(int $days):string {
-        $countExperience='Опыт работы ';
-        if($days >= 365) {
-            $year = intdiv($days, 365);
-            $days -= $year * 365;
-            
-            $stringYear = strval($year);
-            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
-            if ($lastFigureYear == "1") {
-                $yearsExperience = $year . " год";
-            } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
-                $yearsExperience = $year . " года";
-            } else {
-                $yearsExperience = $year . " лет";
-            }
-            $countExperience .= $yearsExperience;
-        }
-        
-        if($days >= 30) {
-            $months = intdiv($days, 30);
-            $stringMonth = strval($months);
-            switch ($stringMonth) {
-                case '1':
-                    $monthsExperience = $months . " месяц";
-                    break;
-                case '2':
-                    $monthsExperience = $months . " месяца";
-                    break;
-                case '3':
-                    $monthsExperience = $months . " месяца";
-                    break;
-                case '4':
-                    $monthsExperience = $months . " месяца";
-                    break;
-                case '5':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '6':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '7':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '8':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '9':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '10':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '11':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-                case '12':
-                    $monthsExperience = $months . " месяцев";
-                    break;
-            }
-            $countExperience .= " ".$monthsExperience;
-        }
-        
-        return $countExperience;
-    }
 
-    /**
-     * Returns formated date.
-     * 
-     * @param string $dateString
-     * @return string
-     */
-    private function getFormatDate(string $dateString): string {
-        if ($dateString == '') {
-            $monthAndYear = "настоящее время";
-        } else {
-            $monthsList = array(
-                "01" => "Январь",
-                "02" => "Февраль",
-                "03" => "Март",
-                "04" => "Апрель",
-                "05" => "Май",
-                "06" => "Июнь",
-                "07" => "Июль",
-                "08" => "Август",
-                "09" => "Сентябрь",
-                "10" => "Октябрь",
-                "11" => "Ноябрь",
-                "12" => "Декабрь"
-            );
-            $date = new DateTime($dateString);
-            $month = $monthsList[$date->format('m')];
-            $monthAndYear = $month . " " . $date->format('Y');
-            return $monthAndYear;
-        }
-    }
-
-    /**
-     * This method used for dataUpdate function.
-     * Returns formated date.
-     *
-     * @param string $dateString
-     * @return string
-     */
-    private function getFormatDateUpdate(string $dateString): string
-    {
-        $monthsList = array(
-            "01" => "января",
-            "02" => "февраля",
-            "03" => "марта",
-            "04" => "апреля",
-            "05" => "мая",
-            "06" => "июня",
-            "07" => "июля",
-            "08" => "августа",
-            "09" => "сентября",
-            "10" => "октября",
-            "11" => "ноября",
-            "12" => "декабря"
-            );
-            $date = new DateTime($dateString);
-            $month = $monthsList[$date->format('m')];
-            $monthAndYear = $month . " " . $date->format('Y');
-            return $monthAndYear;
-        
-    }
-    
-    /**
-     * Returns data update.
-     * 
-     * @param array $resume
-     * @return string
-     */
-    private function getDataUpdate(string $dateUpdate): string {
-        $monthAndYear = $this->getFormatDateUpdate($dateUpdate);
-        $dayUpdate = new DateTime($dateUpdate);
-        $formatStringDataUpdate = $dayUpdate->format('d').' '.$monthAndYear.' в '.$dayUpdate->format('H:i');
-        return $formatStringDataUpdate;
-    }
 
 }

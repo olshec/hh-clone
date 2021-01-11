@@ -38,16 +38,21 @@ class Resume extends \yii\db\ActiveRecord
      * @param string $about_me
      * @param string $photo
      * @param string $date_update
+     * @param int $numberViews
+     * @param string $datePublication
      * @param int $user_id
      * @return \app\models\Resume
      */
-    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, string $date_update, int $user_id) {
+    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, 
+        string $date_update, int $numberViews, string $datePublication, int $user_id) {
         $resume = new Resume();
         $resume->name = $name;
         $resume->salary = $salary;
         $resume->about_me = $about_me;
         $resume->photo = $photo;
         $resume->date_update = $date_update;
+        $resume->number_views = $numberViews;
+        $resume->date_publication = $datePublication;
         $resume->user_id = $user_id;
         return $resume;
     }
@@ -58,9 +63,9 @@ class Resume extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['salary', 'user_id', 'name', 'date_update'], 'required'],
+            [['salary', 'user_id', 'name', 'date_update', 'number_views', 'date_publication'], 'required'],
             [['salary', 'user_id'], 'default', 'value' => null],
-            [['salary', 'user_id',], 'integer'],
+            [['salary', 'user_id', 'number_views',], 'integer'],
             [['about_me'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['photo'], 'string', 'max' => 255],
@@ -80,6 +85,8 @@ class Resume extends \yii\db\ActiveRecord
             'salary' => 'Salary',
             'about_me' => 'About Me',
             'date_update' => 'DateUpdate',
+            'number_views' => 'NumberViews', 
+            'date_publication' => 'DatePublication',
             'user_id' => 'User ID',
         ];
     }

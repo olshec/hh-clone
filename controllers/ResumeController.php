@@ -339,9 +339,7 @@ class ResumeController extends Controller
         $sortData   = $this->getSortParams();
         $cityData   = $this->getCitiesData();
         $gender     = $this->getGender();
-        
         $specializationsData    = $this->getSpecializations();
-        
         $listCheckBoxTypeEmployments = $this->getListTypeEmployments();
         $listCheckBoxSchedules       = $this->getListTypeSchedules();
         $salary                      = $this->getSalary();
@@ -349,21 +347,16 @@ class ResumeController extends Controller
         
         $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
-       
-//         $sql ='';
-//         $rows = Yii::$app->db->createCommand($sql)->queryAll();
-        
+
+        //filling resume data
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
-        //experience
-        //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider); $i++) {
             $models=$dataProvider[$i];
             
             $experienceDays = $this->getDaysExperience($models['resume_id']);
             if($this->checkExperience($experienceDays)){
-                //$user = $this->getUser($dataProvider[$i]['user_id']);
                 $userAge = $this->getAge($models['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
                     $resumeModels[$i]['city']               = $models['city_name'];
@@ -378,28 +371,13 @@ class ResumeController extends Controller
             }
         }
         
-        
         $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
         $schedules              = $this->getSchedulesData($listCheckBoxSchedules);
         $experience             = $this->getExperienceData();
-        
-//         var_dump($experience);
-//         exit();
+        //paginator
         $paginator = $this->setPaginizeDataProvider($resumeModels, 5);
         $stringPagination = $paginator->getPaginationLinks();
-//         echo '$countModelsOnPage = '.$countModelsOnPage.'<br>';
-//         echo 'start = '.$indexStart.'<br>';
-
-//         var_dump( $resumeModels);
-//         exit();
-//         var_dump($paginator);
-//         exit();
         $resumeModels = $paginator->getModels(); 
-        
-       // echo '$model = '.$models[0]['city'].'<br>';
-       
-//         var_dump($resumeModels);
-//         exit();
 
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
@@ -443,9 +421,9 @@ class ResumeController extends Controller
      */
     public function actionMyResumes()
     {
-        //         return $this->render('view', [
-        //             'model' => $this->findModel($id),
-        //         ]);
+//         return $this->render('view', [
+//             'model' => $this->findModel($id),
+//         ]);
         return $this->render('myResumes');
     }
 

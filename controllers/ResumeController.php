@@ -263,7 +263,7 @@ class ResumeController extends Controller
      * @param int $salary
      * @return array
      */
-    private function getDataProvider(array $sortData, array $cityData, string $gender, int $idSpecialization, 
+    private function getListAllResumes(array $sortData, array $cityData, string $gender, int $idSpecialization, 
         array $listTypeEmployments, array $listCheckBoxSchedules, int $salary, string $fullTextSerch):array {
         $queryParams = Yii::$app->request->queryParams;
         $queryParams['orderTable']              = $sortData['orderTable'];
@@ -345,7 +345,7 @@ class ResumeController extends Controller
         $salary                      = $this->getSalary();
         $fullTextSerch               = $this->getFullText();
         
-        $dataProvider = $this->getDataProvider($sortData, $cityData, $gender, $specializationsData['selectId'], 
+        $dataProvider = $this->getListAllResumes($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
 
         //filling resume data

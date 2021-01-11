@@ -34,7 +34,10 @@ class City {
     }
 
 	getSerchParams() {
-		let params = "&city="+this.getIdCity();
+		let params = "";
+		if(this.getIdCity() != 0) {
+			params = "&city="+this.getIdCity();
+		}
 		return params;
 	}
 }
@@ -79,7 +82,10 @@ class Specialization {
     }
 
 	getSerchParams() {
-		let params = "&specialization="+this.getId();
+		let params = "";
+		if(this.getId() != 0) {
+			params = "&specialization="+this.getId();
+		}
 		return params;
 	}
 }
@@ -388,8 +394,6 @@ function serchCity() {
 		serchUrl += ServiceLocator.salary.getSerchParams();
 		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		serchUrl += ServiceLocator.ageUp.getSerchParams();
-		serchUrl += ServiceLocator.page.getSerchParams();
-		serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 		window.location.href = serchUrl;
 	}
 	
@@ -408,8 +412,6 @@ function serchGender(genderName) {
 		serchUrl += ServiceLocator.salary.getSerchParams();
 		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		serchUrl += ServiceLocator.ageUp.getSerchParams();
-		serchUrl += ServiceLocator.page.getSerchParams();
-		serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -430,8 +432,6 @@ function serchSpecialization() {
 		serchUrl += ServiceLocator.salary.getSerchParams();
 		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		serchUrl += ServiceLocator.ageUp.getSerchParams();
-		serchUrl += ServiceLocator.page.getSerchParams();
-		serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -449,8 +449,6 @@ function serchTypeSort(sortName) {
 		serchUrl += ServiceLocator.salary.getSerchParams();
 		serchUrl += ServiceLocator.ageFrom.getSerchParams();
 		serchUrl += ServiceLocator.ageUp.getSerchParams();
-		serchUrl += ServiceLocator.page.getSerchParams();
-		serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 		window.location.href = serchUrl;
 	}
 }
@@ -467,8 +465,6 @@ function SerchTypeEmployment() {
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -484,8 +480,6 @@ function SerchSchedule() {
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -501,8 +495,6 @@ function SerchExperience() {
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -518,8 +510,6 @@ function SerchSalary(salary) {
 	serchUrl += ServiceLocator.salary.getNewSerchParams(salary);
 	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -536,8 +526,6 @@ function SerchAgeFrom(age) {
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	serchUrl += ServiceLocator.ageFrom.getNewSerchParams(age);
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -554,8 +542,6 @@ function SerchAgeUp(age) {
 	serchUrl += ServiceLocator.salary.getSerchParams();
 	serchUrl += ServiceLocator.ageFrom.getSerchParams();
 	serchUrl += ServiceLocator.ageUp.getNewSerchParams(age);
-	serchUrl += ServiceLocator.page.getSerchParams();
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -573,7 +559,6 @@ function SerchPage(numberPage) {
 	serchUrl += ServiceLocator.ageUp.getSerchParams();
 	numPage = parseInt(numberPage);
 	serchUrl += ServiceLocator.page.getNewSerchParams(numPage);
-	serchUrl += ServiceLocator.fullTextSercher.getSerchParams();
 	window.location.href = serchUrl;
 }
 
@@ -581,17 +566,6 @@ function serchFullText() {
 	const el = document.getElementById("full-text-serch");
 	let textSerch = el.value;
 	let serchUrl = ServiceLocator.serchURL;
-	serchUrl += ServiceLocator.city.getSerchParams();
-	serchUrl += ServiceLocator.gender.getSerchParams();
-	serchUrl += ServiceLocator.specialization.getSerchParams();
-	serchUrl += ServiceLocator.typeSort.getSerchParams();
-	serchUrl += ServiceLocator.typeEmployment.getSerchParams();
-	serchUrl += ServiceLocator.typeSchedule.getSerchParams();
-	serchUrl += ServiceLocator.experience.getSerchParams();
-	serchUrl += ServiceLocator.salary.getSerchParams();
-	serchUrl += ServiceLocator.ageFrom.getSerchParams();
-	serchUrl += ServiceLocator.ageUp.getSerchParams();
-	serchUrl += ServiceLocator.page.getSerchParams();
 	serchUrl += ServiceLocator.fullTextSercher.getNewSerchParams(textSerch);
 	window.location.href = serchUrl;
 }

@@ -359,21 +359,21 @@ class ResumeController extends Controller
         //filling in resume data
         $resumeModels = array();
         for ($i=0; $i < count($dataProvider); $i++) {
-            $resume=$dataProvider[$i];
+            $models=$dataProvider[$i];
             
-            $experienceDays = $this->getDaysExperience($resume['resume_id']);
+            $experienceDays = $this->getDaysExperience($models['resume_id']);
             if($this->checkExperience($experienceDays)){
                 //$user = $this->getUser($dataProvider[$i]['user_id']);
-                $userAge = $this->getAge($resume['date_birth']);
+                $userAge = $this->getAge($models['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
-                    $resumeModels[$i]['city']               = $resume['city_name'];
-                    $resumeModels[$i]['age']                = $this->getFormatAge($resume['date_birth']);
-                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resume['resume_id']);
-                    $resumeModels[$i]['experience']         = $this->getExperience($resume['resume_id']);
-                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($resume['date_update']);
-                    $resumeModels[$i]['photo']              = $resume['photo'];
-                    $resumeModels[$i]['name']               = $resume['resume_name'];
-                    $resumeModels[$i]['salary']             = $resume['salary'];
+                    $resumeModels[$i]['city']               = $models['city_name'];
+                    $resumeModels[$i]['age']                = $this->getFormatAge($models['date_birth']);
+                    $resumeModels[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($models['resume_id']);
+                    $resumeModels[$i]['experience']         = $this->getExperience($models['resume_id']);
+                    $resumeModels[$i]['dateUpdate']         = $this->getDataUpdate($models['date_update']);
+                    $resumeModels[$i]['photo']              = $models['photo'];
+                    $resumeModels[$i]['name']               = $models['resume_name'];
+                    $resumeModels[$i]['salary']             = $models['salary'];
                 }
             }
         }

@@ -86,8 +86,6 @@ class ResumeSearch extends Resume
                 $queryParams['join'][] = ' INNER JOIN "resume_type_employment" ON "resume"."id" = "resume_type_employment"."resume_id" ';
                 $queryWhere = ' "resume_type_employment"."type_employment_id" IN '.$stringListTypeEmployments. ' ';
                 $queryParams['where'][] = $queryWhere;
-//                 var_dump($queryWhere);
-//                 exit();
             }
         }
         return $queryParams;
@@ -132,7 +130,6 @@ class ResumeSearch extends Resume
     }
     
     private function serchFullText(string $stringFullTextSerch): array{
-        //    (Кемерово | Красноярск) | 4    "city"."name" || ' ' || 
         $strQuery = <<<EOT
                     WITH ts_city AS (
                     SELECT "resume"."id" as "resume_id", 
@@ -154,16 +151,10 @@ class ResumeSearch extends Resume
                     WHERE "ts" > 0
                     ORDER BY "ts" DESC;
                     EOT;
-       // ORDER BY "ts" DESC;
+        
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':fullTextSerch', $stringFullTextSerch);
         $resultQuery = $command->queryAll();
-        
-//         var_dump( $resultQuery);
-//         exit();
-
-//         var_dump( $query);
-//         exit();
             
         return $resultQuery;
     }
@@ -293,60 +284,6 @@ class ResumeSearch extends Resume
         else {
             $models = $this->serchQuery($params);
             return $models;
-            
-           //$query = Resume::find()
-           //->innerJoin('user', '"resume"."user_id" = "user"."id"');
-           //$orderType = $params['orderType'] == 'DESC'? SORT_DESC:SORT_ASC;
-            
-           // $query = $this->getCityId($query, $params);
-           // $query = $this->getSpecializationId($query, $params);
-           // $query = $this->getListTypeEmployments($query, $params);
-           // $query = $this->getListSchedules($query, $params);
-           // $query = $this->getGender($query, $params);
-           // $query = $this->getSalary($query, $params); 
-           // $query->orderBy([$params['orderTable'] => $orderType]);
-            
-            $dataProvider = new ActiveDataProvider([
-                'query' => $query,
-            ]);
-            
-//             $this->load($params);
-            
-//             if (!$this->validate()) {
-//                 // uncomment the following line if you do not want to return any records when validation fails
-//                 // $query->where('0=1');
-//                 return $dataProvider;
-//             }
-            
-            return $dataProvider->models;
         }
-        
-        
-        //         var_dump($query);
-        //         exit();
-        
-        // $query->where(['id' => [1, 2, 3], 'status' => 2] );
-        //  $query->where['AAA'] = '2' ;
-        //  print_r($query->where);
-        //         echo '<br>';
-        //         $query->where['resume_id']= ['12345', '6', '7'];
-        // $query->where['resume_id']= ['12345', '6', '7'];
-        
-        //         var_dump($query->where);
-        //         exit();
-        
-       
-        
-        //         // grid filtering conditions
-        //         $query->andFilterWhere([
-        //             'id' => $this->id,
-        //             'salary' => $this->salary,
-        //             'user_id' => $this->user_id,
-        //         ]);
-            
-        //         $query->andFilterWhere(['ilike', 'photo', $this->photo])
-        //             ->andFilterWhere(['ilike', 'about_me', $this->about_me]);
-        
-        
     }
 }

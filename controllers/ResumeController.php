@@ -141,7 +141,7 @@ class ResumeController extends Controller
     * @param array $listCheckBoxSchedules
     * @return array
     */
-    private function getSchedulesData(array $listCheckBoxSchedules):array {
+    private function getSchedulesList(array $listCheckBoxSchedules):array {
         $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
         $schedules = $command->queryAll();
         
@@ -161,7 +161,7 @@ class ResumeController extends Controller
      * @param array $listCheckBoxSchedules
      * @return array
      */
-    private function getExperienceData():array {
+    private function getExperienceList():array {
         $listCheckBoxExperience = $this->getListCheckBoxExperience();
         $experience = [];
         $experience[0]['name'] = 'Без опыта';
@@ -372,8 +372,9 @@ class ResumeController extends Controller
         }
         
         $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
-        $schedules              = $this->getSchedulesData($listCheckBoxSchedules);
-        $experience             = $this->getExperienceData();
+        $schedules              = $this->getSchedulesList($listCheckBoxSchedules);
+        $experience             = $this->getExperienceList();
+        
         //paginator
         $paginator = $this->setPaginizeDataProvider($resumeModels, 5);
         $stringPagination = $paginator->getPaginationLinks();
@@ -495,33 +496,6 @@ class ResumeController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-    
-    /**
-     * Returns the user of this resume.
-     * 
-     * @param int $idUser
-     * @return array
-     */ 
-    private function getUser(int $idUser): array {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE id=:user_id');
-        $command->bindValue(':user_id', $idUser);
-        $user = $command->queryOne();
-        return $user;
-    }
-    
-    /**
-     * Returns the city of user.
-     *
-     * @param int $idUser
-     * @return string
-     */
-    private function getCityName(int $idUser): string {
-        $command = Yii::$app->db->createCommand('SELECT "name" FROM "city" WHERE id=:user_id');
-        $command->bindValue(':user_id', $idUser);
-        $city = $command->queryOne();
-        $nameCity = $city['name'];
-        return $nameCity;
     }
     
     private function getAge(string $dateBirthString):int {

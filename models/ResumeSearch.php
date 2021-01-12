@@ -291,6 +291,7 @@ class ResumeSearch extends Resume
                     SELECT distinct "resume"."id" as "resume_id",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
+                        "resume"."number_views", "resume"."date_publication",
                         "resume"."date_update" as "date_update",
                         "user"."id" as "user_id",
                         "user"."date_birth" as "date_birth",
@@ -304,11 +305,15 @@ class ResumeSearch extends Resume
                     ORDER BY "resume"."date_update"
                     EOT;
         
-        $query = Resume::findBySql($strQuery);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        return $dataProvider->models;
+//         $query = Resume::findBySql($strQuery);
+//         $dataProvider = new ActiveDataProvider([
+//             'query' => $query,
+//         ]);
+//         return $dataProvider->models;
+        
+        $command = Yii::$app->db->createCommand($strQuery);
+        $resultQuery = $command->queryAll();
+        return $resultQuery;
         
     }
     

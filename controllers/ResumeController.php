@@ -571,28 +571,28 @@ class ResumeController extends Controller
         $salary                      = $this->getSalary();
         $fullTextSerch               = $this->getFullText();
         
-        $dataProvider = $this->getListAllResumes($sortData, $cityData, $gender, $specializationsData['selectId'], 
+        $listResume = $this->getListAllResumes($sortData, $cityData, $gender, $specializationsData['selectId'], 
             $listCheckBoxTypeEmployments, $listCheckBoxSchedules, $salary, $fullTextSerch);
 
         //filling resume data
         $ageFrom = $this->getAgeFrom();
         $ageUp   = $this->getAgeUp();
         $resumes = array();
-        for ($i=0; $i < count($dataProvider); $i++) {
-            $resumeData=$dataProvider[$i];
+        for ($i=0; $i < count($listResume); $i++) {
+            $resumeModel=$listResume[$i];
             
-            $experienceDays = $this->getDaysExperience($resumeData['resume_id']);
+            $experienceDays = $this->getDaysExperience($resumeModel['resume_id']);
             if($this->checkExperience($experienceDays)){
-                $userAge = $this->getAge($resumeData['date_birth']);
+                $userAge = $this->getAge($resumeModel['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
-                    $resumes[$i]['city']               = $resumeData['city_name'];
-                    $resumes[$i]['age']                = $this->getFormatAge($resumeData['date_birth']);
-                    $resumes[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resumeData['resume_id']);
-                    $resumes[$i]['experience']         = $this->getExperience($resumeData['resume_id']);
-                    $resumes[$i]['dateUpdate']         = $this->getDataUpdate($resumeData['date_update']);
-                    $resumes[$i]['photo']              = $resumeData['photo'];
-                    $resumes[$i]['name']               = $resumeData['resume_name'];
-                    $resumes[$i]['salary']             = $resumeData['salary'];
+                    $resumes[$i]['city']               = $resumeModel['city_name'];
+                    $resumes[$i]['age']                = $this->getFormatAge($resumeModel['date_birth']);
+                    $resumes[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resumeModel['resume_id']);
+                    $resumes[$i]['experience']         = $this->getExperience($resumeModel['resume_id']);
+                    $resumes[$i]['dateUpdate']         = $this->getDataUpdate($resumeModel['date_update']);
+                    $resumes[$i]['photo']              = $resumeModel['photo'];
+                    $resumes[$i]['name']               = $resumeModel['resume_name'];
+                    $resumes[$i]['salary']             = $resumeModel['salary'];
                 }
             }
         }
@@ -647,13 +647,28 @@ class ResumeController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionMyResumes()
-    {
+    { 
 //         return $this->render('view', [
 //             'model' => $this->findModel($id),
 //         ]);
         $searchModel = new ResumeSearch();
-        $models = $searchModel->serchMyResumes();
-        return $this->render('myResumes', [$models]);
+        $resumes = $searchModel->serchMyResumes();
+        
+        
+//         var_dump($resumes[0]);
+//         exit();
+        
+        //set experience
+        for($i=0; $i < count($resumes); $i++) {
+            $resumes[$i]['experience'] = $this->getExperience($resumes[$i]['resume_id']);
+            $resumes[$i]['datePublication'] = $this->getDataUpdate($resumes[$i]['date_publication']);
+        }
+
+        return $this->render('myResumes', [
+            'resumes' => $resumes,
+            'countResumes' => count($resumes),
+            
+        ]);
     }
 
     /**

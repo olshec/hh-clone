@@ -286,7 +286,7 @@ class ResumeSearch extends Resume
         }
     }
     
-    public function serchMyResumes(): array {
+    public function serchMyResumes(int $idResume): array {
         $strQuery = <<<EOT
                     SELECT distinct "resume"."id" as "resume_id",
                         "resume"."photo",
@@ -301,7 +301,7 @@ class ResumeSearch extends Resume
                         ON "resume"."user_id"="user"."id"
                     INNER JOIN "city"
                         ON "user"."city_id"="city"."id"
-                    WHERE "user"."id"=4
+                    WHERE "user"."id"=:idResume
                     ORDER BY "resume"."date_update"
                     EOT;
         
@@ -312,6 +312,7 @@ class ResumeSearch extends Resume
 //         return $dataProvider->models;
         
         $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':idResume', $idResume);
         $resultQuery = $command->queryAll();
         return $resultQuery;
         

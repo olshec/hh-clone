@@ -652,7 +652,7 @@ class ResumeController extends Controller
 //             'model' => $this->findModel($id),
 //         ]);
         $searchModel = new ResumeSearch();
-        $resumes = $searchModel->serchMyResumes();
+        $resumes = $searchModel->serchMyResumes(4);
         
         
 //         var_dump($resumes[0]);

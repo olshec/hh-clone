@@ -31,8 +31,8 @@ $this->title = 'Мои резюме'
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right"
                                                  aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>resume/update">Редактировать</a>
-                                                <a class="dropdown-item" href="#">Удалить</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>resume/update?resume=<?=$resume['resume_id']; ?>">Редактировать</a>
+                                                <a class="dropdown-item" href="<?= \yii\helpers\Url::to(['/']) ?>resume/delete?resume=<?=$resume['resume_id']; ?>">Удалить</a>
                                             </div>
                                         </div>
                                         <div class="col-xl-12 my-vacancies-block__left-col mb16">
@@ -52,7 +52,7 @@ $this->title = 'Мои резюме'
                                         <div
                                                 class="col-xl-12 d-flex justify-content-between align-items-center flex-wrap">
                                             <div class="d-flex flex-wrap mobile-mb12">
-                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view">Открыть</a>
+                                                <a class="mr16" href="<?= \yii\helpers\Url::to(['/']) ?>resume/view?resume=<?=$resume['resume_id']; ?>">Открыть</a>
                                             </div>
                                             <span class="mini-paragraph cadet-blue">Опубликовано <?= $resume['datePublication']?> </span>
                                         </div>

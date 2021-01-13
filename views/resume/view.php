@@ -27,7 +27,7 @@ $this->title = 'Резюме PHP разработчик';
                     </div>
                     <div class="paragraph-lead mb16">
                         <span class="mr24"><?= number_format($resume['salary'], 0, '', ' ');  ?> ₽</span>
-                        <span><?= $resume['experience_age']; ?></span>
+                        <span><?= $resume['experience_total']; ?></span>
                     </div>
                     <div class="profile-info company-profile-info resume-view__info-blick">
                         <div class="profile-info__block company-profile-info__block mb8">
@@ -56,7 +56,7 @@ $this->title = 'Резюме PHP разработчик';
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">Город проживания
                             </div>
-                            <div class="profile-info__block-right company-profile-info__block-right">Кемерово</div>
+                            <div class="profile-info__block-right company-profile-info__block-right"><?= $resume['city_name']; ?></div>
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">
@@ -82,45 +82,22 @@ $this->title = 'Резюме PHP разработчик';
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div class="row mb16">
-                                        <div class="col-lg-12"><h3 class="heading mb16">Опыт работы 13 лет и 11
-                                            месяцев</h3></div>
+                                        <div class="col-lg-12"><h3 class="heading mb16"><?= $resume['experience_total']; ?></h3></div>
+                                        <?php foreach ($resume['place_of_work'] as $placeOfWork):?>
                                         <div class="col-md-4 mb16">
-                                            <div class="paragraph tbold mb8">Апрель 2013 — по настоящее время</div>
-                                            <div class="mini-paragraph">7 лет 1 месяц</div>
+                                            <div class="paragraph tbold mb8"><?= $placeOfWork['date_work']; ?> </div>
+                                            <div class="mini-paragraph"><?= $placeOfWork['date_experients']; ?></div>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="paragraph tbold mb8">Программные системы Атлансис</div>
-                                            <div class="paragraph tbold mb8">Директор по стратегическому развитию
+                                            <div class="paragraph tbold mb8"><?= $placeOfWork['name_organization']; ?></div>
+                                            <div class="paragraph tbold mb8"><?= $placeOfWork['position']; ?>
                                             </div>
-                                            <div class="paragraph">Lorem ipsum dolor sit amet, consectetur
-                                                adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida
-                                                dolor sit amet lacus accumsan et viverra justo commodo. Proin
-                                                sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis
-                                                parturient montes, nascetur ridiculus mus. Nam fermentum, nulla
-                                                luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus
-                                                sapien nunc eget.
+                                            <div class="paragraph"><?= $placeOfWork['resp_func_ach']; ?>
                                             </div>
                                         </div>
+                                         <?php endforeach; ?>
                                     </div>
-                                    <div class="row mb16">
-                                        <div class="col-md-4 mb16">
-                                            <div class="paragraph tbold mb8">Май 2006 — по Март 2013</div>
-                                            <div class="mini-paragraph">6 лет 10 месяцев</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="paragraph tbold mb8">Программные системы Атлансис</div>
-                                            <div class="paragraph tbold mb8">Директор по стратегическому развитию
-                                            </div>
-                                            <div class="paragraph">Lorem ipsum dolor sit amet, consectetur
-                                                adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida
-                                                dolor sit amet lacus accumsan et viverra justo commodo. Proin
-                                                sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis
-                                                parturient montes, nascetur ridiculus mus. Nam fermentum, nulla
-                                                luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus
-                                                sapien nunc eget.
-                                            </div>
-                                        </div>
-                                    </div>
+                                          
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="company-profile-text mb64">

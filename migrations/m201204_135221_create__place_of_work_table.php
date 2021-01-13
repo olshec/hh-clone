@@ -19,7 +19,7 @@ class m201204_135221_create__place_of_work_table extends Migration
             'position' => $this->string(50)->notNull(),
             'date_start' => $this->date()->notNull(),
             'date_end' => $this->date()->notNull(),
-            'resp_func_ach' => $this->text(),
+            'about' => $this->text(),
             'resume_id' => $this->integer(11)->notNull(),
             'specialization_id' => $this->integer(11)->notNull(),
         ]);
@@ -82,10 +82,10 @@ class m201204_135221_create__place_of_work_table extends Migration
      * @param string $position
      * @param string $date_start
      * @param string $date_end
-     * @param string $resp_func_ach
+     * @param string $about
      */
     public function addPlaceOfWork(string $nameUser, string $surnameUser, string $dateBirth, string $nameResume, string $specialization, 
-        string $name_organization, string $position, string $date_start, string $date_end, string $resp_func_ach){
+        string $name_organization, string $position, string $date_start, string $date_end, string $about){
         $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
         $command->bindValue(':name', $nameUser);
         $command->bindValue(':surname', $surnameUser);
@@ -105,7 +105,7 @@ class m201204_135221_create__place_of_work_table extends Migration
         $idSpecialization= $post['id'];
         
         $placeOfWork = PlaceOfWork::getNewPlaceOfWork($name_organization, $position, $date_start,
-            $date_end, $resp_func_ach, $idResume, $idSpecialization); 
+            $date_end, $about, $idResume, $idSpecialization); 
         $placeOfWork->save();
     }
     

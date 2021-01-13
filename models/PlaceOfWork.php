@@ -12,7 +12,7 @@ use Yii;
  * @property string $position
  * @property string $date_start
  * @property string $date_end
- * @property string|null $resp_func_ach
+ * @property string|null $about
  * @property int $resume_id
  * @property int $specialization_id
  *
@@ -36,19 +36,19 @@ class PlaceOfWork extends \yii\db\ActiveRecord
      * @param string $position
      * @param string $date_start
      * @param string $date_end
-     * @param string $resp_func_ach
+     * @param string $about
      * @param int $resume_id
      * @param int $specialization_id
      * @return \app\models\PlaceOfWork
      */
     public static function getNewPlaceOfWork(string $name_organization, string $position, string $date_start, 
-        string $date_end, string $resp_func_ach, int $resume_id, int $specialization_id) {
+        string $date_end, string $about, int $resume_id, int $specialization_id) {
         $placeOfWork = new PlaceOfWork();
         $placeOfWork->name_organization = $name_organization;
         $placeOfWork->position = $position;
         $placeOfWork->date_start = $date_start;
         $placeOfWork->date_end = $date_end;
-        $placeOfWork->resp_func_ach = $resp_func_ach;
+        $placeOfWork->about = $about;
         $placeOfWork->resume_id = $resume_id;
         $placeOfWork->specialization_id = $specialization_id;
         return $placeOfWork;
@@ -62,7 +62,7 @@ class PlaceOfWork extends \yii\db\ActiveRecord
         return [
             [['name_organization', 'position', 'date_start', 'date_end', 'resume_id', 'specialization_id'], 'required'],
             [['date_start', 'date_end'], 'safe'],
-            [['resp_func_ach'], 'string'],
+            [['about'], 'string'],
             [['resume_id', 'specialization_id'], 'default', 'value' => null],
             [['resume_id', 'specialization_id'], 'integer'],
             [['name_organization', 'position'], 'string', 'max' => 50],
@@ -82,7 +82,7 @@ class PlaceOfWork extends \yii\db\ActiveRecord
             'position' => 'Position',
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
-            'resp_func_ach' => 'Resp Func Ach',
+            'about' => 'About',
             'resume_id' => 'Resume ID',
             'specialization_id' => 'Specialization ID',
         ];

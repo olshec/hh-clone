@@ -357,14 +357,13 @@ class ResumeController extends Controller
     /**
      * Returns the info about last place of work.
      *
-     * @param string $resumeId
+     * @param int $resumeId
      * @return string
      */
-    private function getInfoAboutLastPlaceOfWork(string $resumeId): string {
+    private function getInfoAboutLastPlaceOfWork(int $resumeId): string {
         $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id ORDER BY date_end DESC');
         $command->bindValue(':resume_id', $resumeId);
-        $allPlacesOfWork = $command->queryAll();
-        $lastPlaceOfWork = $allPlacesOfWork[0];
+        $lastPlaceOfWork = $command->queryOne();
         $dateStartWork = $lastPlaceOfWork['date_start'];
         $dateFinishWork = $lastPlaceOfWork['date_end'];
         //list of month
@@ -378,31 +377,11 @@ class ResumeController extends Controller
         return $infoAboutLastWork;
     }
     
-    private function getAllLastPlacesOfWork(int $resumeId): array {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
-        $command->bindValue(':resume_id', $resumeId);
-        $placesOfWork = $command->queryAll();
-        
-        $days = 0;
-        $experience = [];
-        for ($i=0; $i < count($placesOfWork); $i++) {
-            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
-            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
-            $interval = $dateFinishWork->diff($dateStartWork);
-            $days = $interval->y*365 + $interval->m*30 + $interval->d;
-            $experience['date'] = $this->countExperience($days);
-            $experience['name_organization'] = $placesOfWork['name_organization'];
-            $experience['position'] = $placesOfWork['position'];
-            
-        }
-        
-        return $experience;
-    }
-    
+
     /**
      * Return all days experience.
      *
-     * @param string $resumeId
+     * @param int $resumeId
      * @return int
      */
     private function getAllDaysExperience(int $resumeId):int {
@@ -646,7 +625,39 @@ class ResumeController extends Controller
             'stringPagination'                => $stringPagination
         ]);
     }
+    
+    private function getInfoAooutDateWork(string $dateStartWork, string $dateFinishWork): string {
+        $monthAndYearStart = $this->getFormatDate($dateStartWork);
+        $monthAndYearFinish = $this->getFormatDate($dateFinishWork);
+        $infoAboutWork = $monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        return $infoAboutWork;
+    }
 
+    private function getAllPlacesOfWork(int $resumeId): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
+        $command->bindValue(':resume_id', $resumeId);
+        $placesOfWork = $command->queryAll();
+        
+        $days = 0;
+        $experience = [];
+        for ($i=0; $i < count($placesOfWork); $i++) {
+            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
+            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $interval = $dateFinishWork->diff($dateStartWork);
+            $days = $interval->y*365 + $interval->m*30 + $interval->d;
+            $experience[$i]['date_experients']      = $this->countExperience($days);
+            $experience[$i]['name_organization']    = $placesOfWork[$i]['name_organization'];
+            $experience[$i]['position']             = $placesOfWork[$i]['position'];
+            $experience[$i]['resp_func_ach']        = $placesOfWork[$i]['resp_func_ach'];
+            $experience[$i]['date_work']             = $this->getInfoAooutDateWork($placesOfWork[$i]['date_start'], 
+                                                    $placesOfWork[$i]['date_end']);
+        }
+//         var_dump($experience);
+//         exit();
+        return $experience;
+    }
+    
+    
     /**
      * Displays a single Resume model.
      * @param integer $id
@@ -660,10 +671,14 @@ class ResumeController extends Controller
             $resumeID = Yii::$app->request->queryParams['resume'];
             $searchModel = new ResumeSearch();
             $resume = $searchModel->serchResumeById($resumeID);
-            $resume['experience_age']         = $this->getAllExperience($resume['resume_id']);
+            $resume['experience_total']   = $this->getAllExperience($resume['resume_id']);
             $resume['age']                = $this->getFormatAge($resume['date_birth']);
+            $resume['place_of_work']      = $this->getAllPlacesOfWork($resumeID);
+            
+            
 //             var_dump($resume);
 //             exit();
+
             return $this->render('view', ['resume' => $resume]);
         } else {
             return $this->redirect('index');

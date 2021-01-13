@@ -29,22 +29,24 @@ class User extends \yii\db\ActiveRecord
     }
     
     /**
-     * Returns new user.
-     * 
+     *  Returns new user.
+     *  
      * @param string $name
      * @param string $surname
+     * @param string $patronymic
      * @param string $email
      * @param string $telephone
      * @param string $date_birth
-     * @param int $city_id
+     * @param int $idCity
      * @param string $gender
      * @return \app\models\User
      */
-    public static function getNewUser(string $name, string $surname, string $email, string $telephone, 
+    public static function getNewUser(string $name, string $surname, string $patronymic, string $email, string $telephone, 
         string $date_birth, int $idCity, string $gender) {
         $user = new User();
         $user->name = $name;
         $user->surname = $surname;
+        $user->patronymic = $patronymic;
         $user->email = $email;
         $user->telephone = $telephone;
         $user->date_birth = $date_birth;
@@ -62,7 +64,7 @@ class User extends \yii\db\ActiveRecord
             [['name', 'surname', 'email', 'telephone', 'date_birth', 'city_id', 'gender'], 'required'],
             [['date_birth'], 'safe'],
             [['gender'], 'string'],
-            [['name', 'surname', 'email', 'telephone'], 'string', 'max' => 50],
+            [['name', 'surname', 'patronymic', 'email', 'telephone'], 'string', 'max' => 50],
         ];
     }
 

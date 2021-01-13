@@ -640,6 +640,7 @@ class ResumeController extends Controller
             $searchModel = new ResumeSearch();
             $resume = $searchModel->serchResumeById($resumeID);
             $resume['experience']         = $this->getExperience($resume['resume_id']);
+            $resume['age']                = $this->getFormatAge($resume['date_birth']);
 //             var_dump($resume);
 //             exit();
             return $this->render('view', ['resume' => $resume]);

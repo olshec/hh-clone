@@ -17,6 +17,7 @@ class m201202_131153_create_user_table extends Migration
             'id' => \yii\db\pgsql\Schema::TYPE_PK,
             'name' => $this->string(50)->notNull(),
             'surname' => $this->string(50)->notNull(),
+            'patronymic' => $this->string(50),
             'email' => $this->string(50)->notNull(),
             'telephone' => $this->string(50)->notNull(),
             'date_birth' => $this->date()->notNull(),
@@ -24,10 +25,10 @@ class m201202_131153_create_user_table extends Migration
             'gender' => 'gender_enum NOT NULL',
         ]);
         
-        $this->addUser('Anton', 'Lavrov', 'lAnton@gmail.com', '+79202943874', '1990-02-18', 'Кемерово', 'male');
-        $this->addUser('Anna', 'Mironova', 'anmir@yandex.com', '+79203459845', '1992-11-25', 'Новосибирск', 'female');
-        $this->addUser('Ekaterina', 'Shahmotova', 'katsh@gmail.com', '+79209384756', '1997-12-30', 'Иркутск', 'female');
-        $this->addUser('Andrey', 'Rumov', 'andreyrum@yahoo.com', '+79204859764', '1999-08-11', 'Красноярск', 'male');
+        $this->addUser('Anton', 'Lavrov', '', 'lAnton@gmail.com', '+79202943874', '1990-02-18', 'Кемерово', 'male');
+        $this->addUser('Anna', 'Mironova', '', 'anmir@yandex.com', '+79203459845', '1992-11-25', 'Новосибирск', 'female');
+        $this->addUser('Ekaterina', 'Shahmotova', '', 'katsh@gmail.com', '+79209384756', '1997-12-30', 'Иркутск', 'female');
+        $this->addUser('Andrey', 'Rumov', '', 'andreyrum@yahoo.com', '+79204859764', '1999-08-11', 'Красноярск', 'male');
     }
     
     /**
@@ -41,7 +42,7 @@ class m201202_131153_create_user_table extends Migration
      * @param string $city
      * @param string $gender
      */
-    public function addUser(string $name, string $surname, string $email, string $telephone, string $date_birth, string $city, string $gender) {
+    public function addUser(string $name, string $surname, string $patronymic, string $email, string $telephone, string $date_birth, string $city, string $gender) {
         
         $command = Yii::$app->db->createCommand('SELECT "id" FROM "city" WHERE name=:name');
         $command->bindValue(':name', $city);
@@ -49,7 +50,7 @@ class m201202_131153_create_user_table extends Migration
         
         $idCity = $post['id'];
         
-        $user = User::getNewUser($name, $surname, $email, $telephone, $date_birth, $idCity, $gender) ;
+        $user = User::getNewUser($name, $surname, $patronymic, $email, $telephone, $date_birth, $idCity, $gender) ;
         $user->save();
     }
 

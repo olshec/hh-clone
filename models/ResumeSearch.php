@@ -326,6 +326,7 @@ class ResumeSearch extends Resume
                         "user"."id" as "user_id",
                         "user"."name" as "user_name",
                         "user"."surname" as "user_surname",
+                        "user"."patronymic" as "user_patronymic",
                         "user"."date_birth",
                         "city"."name" as "city_name"
                     FROM "resume"

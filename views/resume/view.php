@@ -34,13 +34,13 @@ $this->title = 'Резюме PHP разработчик';
                             <div class="profile-info__block-left company-profile-info__block-left">Имя
                             </div>
                             <div class="profile-info__block-right company-profile-info__block-right"><?= $resume['user_surname']; ?> <?= $resume['user_name']; ?>
-                                Иванович
+                                <?= $resume['user_patronymic']; ?> 
                             </div>
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">Возраст
                             </div>
-                            <div class="profile-info__block-right company-profile-info__block-right">43 года</div>
+                            <div class="profile-info__block-right company-profile-info__block-right"><?= $resume['age']; ?></div>
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">Занятость</div>

@@ -92,7 +92,7 @@ $this->title = 'Резюме PHP разработчик';
                                             <div class="paragraph tbold mb8"><?= $placeOfWork['name_organization']; ?></div>
                                             <div class="paragraph tbold mb8"><?= $placeOfWork['position']; ?>
                                             </div>
-                                            <div class="paragraph"><?= $placeOfWork['resp_func_ach']; ?>
+                                            <div class="paragraph"><?= $placeOfWork['about']; ?>
                                             </div>
                                         </div>
                                          <?php endforeach; ?>

@@ -648,7 +648,7 @@ class ResumeController extends Controller
             $experience[$i]['date_experients']      = $this->countExperience($days);
             $experience[$i]['name_organization']    = $placesOfWork[$i]['name_organization'];
             $experience[$i]['position']             = $placesOfWork[$i]['position'];
-            $experience[$i]['resp_func_ach']        = $placesOfWork[$i]['resp_func_ach'];
+            $experience[$i]['about']                = $placesOfWork[$i]['about'];
             $experience[$i]['date_work']             = $this->getInfoAooutDateWork($placesOfWork[$i]['date_start'], 
                                                     $placesOfWork[$i]['date_end']);
         }

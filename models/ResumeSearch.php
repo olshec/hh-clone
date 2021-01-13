@@ -323,10 +323,13 @@ class ResumeSearch extends Resume
                     SELECT distinct "resume"."id" as "resume_id",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
+                        "resume"."about_me" as "about_me",
                         "user"."id" as "user_id",
                         "user"."name" as "user_name",
                         "user"."surname" as "user_surname",
                         "user"."patronymic" as "user_patronymic",
+                        "user"."email" as "email",
+                        "user"."telephone" as "telephone",
                         "user"."date_birth",
                         "city"."name" as "city_name"
                     FROM "resume"

@@ -639,7 +639,7 @@ class ResumeController extends Controller
             $resumeID = Yii::$app->request->queryParams['resume'];
             $searchModel = new ResumeSearch();
             $resume = $searchModel->serchResumeById($resumeID);
-            $resume['experience']         = $this->getExperience($resume['resume_id']);
+            $resume['experience_age']         = $this->getExperience($resume['resume_id']);
             $resume['age']                = $this->getFormatAge($resume['date_birth']);
 //             var_dump($resume);
 //             exit();

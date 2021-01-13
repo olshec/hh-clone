@@ -4,6 +4,7 @@
 
 // $this->params['listResumeState'] = $listResumeState;
 // $this->params['resumeState'] = $resumeState;
+$addressServer = \yii\helpers\Url::to(['/']);
 
 $this->title = 'Резюме PHP разработчик';
 ?>
@@ -19,7 +20,7 @@ $this->title = 'Резюме PHP разработчик';
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-5 mobile-mb32">
-                    <div class="profile-foto resume-profile-foto"><img src="<?= \yii\helpers\Url::to(['/']) ?>images/profile-foto.jpg" alt="profile-foto">
+                    <div class="profile-foto resume-profile-foto"><img src="<?=  $addressServer ?>ResumePhoto/<?= $resume['photo']?>" alt="profile-foto">
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-7">

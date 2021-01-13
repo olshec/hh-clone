@@ -4,6 +4,7 @@
 // $this->params['listResumeState'] = $listResumeState;
 // $this->params['resumeState'] = $resumeState;
 $addressServer = \yii\helpers\Url::to(['/']);
+
 $this->title = 'Список резюме';
 ?>
         <div class="header-search">

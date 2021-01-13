@@ -634,10 +634,16 @@ class ResumeController extends Controller
      */
     public function actionView()
     {
-//         return $this->render('view', [
-//             'model' => $this->findModel($id),
-//         ]);
-        return $this->render('view');
+
+        if (array_key_exists('resume', Yii::$app->request->queryParams)) {
+            $resumeID = Yii::$app->request->queryParams['resume'];
+            $resume = Resume::findOne($resumeID);
+            return $this->render('view', ['resume' => $resume]);
+        } else {
+            $this->redirect('index');
+        }
+        
+        
     }
     
     /**
@@ -652,7 +658,7 @@ class ResumeController extends Controller
 //             'model' => $this->findModel($id),
 //         ]);
         $searchModel = new ResumeSearch();
-        $resumes = $searchModel->serchMyResumes(4);
+        $resumes = $searchModel->serchResumesByIdUser(4);
         
         
 //         var_dump($resumes[0]);

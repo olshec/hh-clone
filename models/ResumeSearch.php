@@ -286,22 +286,22 @@ class ResumeSearch extends Resume
         }
     }
     
-    public function serchMyResumes(int $idResume): array {
+    public function serchResumesByIdUser(int $idUser): array {
         $strQuery = <<<EOT
                     SELECT distinct "resume"."id" as "resume_id",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
                         "resume"."number_views", "resume"."date_publication",
-                        "resume"."date_update" as "date_update",
+                        "resume"."date_update",
                         "user"."id" as "user_id",
-                        "user"."date_birth" as "date_birth",
+                        "user"."date_birth",
                         "city"."name" as "city_name"
                     FROM "resume"
                     INNER JOIN "user"
                         ON "resume"."user_id"="user"."id"
                     INNER JOIN "city"
                         ON "user"."city_id"="city"."id"
-                    WHERE "user"."id"=:idResume
+                    WHERE "user"."id"=:idUser
                     ORDER BY "resume"."date_update"
                     EOT;
         
@@ -312,10 +312,38 @@ class ResumeSearch extends Resume
 //         return $dataProvider->models;
         
         $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':idUser', $idUser);
+        $resultQuery = $command->queryAll();
+        return $resultQuery;
+    }
+    
+    public function serchResumeById($idResume) {
+        $strQuery = <<<EOT
+                    SELECT distinct "resume"."id" as "resume_id",
+                        "resume"."photo",
+                        "resume"."name" as "resume_name", "resume"."salary",
+                        "user"."id" as "user_id",
+                        "user"."date_birth",
+                        "city"."name" as "city_name"
+                    FROM "resume"
+                    INNER JOIN "user"
+                        ON "resume"."user_id"="user"."id"
+                    INNER JOIN "city"
+                        ON "user"."city_id"="city"."id"
+                    WHERE "resume"."id"=:idResume
+                    ORDER BY "resume"."date_update"
+                    EOT;
+        
+        //         $query = Resume::findBySql($strQuery);
+        //         $dataProvider = new ActiveDataProvider([
+        //             'query' => $query,
+        //         ]);
+        //         return $dataProvider->models;
+        
+        $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':idResume', $idResume);
         $resultQuery = $command->queryAll();
         return $resultQuery;
-        
     }
     
 }

@@ -637,10 +637,14 @@ class ResumeController extends Controller
 
         if (array_key_exists('resume', Yii::$app->request->queryParams)) {
             $resumeID = Yii::$app->request->queryParams['resume'];
-            $resume = Resume::findOne($resumeID);
+            $searchModel = new ResumeSearch();
+            $resume = $searchModel->serchResumeById($resumeID);
+            $resume['experience']         = $this->getExperience($resume['resume_id']);
+//             var_dump($resume);
+//             exit();
             return $this->render('view', ['resume' => $resume]);
         } else {
-            $this->redirect('index');
+            return $this->redirect('index');
         }
         
         

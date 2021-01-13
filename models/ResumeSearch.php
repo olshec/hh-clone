@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use app\models\Resume;
 use Yii;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 /**
  * ResumeSearch represents the model behind the search form of `app\models\Resume`.
@@ -323,6 +324,8 @@ class ResumeSearch extends Resume
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
                         "user"."id" as "user_id",
+                        "user"."name" as "user_name",
+                        "user"."surname" as "user_surname",
                         "user"."date_birth",
                         "city"."name" as "city_name"
                     FROM "resume"
@@ -331,7 +334,6 @@ class ResumeSearch extends Resume
                     INNER JOIN "city"
                         ON "user"."city_id"="city"."id"
                     WHERE "resume"."id"=:idResume
-                    ORDER BY "resume"."date_update"
                     EOT;
         
         //         $query = Resume::findBySql($strQuery);
@@ -342,7 +344,7 @@ class ResumeSearch extends Resume
         
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':idResume', $idResume);
-        $resultQuery = $command->queryAll();
+        $resultQuery = $command->queryOne();
         return $resultQuery;
     }
     

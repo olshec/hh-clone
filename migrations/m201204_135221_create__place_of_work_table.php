@@ -50,7 +50,12 @@ class m201204_135221_create__place_of_work_table extends Migration
             'ОАО Стелс', 'Java Spring developer', '2019-03-26', '2020-07-11', '----');
         
         $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 
-            'High tecnology', 'Python developer', '2018-11-25', '2019-08-27', '----');
+            'High tecnology', 'Python developer', '2018-11-25', '2019-08-27', 
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum 
+            laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. 
+            Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis 
+            parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, 
+            felis tellus mollis orci, sed rhoncus sapien nunc eget.');
         $this->addPlaceOfWork('Andrey', 'Rumov', '1999-08-11', 'Python sinior developer', 'Программирование, Разработка', 
             'SkyTech', 'Python developer', '2019-10-25', '2020-07-20', '----');
         

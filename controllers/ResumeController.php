@@ -378,13 +378,34 @@ class ResumeController extends Controller
         return $infoAboutLastWork;
     }
     
+    private function getAllLastPlacesOfWork(int $resumeId): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
+        $command->bindValue(':resume_id', $resumeId);
+        $placesOfWork = $command->queryAll();
+        
+        $days = 0;
+        $experience = [];
+        for ($i=0; $i < count($placesOfWork); $i++) {
+            $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
+            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $interval = $dateFinishWork->diff($dateStartWork);
+            $days = $interval->y*365 + $interval->m*30 + $interval->d;
+            $experience['date'] = $this->countExperience($days);
+            $experience['name_organization'] = $placesOfWork['name_organization'];
+            $experience['position'] = $placesOfWork['position'];
+            
+        }
+        
+        return $experience;
+    }
+    
     /**
-     * Return days experience.
+     * Return all days experience.
      *
      * @param string $resumeId
      * @return int
      */
-    private function getDaysExperience(string $resumeId):int {
+    private function getAllDaysExperience(int $resumeId):int {
         $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
         $command->bindValue(':resume_id', $resumeId);
         $placesOfWork = $command->queryAll();
@@ -404,8 +425,8 @@ class ResumeController extends Controller
      * @param string $resumeId
      * @return string
      */
-    private function getExperience(string $resumeId): string {
-        $days = $this->getDaysExperience($resumeId);
+    private function getAllExperience(int $resumeId): string {
+        $days = $this->getAllDaysExperience($resumeId);
         $experience = $this->countExperience($days);
         return $experience;
     }
@@ -581,14 +602,14 @@ class ResumeController extends Controller
         for ($i=0; $i < count($listResume); $i++) {
             $resumeModel=$listResume[$i];
             
-            $experienceDays = $this->getDaysExperience($resumeModel['resume_id']);
+            $experienceDays = $this->getAllDaysExperience($resumeModel['resume_id']);
             if($this->checkExperience($experienceDays)){
                 $userAge = $this->getAge($resumeModel['date_birth']);
                 if($userAge >= $ageFrom && ($userAge <= $ageUp || $ageUp == 0)){
                     $resumes[$i]['city']               = $resumeModel['city_name'];
                     $resumes[$i]['age']                = $this->getFormatAge($resumeModel['date_birth']);
                     $resumes[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resumeModel['resume_id']);
-                    $resumes[$i]['experience']         = $this->getExperience($resumeModel['resume_id']);
+                    $resumes[$i]['experience']         = $this->getAllExperience($resumeModel['resume_id']);
                     $resumes[$i]['dateUpdate']         = $this->getDataUpdate($resumeModel['date_update']);
                     $resumes[$i]['photo']              = $resumeModel['photo'];
                     $resumes[$i]['name']               = $resumeModel['resume_name'];
@@ -639,7 +660,7 @@ class ResumeController extends Controller
             $resumeID = Yii::$app->request->queryParams['resume'];
             $searchModel = new ResumeSearch();
             $resume = $searchModel->serchResumeById($resumeID);
-            $resume['experience_age']         = $this->getExperience($resume['resume_id']);
+            $resume['experience_age']         = $this->getAllExperience($resume['resume_id']);
             $resume['age']                = $this->getFormatAge($resume['date_birth']);
 //             var_dump($resume);
 //             exit();
@@ -671,7 +692,7 @@ class ResumeController extends Controller
         
         //set experience
         for($i=0; $i < count($resumes); $i++) {
-            $resumes[$i]['experience'] = $this->getExperience($resumes[$i]['resume_id']);
+            $resumes[$i]['experience'] = $this->getAllExperience($resumes[$i]['resume_id']);
             $resumes[$i]['datePublication'] = $this->getDataUpdate($resumes[$i]['date_publication']);
         }
 

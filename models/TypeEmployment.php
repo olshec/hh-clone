@@ -77,7 +77,7 @@ class TypeEmployment extends \yii\db\ActiveRecord
         
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':idResume', $idResume);
-        $resultQuery = $command->queryOne();
+        $resultQuery = $command->queryAll();
         return $resultQuery;
     }
 }

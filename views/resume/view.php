@@ -50,8 +50,7 @@ $this->title = 'Резюме PHP разработчик';
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">График работы
                             </div>
-                            <div class="profile-info__block-right company-profile-info__block-right">Гибкий график,
-                                полный день
+                            <div class="profile-info__block-right company-profile-info__block-right"><?= $resume['schedule']; ?>
                             </div>
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">

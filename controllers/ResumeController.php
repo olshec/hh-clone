@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use app\models\TypeEmployment;
+use app\models\Schedule;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -680,23 +681,33 @@ class ResumeController extends Controller
             $resume['age']                = $this->getFormatAge($resume['date_birth']);
             $resume['place_of_work']      = $this->getAllPlacesOfWork($resumeID);
             
+            //serch type employment
             $searchModel = new TypeEmployment();
             $typeEmployments = $searchModel->getTypeEmploymentByIdResume($resume['resume_id']);
-            $type_employment = '';
+            $typeEmployment = '';
             foreach($typeEmployments as $typeEmp) {
-                $temp = explode ( " " , $typeEmp);
+                $temp = explode ( " " , $typeEmp['name']);
                 $temp = $temp[0];
-                $type_employment .= $temp. ', ';
+                $typeEmployment .= $temp. ', ';
             }
-            if($type_employment != '') {
-                $type_employment = mb_substr($type_employment, 0, -2);
+            if($typeEmployment != '') {
+                $typeEmployment = mb_substr($typeEmployment, 0, -2);
             }
+            $resume['type_employment'] = $typeEmployment;
             
-            $resume['type_employment'] = $type_employment;
+            //serch schedule
+            $searchModel = new Schedule();
+            $schedules = $searchModel->getScheduleByIdResume($resume['resume_id']);
+            $schedule = '';
+            foreach($schedules as $sch) {
+                $schedule .= $sch['name']. ', ';
+            }
+            if($schedule != '') {
+                $schedule = mb_substr($schedule, 0, -2);
+            }
+            $resume['schedule'] = $schedule;
             
-            
-//             var_dump($resume);
-//             exit();
+
 
             return $this->render('view', ['resume' => $resume]);
         } else {

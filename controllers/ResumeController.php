@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use app\models\TypeEmployment;
 
 /**
  * ResumeController implements the CRUD actions for Resume model.
@@ -657,6 +658,10 @@ class ResumeController extends Controller
         return $experience;
     }
     
+    private function getTypeEmploymentsOfUser(int $idUser): string {
+        ;
+    }
+    
     
     /**
      * Displays a single Resume model.
@@ -674,6 +679,20 @@ class ResumeController extends Controller
             $resume['experience_total']   = $this->getAllExperience($resume['resume_id']);
             $resume['age']                = $this->getFormatAge($resume['date_birth']);
             $resume['place_of_work']      = $this->getAllPlacesOfWork($resumeID);
+            
+            $searchModel = new TypeEmployment();
+            $typeEmployments = $searchModel->getTypeEmploymentByIdResume($resume['resume_id']);
+            $type_employment = '';
+            foreach($typeEmployments as $typeEmp) {
+                $temp = explode ( " " , $typeEmp);
+                $temp = $temp[0];
+                $type_employment .= $temp. ', ';
+            }
+            if($type_employment != '') {
+                $type_employment = mb_substr($type_employment, 0, -2);
+            }
+            
+            $resume['type_employment'] = $type_employment;
             
             
 //             var_dump($resume);

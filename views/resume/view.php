@@ -45,7 +45,7 @@ $this->title = 'Резюме PHP разработчик';
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">Занятость</div>
-                            <div class="profile-info__block-right company-profile-info__block-right">Полная</div>
+                            <div class="profile-info__block-right company-profile-info__block-right"> <?= $resume['type_employment']; ?></div>
                         </div>
                         <div class="profile-info__block company-profile-info__block mb8">
                             <div class="profile-info__block-left company-profile-info__block-left">График работы

@@ -13,8 +13,7 @@ $this->title = 'Резюме PHP разработчик';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="mt8 mb32"><a href="#"><img src="<?= \yii\helpers\Url::to(['/']) ?>images/blue-left-arrow.svg" alt="arrow"> Резюме в
-                        Кемерово</a>
+                    <div class="mt8 mb32"><a href="<?= $addressServer ?>resume/my-resumes"><img src="<?= $addressServer ?>images/blue-left-arrow.svg" alt="arrow"> Назад</a>
                     </div>
                 </div>
             </div>

@@ -27,9 +27,9 @@ class ResumeController extends Controller
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+//                 'actions' => [
+//                     'delete' => ['POST'],
+//                 ],
             ],
         ];
     }
@@ -659,11 +659,6 @@ class ResumeController extends Controller
         return $experience;
     }
     
-    private function getTypeEmploymentsOfUser(int $idUser): string {
-        ;
-    }
-    
-    
     /**
      * Displays a single Resume model.
      * @param integer $id
@@ -685,13 +680,13 @@ class ResumeController extends Controller
             $searchModel = new TypeEmployment();
             $typeEmployments = $searchModel->getTypeEmploymentByIdResume($resume['resume_id']);
             $typeEmployment = '';
-            foreach($typeEmployments as $typeEmp) {
-                $temp = explode ( " " , $typeEmp['name']);
-                $temp = $temp[0];
-                $typeEmployment .= $temp. ', ';
-            }
-            if($typeEmployment != '') {
-                $typeEmployment = mb_substr($typeEmployment, 0, -2);
+            if(count($typeEmployments)>=1){
+                $typeEmployment .= $typeEmployments[0]['name'];
+                for($i=1; $i < count($typeEmployments); $i++) {
+                    $temp = explode ( " " , $typeEmployments[$i]['name']);
+                    $temp = $temp[0];
+                    $typeEmployment .= ', ' . mb_strtolower($temp);
+                }
             }
             $resume['type_employment'] = $typeEmployment;
             
@@ -699,16 +694,14 @@ class ResumeController extends Controller
             $searchModel = new Schedule();
             $schedules = $searchModel->getScheduleByIdResume($resume['resume_id']);
             $schedule = '';
-            foreach($schedules as $sch) {
-                $schedule .= $sch['name']. ', ';
-            }
-            if($schedule != '') {
-                $schedule = mb_substr($schedule, 0, -2);
+            if(count($schedules)>=1){
+                $schedule .= $schedules[0]['name'];
+                for($i=1; $i < count($schedules); $i++) {
+                    $schedule .= ', ' . mb_strtolower($schedules[$i]['name']);
+                }
             }
             $resume['schedule'] = $schedule;
             
-
-
             return $this->render('view', ['resume' => $resume]);
         } else {
             return $this->redirect('index');
@@ -791,15 +784,13 @@ class ResumeController extends Controller
     /**
      * Deletes an existing Resume model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+       //$this->findModel($id)->delete();
+        return $this->redirect(['my-resumes']);
     }
 
     /**

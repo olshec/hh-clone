@@ -122,4 +122,15 @@ class Resume extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ResumeTypeEmployment::className(), ['resume_id' => 'id']);
     }
+    
+    public function deleteResume(int $idResume) {
+        $strQuery = <<<EOT
+                    DELETE FROM "resume"
+                    WHERE "resume"."id"=:idResume
+                    EOT;
+        $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':idResume', $idResume);
+        $resultQuery = $command->query();
+        return $resultQuery;
+    }
 }

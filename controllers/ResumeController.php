@@ -790,6 +790,11 @@ class ResumeController extends Controller
     public function actionDelete()
     {
        //$this->findModel($id)->delete();
+        if (array_key_exists('resume', Yii::$app->request->queryParams)) {
+            $resumeID = Yii::$app->request->queryParams['resume'];
+            $resumeModel = new Resume();
+            $resumeModel->deleteResume($resumeID);
+        }
         return $this->redirect(['my-resumes']);
     }
 

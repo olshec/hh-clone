@@ -722,7 +722,8 @@ class ResumeController extends Controller
 //             'model' => $this->findModel($id),
 //         ]);
         $searchModel = new ResumeSearch();
-        $resumes = $searchModel->serchResumesByIdUser(4);
+        $userId = 4;
+        $resumes = $searchModel->serchResumesByIdUser($userId);
         
         
 //         var_dump($resumes[0]);
@@ -737,7 +738,7 @@ class ResumeController extends Controller
         return $this->render('myResumes', [
             'resumes' => $resumes,
             'countResumes' => count($resumes),
-            
+            'userId' => $userId,
         ]);
     }
 
@@ -748,15 +749,12 @@ class ResumeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Resume();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
+            $userID = Yii::$app->request->queryParams['user-id'];
+            return $this->render('create', ['userID' => $userID]);
+        } else {
+            return $this->redirect('my-resumes');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

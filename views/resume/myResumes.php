@@ -12,7 +12,7 @@ $this->title = 'Мои резюме'
         <div class="container">
             <div class="col-lg-9">
                 <div class="main-title mb32 mt50 d-flex justify-content-between align-items-center">Мои резюме
-                    <a href="<?= \yii\helpers\Url::to(['/']) ?>resume/create" class="link-orange-btn orange-btn my-vacancies-add-btn">Добавить резюме</a><a
+                    <a href="<?= \yii\helpers\Url::to(['/']) ?>resume/create?user-id=<?= $userId ?>" class="link-orange-btn orange-btn my-vacancies-add-btn">Добавить резюме</a><a
                             class="my-vacancies-mobile-add-btn link-orange-btn orange-btn plus-btn" href="#">+</a></div>
                 <div class="tabs mb64">
                     <div class="tabs__content active">

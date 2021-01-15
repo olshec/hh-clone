@@ -378,4 +378,5 @@ $this->title = 'Создание нового резюме'
             </div>
         </div>
     </div>
+    <script src="<?= $addressServer?>js/resume.js"> </script>
     

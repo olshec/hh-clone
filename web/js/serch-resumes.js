@@ -306,7 +306,29 @@ class FullTextSercher {
 	}
 }
 
+function addEventListeners() {
+	//Full text serch
+	let el = document.getElementById("btn-serch");
+	el.addEventListener("click", serchFullText, false);
+	
+	el = document.getElementById("full-text-serch");
+	el.addEventListener('keydown', function(e) {
+	    if (e.keyCode === 13) {
+			e.preventDefault();
+	    	serchFullText();
+	    }
+	  }, false);
+	
+	el = document.getElementById("full-text-serch-img");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchFullText();
+	    }, false);
+}
+
 function afterPageLoad() {
+	addEventListeners();
+	
 	let params = (new URL(document.location)).searchParams; 
 	if(params.has('city')){
 		let idCity = params.get('city');
@@ -570,23 +592,7 @@ function serchFullText() {
 	window.location.href = serchUrl;
 }
 
-//Full text serch
-let el = document.getElementById("btn-serch");
-el.addEventListener("click", serchFullText, false);
 
-el = document.getElementById("full-text-serch");
-el.addEventListener('keydown', function(e) {
-    if (e.keyCode === 13) {
-		e.preventDefault();
-    	serchFullText();
-    }
-  }, false);
-
-el = document.getElementById("full-text-serch-img");
-el.addEventListener("click", function(e) {
-    	e.preventDefault();
-    	serchFullText();
-    }, false);
 
 
 

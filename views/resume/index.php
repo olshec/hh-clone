@@ -191,7 +191,7 @@ $this->title = 'Список резюме';
         </div>
     </div>   
     
-<script src="<?= $addressServer?>js/my_script.js"> </script>
+<script src="<?= $addressServer?>js/serch-resumes.js"> </script>
 <script> 
    window.onload = afterPageLoad();
 </script>

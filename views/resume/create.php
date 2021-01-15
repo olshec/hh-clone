@@ -238,6 +238,7 @@ $this->title = 'Создание нового резюме'
                     
                     
                     
+                    
                    <div class="list-job-experience">
                        <div class="job-experience">
                             <div class="row mb32">
@@ -336,7 +337,7 @@ $this->title = 'Создание нового резюме'
                                     <textarea class="dor-input w100 h96 mb8"
                                               placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
                                     <div class="mb24"><a href="#">Удалить место работы</a></div>
-                                    <div><a href="#">+ Добавить место работы</a></div>
+                                    <div><a href="#" id="add-job-experience">+ Добавить место работы</a></div>
                                 </div>
                             </div>
                             <div class="row mb24">
@@ -348,6 +349,10 @@ $this->title = 'Создание нового резюме'
                             </div>
                         </div>
                     </div> 
+                    
+                    
+                    
+                    
                     
                     <div class="row mb32">
                         <div class="col-12">

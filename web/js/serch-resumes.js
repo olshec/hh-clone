@@ -571,7 +571,6 @@ function serchFullText() {
 }
 
 //Full text serch
-
 let el = document.getElementById("btn-serch");
 el.addEventListener("click", serchFullText, false);
 
@@ -588,8 +587,6 @@ el.addEventListener("click", function(e) {
     	e.preventDefault();
     	serchFullText();
     }, false);
-
-
 
 
 

@@ -4,6 +4,7 @@
 
 // $this->params['listResumeState'] = $listResumeState;
 // $this->params['resumeState'] = $resumeState;
+$addressServer = \yii\helpers\Url::to(['/']);
 
 $this->title = 'Создание нового резюме'
 ?>
@@ -337,7 +338,7 @@ $this->title = 'Создание нового резюме'
                                     <textarea class="dor-input w100 h96 mb8"
                                               placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
                                     <div class="mb24"><a href="#">Удалить место работы</a></div>
-                                    <div><a href="#" id="add-job-experience">+ Добавить место работы</a></div>
+                                    <div id="add-job-block"><a href="#" id="add-job-experience">+ Добавить место работы</a></div>
                                 </div>
                             </div>
                             <div class="row mb24">
@@ -379,4 +380,7 @@ $this->title = 'Создание нового резюме'
         </div>
     </div>
     <script src="<?= $addressServer?>js/resume.js"> </script>
+    <script> 
+   	window.onload = afterPageLoad();
+	</script>
     

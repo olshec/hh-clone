@@ -16,9 +16,16 @@ function addJobExperience() {
 	addEventForRemoveJobExperience();
 }
 
-function removeJobExperience(index) {
-	let jobExperience = document.getElementsByClassName("job-experience");
-	document.getElementsByClassName("list-job-experience")[0].removeChild(jobExperience[index]);
+function removeJobExperience(elem) {
+	let linkAddJobExperience = document.getElementById("add-job-experience-link");
+	let clnJobAddNode = linkAddJobExperience.cloneNode(true);
+	document.getElementsByClassName("list-job-experience")[0].removeChild(elem);
+	//check remove link for add job experience 
+	let checkLinkAddJobExperience = document.getElementById("add-job-experience-link");
+	if(checkLinkAddJobExperience == null) {
+		let jobContainer = document.getElementsByClassName("job-container");
+		jobContainer[jobContainer.length-1].appendChild(clnJobAddNode);
+	}
 }
 
 
@@ -36,7 +43,13 @@ function addEventForRemoveJobExperience() {
 	index = el.length-1;
 	el[index].addEventListener("click", function(e) {
     	e.preventDefault();
-    	removeJobExperience(index);
+		elem = e.target.parentNode;
+		while((elem.getAttribute("class").indexOf('job-experience'))==-1) {
+			elem = elem.parentNode;
+		}
+		if (!elem.getAttribute("class").indexOf('job-experience')==-1) return;
+
+    	removeJobExperience(elem);
 		}, false);
 }
 

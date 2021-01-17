@@ -33,9 +33,10 @@ function addEventForAddJobExperience() {
 
 function addEventForRemoveJobExperience() {
 	let el = document.getElementsByClassName("remove-job-experience-link");
-	el[el.length-1].addEventListener("click", function(e) {
+	index = el.length-1;
+	el[index].addEventListener("click", function(e) {
     	e.preventDefault();
-    	removeJobExperience(el.length-1);
+    	removeJobExperience(index);
 		}, false);
 }
 

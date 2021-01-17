@@ -12,12 +12,17 @@ function addJobExperience() {
 	
 	document.getElementsByClassName("list-job-experience")[0].appendChild(cln);
 	
-	addEventForJobExperience();
+	addEventForAddJobExperience();
+	addEventForRemoveJobExperience();
+}
+
+function removeJobExperience(index) {
+	let jobExperience = document.getElementsByClassName("job-experience");
+	document.getElementsByClassName("list-job-experience")[0].removeChild(jobExperience[index]);
 }
 
 
-
-function addEventForJobExperience() {
+function addEventForAddJobExperience() {
 	//add listener for job experience 
 	let el = document.getElementById("add-job-experience-link");
 	el.addEventListener("click", function(e) {
@@ -26,8 +31,17 @@ function addEventForJobExperience() {
 		}, false);
 }
 
+function addEventForRemoveJobExperience() {
+	let el = document.getElementsByClassName("remove-job-experience-link");
+	el[el.length-1].addEventListener("click", function(e) {
+    	e.preventDefault();
+    	removeJobExperience(el.length-1);
+		}, false);
+}
+
 function addEventListeners() {
-	addEventForJobExperience();
+	addEventForAddJobExperience();
+	addEventForRemoveJobExperience();
 }
 
 function afterPageLoad() {

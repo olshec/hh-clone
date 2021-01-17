@@ -337,7 +337,7 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-4 col-md-6 col-12 job-container">
                                     <textarea class="dor-input w100 h96 mb8"
                                               placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
-                                    <div class="mb24"><a href="#">Удалить место работы</a></div>
+                                    <div class="mb24"><a href="#" class="remove-job-experience-link" >Удалить место работы</a></div>
                                     <div class="add-job-node"><a href="#" id="add-job-experience-link">+ Добавить место работы</a></div>
                                 </div>
                             </div>

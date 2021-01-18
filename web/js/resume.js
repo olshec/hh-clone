@@ -1,13 +1,16 @@
-function clearValueFromExperienceClone(cln) {
-/*	cln.getElementsByClassName('dor-input')[0].value='';
-	cln.getElementsByClassName('dor-input')[1].value='';*/
+function clearValueFromExperienceClone(cln, count) {
 	let inputs = cln.getElementsByClassName('dor-input');
 	for(let i=0; i < inputs.length; i++) {
 		inputs[i].value='';
 	}
 	
-	//let checkbox = cln.getElementsByClassName('form-check-input')[0];
-	//checkbox.checked = false;
+	let checkbox = cln.getElementsByClassName('form-check-input')[0];
+	checkbox.checked = false;
+	let nameFor = "untilNow"+(count+1);
+	checkbox.id = nameFor;
+	cln.getElementsByClassName('form-check-label')[0].htmlFor = nameFor;
+	cln.getElementsByClassName('job-resolution-checkbox')[0].htmlFor = nameFor;
+	
 	document.getElementsByClassName("list-job-experience")[0].appendChild(cln);
 }
 	
@@ -22,7 +25,7 @@ function addJobExperience() {
 	//let clnJobNode = jobNode.cloneNode(true);
 	jobContainer[jobContainer.length-1].removeChild(jobNodeRemove);
 	
-	clearValueFromExperienceClone(cln);
+	clearValueFromExperienceClone(cln, itm.length);
 	
 	
 	addEventForAddJobExperience();

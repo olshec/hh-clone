@@ -305,9 +305,9 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="profile-info">
                                         <div class="form-check d-flex">
-                                            <input type="checkbox" class="form-check-input" id="untilNow">
-                                            <label class="form-check-label" for="exampleCheck111"></label>
-                                            <label for="exampleCheck111"
+                                            <input type="checkbox" class="form-check-input" id="untilNow1">
+                                            <label class="form-check-label" for="untilNow1"></label>
+                                            <label for="untilNow1"
                                                    class="profile-info__check-text job-resolution-checkbox">По настоящее
                                                 время</label>
                                         </div>

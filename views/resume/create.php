@@ -238,28 +238,27 @@ $this->title = 'Создание нового резюме'
                             <div class="heading">Опыт работы</div>
                         </div>
                     </div>
-                    
+                    <div class="row mb32">
+                        <div class="col-lg-2 col-md-3">
+                            <div class="paragraph">Опыт работы</div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-11">
+                            <ul class="card-ul-radio profile-radio-list">
+                                <li>
+                                    <input type="radio" id="test9131" name="radio-group3123">
+                                    <label for="test9131">Нет опыта работы</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="test10242" name="radio-group3123" checked>
+                                    <label for="test10242">Есть опыт работы</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     
                    <div class="list-job-experience">
                        <div class="job-experience">
-                            <div class="row mb32">
-                                <div class="col-lg-2 col-md-3">
-                                    <div class="paragraph">Опыт работы</div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-11">
-                                    <ul class="card-ul-radio profile-radio-list">
-                                        <li>
-                                            <input type="radio" id="test9131" name="radio-group3123" checked="">
-                                            <label for="test9131">Нет опыта работы</label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" id="test10242" name="radio-group3123">
-                                            <label for="test10242">Есть опыт работы</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="row mb24">
                                 <div class="col-lg-2 col-md-3 dflex-acenter">
                                     <div class="paragraph">Начало работы</div>
@@ -306,7 +305,7 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="profile-info">
                                         <div class="form-check d-flex">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck111">
+                                            <input type="checkbox" class="form-check-input" id="untilNow">
                                             <label class="form-check-label" for="exampleCheck111"></label>
                                             <label for="exampleCheck111"
                                                    class="profile-info__check-text job-resolution-checkbox">По настоящее
@@ -338,8 +337,8 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-4 col-md-6 col-12 job-container">
                                     <textarea class="dor-input w100 h96 mb8"
                                               placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
-                                    <div class="mb24"><a href="#" class="remove-job-experience-link">Удалить место работы</a></div>
-                                    <div class="add-job-node"><a href="#" id="add-job-experience-link" >+ Добавить место работы</a></div>
+                                    <div class="mb24"><a href="#" class="job-experience-link-remove">Удалить место работы</a></div>
+                                    <div id="job-node-add"><a href="#" id="job-experience-link-add" >+ Добавить место работы</a></div>
                                 </div>
                             </div>
                             <div class="row mb24">

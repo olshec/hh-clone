@@ -69,37 +69,36 @@ function addEventForRemoveJobExperience() {
 		}, false);
 }
 
-function fileUpload(file) {
-  const reader = new FileReader();
-  //this.ctrl = createThrobber(img);
-  const xhr = new XMLHttpRequest();
-  this.xhr = xhr;
+async function uploadFile(file, userId) {
+	const url = 'http://localhost/hh-clone/web/resume/upload?user-id='+userId;
+    //alert('The file has been uploaded successfully.');
+	var statusP = document.getElementById("label-photo");
+	statusP.innerText = 'Uploading...';
+	// Create a FormData object
+	var formData = new FormData();
+	// Add the file to the AJAX request
+	formData.append('file', file, file.name);
+ // Set up the request
+    var xhr = new XMLHttpRequest();
+    // Open the connection
+    xhr.open('POST', url, true);
+  // Set up a handler for when the task for the request is complete
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        statusP.innerHTML = 'Upload copmlete!  Status = '+xhr.responseText;
+      } else {
+        statusP.innerHTML = 'Upload error. Try again.';
+      }
+    };
 
-  /*const self = this;
-  this.xhr.upload.addEventListener("progress", function(e) {
-        if (e.lengthComputable) {
-          const percentage = Math.round((e.loaded * 100) / e.total);
-          self.ctrl.update(percentage);
-        }
-      }, false);
-
-  xhr.upload.addEventListener("load", function(e){
-          self.ctrl.update(100);
-          const canvas = self.ctrl.ctx.canvas;
-          canvas.parentNode.removeChild(canvas);
-      }, false);*/
-  xhr.open("POST", "http://demos.hacks.mozilla.org/paul/demos/resources/webservices/devnull.php");
-  xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-  reader.onload = function(evt) {
-    xhr.send(evt.target.result);
-  };
-  reader.readAsBinaryString(file);
+    // Send the data.
+    xhr.send(formData);
 }
 
 function handleFiles() {
 	const fileList = this.files; /* now you can work with the file list */
 	const photo = fileList[0];
-	fileUpload(photo);
+	uploadFile(photo, userId=4);
 	//alert(photo);
 }
 	

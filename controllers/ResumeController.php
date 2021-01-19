@@ -14,11 +14,27 @@ use yii\filters\VerbFilter;
 use app\models\TypeEmployment;
 use app\models\Schedule;
 
+use yii\web\UploadedFile;
+
+
 /**
  * ResumeController implements the CRUD actions for Resume model.
  */
 class ResumeController extends Controller
 {
+    
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'upload') {
+            $this->enableCsrfValidation = false;
+        }
+        
+        return parent::beforeAction($action);
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -754,6 +770,20 @@ class ResumeController extends Controller
             return $this->render('create', ['userID' => $userID]);
         } else {
             return $this->redirect('my-resumes');
+        }
+    }
+    
+    /**
+     * Methods for upload a file.
+     * @return mixed
+     */
+    public function actionUpload()
+    {
+        $file1 = UploadedFile::getInstanceByName('file');
+        if ($file1 != null) {
+            echo 'ok! fileName = ' . $file1;
+        } else {
+            echo 'ERR';
         }
     }
 

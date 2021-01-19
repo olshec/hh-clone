@@ -781,7 +781,12 @@ class ResumeController extends Controller
     {
         $file1 = UploadedFile::getInstanceByName('file');
         if ($file1 != null) {
-            echo 'ok! fileName = ' . $file1;
+           // $this->renderFile($file1, []);
+            $addressServer = \yii\helpers\Url::to(['/']);
+            return \Yii::$app->response->sendFile($addressServer.'ResumePhoto/Anton_Lavrov_1990-02-18_37485948/photo-1.jpeg', 'photo-1.jpeg');
+            //$this->renderAjax($file1, []);
+            //return \Yii::$app->response->sendFile($file1);
+            //echo 'ok! fileName = ' . $file1;
         } else {
             echo 'ERR';
         }

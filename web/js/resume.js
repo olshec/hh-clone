@@ -33,15 +33,24 @@ function addJobExperience() {
 }
 
 function removeJobExperience(elem) {
-	let clnJobAddNode = document.getElementById("job-node-add").cloneNode(true);
-	document.getElementsByClassName("list-job-experience")[0].removeChild(elem);
-	//check remove link for add job experience 
-	let checkLinkAddJobExperience = document.getElementById("job-node-add");
-	if(checkLinkAddJobExperience == null) {
-		let jobContainer = document.getElementsByClassName("job-container");
-		jobContainer[jobContainer.length-1].appendChild(clnJobAddNode);
-		addEventForAddJobExperience();
+	const jobExperients = document.getElementsByClassName("job-experience");
+	if(jobExperients.length > 1){
+		let clnJobAddNode = document.getElementById("job-node-add").cloneNode(true);
+		document.getElementsByClassName("list-job-experience")[0].removeChild(elem);
+		//check remove link for add job experience 
+		let checkLinkAddJobExperience = document.getElementById("job-node-add");
+		if(checkLinkAddJobExperience == null) {
+			let jobContainer = document.getElementsByClassName("job-container");
+			jobContainer[jobContainer.length-1].appendChild(clnJobAddNode);
+			addEventForAddJobExperience();
+		}
 	}
+	else {
+		document.getElementsByClassName("list-job-experience")[0].style.display = "none";//.innerHTML = '';
+		document.getElementsByClassName("list-job-experience")[0].setAttribute("hide","yes");
+		document.getElementById("radio-experience-no").checked = true;
+	}
+
 }
 
 
@@ -102,12 +111,36 @@ function addEventForInputPhoto(){
 	inputElement.addEventListener("change", handleFiles, false);
 }
 
+function changeRadioButtonExperienceYes() {
+	const radioButtonExperienceYes = document.getElementById("radio-experience-yes");
+	if(radioButtonExperienceYes.checked == true) {
+		document.getElementsByClassName("list-job-experience")[0].style.display = "block";//.innerHTML = '';
+		document.getElementsByClassName("list-job-experience")[0].setAttribute("hide", "no");
+	}
+}
 
+function changeRadioButtonExperienceNo() {
+	const radioButtonExperienceNo = document.getElementById("radio-experience-no");
+	if(radioButtonExperienceNo.checked == true) {
+		document.getElementsByClassName("list-job-experience")[0].style.display = "none";
+		document.getElementsByClassName("list-job-experience")[0].setAttribute("hide","yes") ;
+	}
+}
+
+
+function addEventForRadioButtonsForExperience() {
+	const radioButtonExperienceYes = document.getElementById("radio-experience-yes");
+	radioButtonExperienceYes.addEventListener("change", changeRadioButtonExperienceYes, false);
+	
+	const radioButtonExperienceNo = document.getElementById("radio-experience-no");
+	radioButtonExperienceNo.addEventListener("change", changeRadioButtonExperienceNo, false);
+}
 
 function addEventListeners() {
 	addEventForAddJobExperience();
 	addEventForRemoveJobExperience();
 	addEventForInputPhoto();
+	addEventForRadioButtonsForExperience();
 }
 
 function afterPageLoad() {

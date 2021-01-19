@@ -245,12 +245,12 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <ul class="card-ul-radio profile-radio-list">
                                 <li>
-                                    <input type="radio" id="test9131" name="radio-group3123">
-                                    <label for="test9131">Нет опыта работы</label>
+                                    <input type="radio" id="radio-experience-no" name="radio-group3123">
+                                    <label for="radio-experience-no">Нет опыта работы</label>
                                 </li>
                                 <li>
-                                    <input type="radio" id="test10242" name="radio-group3123" checked>
-                                    <label for="test10242">Есть опыт работы</label>
+                                    <input type="radio" id="radio-experience-yes" name="radio-group3123" checked>
+                                    <label for="radio-experience-yes">Есть опыт работы</label>
                                 </li>
                             </ul>
                         </div>

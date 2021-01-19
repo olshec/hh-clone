@@ -71,9 +71,6 @@ function addEventForRemoveJobExperience() {
 
 async function uploadFile(file, userId) {
 	const url = 'http://localhost/hh-clone/web/resume/upload?user-id='+userId;
-    //alert('The file has been uploaded successfully.');
-	var statusP = document.getElementById("label-photo");
-	statusP.innerText = 'Uploading...';
 	// Create a FormData object
 	var formData = new FormData();
 	// Add the file to the AJAX request
@@ -85,12 +82,10 @@ async function uploadFile(file, userId) {
   // Set up a handler for when the task for the request is complete
     xhr.onload = function () {
       if (xhr.status == 200) {
-        statusP.innerHTML = 'Upload copmlete!  Status = '+xhr.responseText;
-      } else {
-        statusP.innerHTML = 'Upload error. Try again.';
-      }
+        //statusP.innerHTML = 'Upload copmlete!  Status = '+xhr.responseText;
+		document.getElementById("profile-photo").innerHTML = xhr.responseText;
+      } 
     };
-
     // Send the data.
     xhr.send(formData);
 }

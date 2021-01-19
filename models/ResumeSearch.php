@@ -134,6 +134,7 @@ class ResumeSearch extends Resume
         $strQuery = <<<EOT
                     WITH ts_city AS (
                     SELECT "resume"."id" as "resume_id", 
+                        "resume"."path",
                         "resume"."photo", 
                         "resume"."name" as "resume_name", "resume"."salary",
                         "resume"."date_update" as "date_update",
@@ -176,6 +177,7 @@ class ResumeSearch extends Resume
     private function serchQuery(array $params) {
         $strQuery = <<<EOT
                     SELECT distinct "resume"."id" as "resume_id",
+                        "resume"."path",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
                         "resume"."date_update" as "date_update",
@@ -290,6 +292,7 @@ class ResumeSearch extends Resume
     public function serchResumesByIdUser(int $idUser): array {
         $strQuery = <<<EOT
                     SELECT distinct "resume"."id" as "resume_id",
+                        "resume"."path",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
                         "resume"."number_views", "resume"."date_publication",
@@ -321,6 +324,7 @@ class ResumeSearch extends Resume
     public function serchResumeById($idResume) {
         $strQuery = <<<EOT
                     SELECT distinct "resume"."id" as "resume_id",
+                        "resume"."path",
                         "resume"."photo",
                         "resume"."name" as "resume_name", "resume"."salary",
                         "resume"."about_me" as "about_me",

@@ -608,7 +608,7 @@ class ResumeController extends Controller
                     $resumes[$i]['infoAboutLastWork']  = $this->getInfoAboutLastPlaceOfWork($resumeModel['resume_id']);
                     $resumes[$i]['experience']         = $this->getAllExperience($resumeModel['resume_id']);
                     $resumes[$i]['dateUpdate']         = $this->getDataUpdate($resumeModel['date_update']);
-                    $resumes[$i]['photo']              = $resumeModel['photo'];
+                    $resumes[$i]['photo']              = $resumeModel['path'].'/'.$resumeModel['photo'];
                     $resumes[$i]['name']               = $resumeModel['resume_name'];
                     $resumes[$i]['salary']             = $resumeModel['salary'];
                 }
@@ -717,7 +717,7 @@ class ResumeController extends Controller
                 }
             }
             $resume['schedule'] = $schedule;
-            
+            $resume['photo'] = $resume['path'].'/'.$resume['photo'];
             return $this->render('view', ['resume' => $resume]);
         } else {
             return $this->redirect('index');
@@ -750,7 +750,7 @@ class ResumeController extends Controller
             $resumes[$i]['experience'] = $this->getAllExperience($resumes[$i]['resume_id']);
             $resumes[$i]['datePublication'] = $this->getDataUpdate($resumes[$i]['date_publication']);
         }
-
+       
         return $this->render('myResumes', [
             'resumes' => $resumes,
             'countResumes' => count($resumes),
@@ -779,14 +779,27 @@ class ResumeController extends Controller
      */
     public function actionUpload()
     {
-        $file1 = UploadedFile::getInstanceByName('file');
-        if ($file1 != null) {
-           // $this->renderFile($file1, []);
-            $addressServer = \yii\helpers\Url::to(['/']);
-            return \Yii::$app->response->sendFile($addressServer.'ResumePhoto/Anton_Lavrov_1990-02-18_37485948/photo-1.jpeg', 'photo-1.jpeg');
-            //$this->renderAjax($file1, []);
-            //return \Yii::$app->response->sendFile($file1);
-            //echo 'ok! fileName = ' . $file1;
+        if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
+            $userID = Yii::$app->request->queryParams['user-id'];
+            $file1 = UploadedFile::getInstanceByName('file');
+            if ($file1 != null) {
+                $command = Yii::$app->db->createCommand('SELECT path, photo FROM "resume" WHERE user_id=:user_id');
+                $command->bindValue(':user_id', $userID);
+                $resume = $command->queryOne();
+                $path = $resume['path'];
+                
+                // $this->renderFile($file1, []);
+                $addressServer = 'http://localhost'. \yii\helpers\Url::to(['/']).'ResumePhoto/';
+                try{
+                    $file1->saveAs(Yii::getAlias('@webroot').'/ResumePhoto/'.$path.'/'.$file1->name);
+                } catch (\Exception $ex) {
+                    echo $ex;
+                }
+                $photo = '<img src="'. $addressServer. $path.'/'.$file1->name . '" alt="photo">';
+                echo $photo;
+            } else {
+                echo 'ERR';
+            }
         } else {
             echo 'ERR';
         }

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $path
  * @property string|null $photo
  * @property int $salary
  * @property string|null $about_me
@@ -36,6 +37,7 @@ class Resume extends \yii\db\ActiveRecord
      * @param string $name
      * @param int $salary
      * @param string $about_me
+     * @param string $path
      * @param string $photo
      * @param string $date_update
      * @param int $numberViews
@@ -43,12 +45,13 @@ class Resume extends \yii\db\ActiveRecord
      * @param int $user_id
      * @return \app\models\Resume
      */
-    public static function getNewResume(string $name, int $salary, string $about_me, string $photo, 
+    public static function getNewResume(string $name, int $salary, string $about_me, string $path, string $photo, 
         string $date_update, int $numberViews, string $datePublication, int $user_id) {
         $resume = new Resume();
         $resume->name = $name;
         $resume->salary = $salary;
         $resume->about_me = $about_me;
+        $resume->path = $path;
         $resume->photo = $photo;
         $resume->date_update = $date_update;
         $resume->number_views = $numberViews;
@@ -68,7 +71,7 @@ class Resume extends \yii\db\ActiveRecord
             [['salary', 'user_id', 'number_views',], 'integer'],
             [['about_me'], 'string'],
             [['name'], 'string', 'max' => 255],
-            [['photo'], 'string', 'max' => 255],
+            [['photo', 'path'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -81,6 +84,7 @@ class Resume extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'path' => 'Path',
             'photo' => 'Photo',
             'salary' => 'Salary',
             'about_me' => 'About Me',

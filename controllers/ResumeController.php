@@ -769,7 +769,38 @@ class ResumeController extends Controller
             $userID = Yii::$app->request->queryParams['user-id'];
             return $this->render('create', ['userID' => $userID]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
-            var_dump( Yii::$app->request->queryParams['radio-gender']);
+            //var_dump( Yii::$app->request->queryParams['radio-gender']);
+            $surname = Yii::$app->request->queryParams['surname'];
+            $name = Yii::$app->request->queryParams['name'];
+            $patronymic = Yii::$app->request->queryParams['patronymic'];
+            $dateBirth = Yii::$app->request->queryParams['date-birth'];
+            $radioGender = Yii::$app->request->queryParams['radio-gender'];
+            $city = Yii::$app->request->queryParams['city'];
+            $email = Yii::$app->request->queryParams['email'];
+            $telephone = Yii::$app->request->queryParams['telephone'];
+            
+            if($surname == ''){
+                $errors['surname'] = 'Поле является обязательным';
+            }
+            if($name == ''){
+                $errors['name'] = 'Поле является обязательным';
+            }
+            if($patronymic == ''){
+                $errors['patronymic'] = 'Поле является обязательным';
+            }
+            if($dateBirth == ''){
+                $errors['date-birth'] = 'Поле является обязательным';
+            }
+            if($city == ''){
+                $errors['city'] = 'Поле является обязательным';
+            }
+            //experients
+            if($email == ''){
+                $errors['email'] = 'Поле является обязательным';
+            }
+            if($telephone == ''){
+                $errors['telephone'] = 'Поле является обязательным';
+            }
         }
         else {
             return $this->redirect('my-resumes');

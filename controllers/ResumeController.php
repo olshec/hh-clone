@@ -719,7 +719,7 @@ class ResumeController extends Controller
             $resume['schedule'] = $schedule;
             $resume['photo'] = $resume['path'].'/'.$resume['photo'];
             return $this->render('view', ['resume' => $resume]);
-        } else {
+        }  else {
             return $this->redirect('index');
         }
         
@@ -768,7 +768,10 @@ class ResumeController extends Controller
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
             $userID = Yii::$app->request->queryParams['user-id'];
             return $this->render('create', ['userID' => $userID]);
-        } else {
+        } else if(array_key_exists('radio-group-experience', Yii::$app->request->queryParams)) {
+            echo Yii::$app->request->queryParams['radio-group-experience'];
+        }
+        else {
             return $this->redirect('my-resumes');
         }
     }

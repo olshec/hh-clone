@@ -23,7 +23,7 @@ $this->title = 'Создание нового резюме'
                 </div>
             </div>
             <div class="col-12">
-                <form action="#">
+                <form  method="get" action="http://localhost/hh-clone/web/resume/create">
                     <div class="row mb32">
                         <div class="col-lg-2 col-md-3 dflex-acenter">
                             <div class="paragraph">Фото</div>
@@ -386,7 +386,7 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-2 col-md-3">
                         </div>
                         <div class="col-lg-10 col-md-9">
-                            <a href="#" class="orange-btn link-orange-btn" id="save-button">Сохранить</a>
+                            <a href="#" class="orange-btn link-orange-btn" id="saveFormButton">Сохранить</a>
                         </div>
                     </div>
                 </form>

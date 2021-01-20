@@ -138,11 +138,19 @@ function addEventForRadioButtonsForExperience() {
 	radioButtonExperienceNo.addEventListener("change", changeRadioButtonExperienceNo, false);
 }
 
+function addEventForSaveFormButton() {
+	const saveFormButton = document.getElementById("saveFormButton");
+	saveFormButton.addEventListener("click", function() {
+		document.getElementsByTagName('form')[0].submit() 
+		}, false);
+}
+
 function addEventListeners() {
 	addEventForAddJobExperience();
 	addEventForRemoveJobExperience();
 	addEventForInputPhoto();
 	addEventForRadioButtonsForExperience();
+	addEventForSaveFormButton();
 }
 
 function afterPageLoad() {

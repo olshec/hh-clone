@@ -266,7 +266,7 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="d-flex justify-content-between">
                                         <div class="citizenship-select w100 mr16">
-                                            <select class="nselect-1" data-title="Январь" id="job-begin">
+                                            <select class="nselect-1" data-title="Январь" id="job-begin-month" name="job-begin-month[]">
                                                 <option value="01">Январь</option>
                                                 <option value="02">Февраль</option>
                                                 <option value="03">Март</option>
@@ -282,7 +282,7 @@ $this->title = 'Создание нового резюме'
                                             </select>
                                         </div>
                                         <div class="citizenship-select w100">
-                                            <input placeholder="2006" type="text" class="dor-input w100">
+                                            <input placeholder="2006" type="text" id="job-begin-year" name="job-begin-year[]" class="dor-input w100">
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="d-flex justify-content-between">
                                         <div class="citizenship-select w100 mr16">
-                                            <select class="nselect-1" data-title="Январь" id="job-end">
+                                            <select class="nselect-1" data-title="Январь" id="job-end-month" name="job-end-month[]">
                                                 <option value="01">Январь</option>
                                                 <option value="02">Февраль</option>
                                                 <option value="03">Март</option>
@@ -310,7 +310,7 @@ $this->title = 'Создание нового резюме'
                                             </select>
                                         </div>
                                         <div class="citizenship-select w100">
-                                            <input placeholder="2006" type="text" class="dor-input w100">
+                                            <input placeholder="2006" type="text" id="job-end-year" name="job-end-year[]" class="dor-input w100">
                                         </div>
                                     </div>
                                 </div>
@@ -321,9 +321,9 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="profile-info">
                                         <div class="form-check d-flex">
-                                            <input type="checkbox" class="form-check-input" id="jobUntilNow">
-                                            <label class="form-check-label" for="jobUntilNow"></label>
-                                            <label for="jobUntilNow"
+                                            <input type="checkbox" class="form-check-input" id="job-until-now" name="job-until-now[]">
+                                            <label class="form-check-label" for="job-until-now"></label>
+                                            <label for="job-until-now"
                                                    class="profile-info__check-text job-resolution-checkbox">По настоящее
                                                 время</label>
                                         </div>
@@ -335,7 +335,7 @@ $this->title = 'Создание нового резюме'
                                     <div class="paragraph">Организация</div>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-11">
-                                    <input type="text" id="organisation" class="dor-input w100">
+                                    <input type="text" id="organisation" name="organisation[]" class="dor-input w100">
                                 </div>
                             </div>
                             <div class="row mb16">
@@ -343,7 +343,7 @@ $this->title = 'Создание нового резюме'
                                     <div class="paragraph">Должность</div>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-11">
-                                    <input type="text" id="position" class="dor-input w100">
+                                    <input type="text" id="position" name="position[]" class="dor-input w100">
                                 </div>
                             </div>
                             <div class="row mb16">
@@ -351,7 +351,7 @@ $this->title = 'Создание нового резюме'
                                     <div class="paragraph">Обязанности, функции, достижения</div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-12 job-container">
-                                    <textarea id="about-experient" class="dor-input w100 h96 mb8"
+                                    <textarea id="about-experient" name="about-experient[]" class="dor-input w100 h96 mb8"
                                               placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
                                     <div class="mb24"><a href="#" class="job-experience-link-remove">Удалить место работы</a></div>
                                     <div id="job-node-add"><a href="#" id="job-experience-link-add" >+ Добавить место работы</a></div>

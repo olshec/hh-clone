@@ -768,8 +768,8 @@ class ResumeController extends Controller
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
             $userID = Yii::$app->request->queryParams['user-id'];
             return $this->render('create', ['userID' => $userID]);
-        } else if(array_key_exists('radio-group-experience', Yii::$app->request->queryParams)) {
-            echo Yii::$app->request->queryParams['radio-group-experience'];
+        } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
+            var_dump( Yii::$app->request->queryParams['radio-gender']);
         }
         else {
             return $this->redirect('my-resumes');

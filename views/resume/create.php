@@ -42,7 +42,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Фамилия</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="surname" class="dor-input w100">
+                            <input type="text" id="surname" class="dor-input w100"  name="surname">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -50,7 +50,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Имя</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="name" class="dor-input w100">
+                            <input type="text" id="name" class="dor-input w100" name="name">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -58,7 +58,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Отчество</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="patronymic" class="dor-input w100">
+                            <input type="text" id="patronymic" class="dor-input w100" name="patronymic">
                         </div>
                     </div>
                     <div class="row mb24">
@@ -67,7 +67,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="datepicker-wrap input-group date">
-                                <input type="text" id="date-birth" class="dor-input dpicker datepicker-input">
+                                <input type="text" id="date-birth" class="dor-input dpicker datepicker-input" name="date-birth">
                                 <img src="<?= \yii\helpers\Url::to(['/']) ?>images/mdi_calendar_today.svg" alt="">
                             </div>
                         </div>
@@ -79,11 +79,11 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <ul class="card-ul-radio profile-radio-list">
                                 <li>
-                                    <input type="radio" id="gender-male" name="radio-group-gender" checked>
+                                    <input type="radio" id="gender-male" name="radio-gender[]" value="male" checked>
                                     <label for="gender-male">Мужской</label>
                                 </li>
                                 <li>
-                                    <input type="radio" id="gender-female" name="radio-group-gender">
+                                    <input type="radio" id="gender-female" name="radio-gender[]" value="female">
                                     <label for="gender-female">Женский</label>
                                 </li>
                             </ul>
@@ -94,7 +94,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Город проживания</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="city" class="dor-input w100">
+                            <input type="text" id="city" class="dor-input w100" name="city">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -109,7 +109,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="p-rel">
-                                <input type="text" id="email" class="dor-input w100">
+                                <input type="text" id="email" class="dor-input w100"  name="email">
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div style="width: 140px;" class="p-rel mobile-w100">
-                                <input type="text" id="telephone" class="dor-input w100" placeholder="+7 ___ ___-__-__">
+                                <input type="text" id="telephone" class="dor-input w100" name="telephone" placeholder="+7 ___ ___-__-__">
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="citizenship-select">
-                                <select class="nselect-1" id="specialization" data-title="Программист">
+                                <select class="nselect-1" id="specialization" data-title="Программист"  name="specialization">
                                     <option value="01">Программист</option>
                                     <option value="02">Дизайнер</option>
                                     <option value="03">Повар</option>
@@ -149,7 +149,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="p-rel">
-                                <input placeholder="От" type="text" id="salary" class="dor-input w100">
+                                <input placeholder="От" type="text" id="salary" class="dor-input w100" name="salary">
                                 <img class="rub-icon" src="<?= \yii\helpers\Url::to(['/']) ?>images/rub-icon.svg" alt="rub-icon">
                             </div>
                         </div>
@@ -161,32 +161,32 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="profile-info">
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="type_employment1">
-                                    <label class="form-check-label" for="type_employment1"></label>
-                                    <label for="type_employment1" class="profile-info__check-text job-resolution-checkbox">Полная
+                                    <input type="checkbox" class="form-check-input" id="type-employment1" name="type-employment[]" value="1">
+                                    <label class="form-check-label" for="type-employment1"></label>
+                                    <label for="type-employment1" class="profile-info__check-text job-resolution-checkbox">Полная
                                         занятость</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="type_employment2">
-                                    <label class="form-check-label" for="type_employment2"></label>
-                                    <label for="type_employment2" class="profile-info__check-text job-resolution-checkbox">Частичная
+                                    <input type="checkbox" class="form-check-input" id="type-employment2" name="type-employment[]" value="2">
+                                    <label class="form-check-label" for="type-employment2"></label>
+                                    <label for="type-employment2" class="profile-info__check-text job-resolution-checkbox">Частичная
                                         занятость</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="type_employment3">
-                                    <label class="form-check-label" for="type_employment3"></label>
-                                    <label for="type_employment3" class="profile-info__check-text job-resolution-checkbox">Проектная/Временная
+                                    <input type="checkbox" class="form-check-input" id="type-employment3" name="type-employment[]" value="3">
+                                    <label class="form-check-label" for="type-employment3"></label>
+                                    <label for="type-employment3" class="profile-info__check-text job-resolution-checkbox">Проектная/Временная
                                         работа</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="type_employment4">
-                                    <label class="form-check-label" for="type_employment4"></label>
-                                    <label for="type_employment4" class="profile-info__check-text job-resolution-checkbox">Волонтёрство</label>
+                                    <input type="checkbox" class="form-check-input" id="type-employment4" name="type-employment[]" value="4">
+                                    <label class="form-check-label" for="type-employment4"></label>
+                                    <label for="type-employment4" class="profile-info__check-text job-resolution-checkbox">Волонтёрство</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="type_employment5">
-                                    <label class="form-check-label" for="type_employment5"></label>
-                                    <label for="type_employment5" class="profile-info__check-text job-resolution-checkbox">Стажировка</label>
+                                    <input type="checkbox" class="form-check-input" id="type-employment5" name="type-employment[]" value="5">
+                                    <label class="form-check-label" for="type-employment5"></label>
+                                    <label for="type-employment5" class="profile-info__check-text job-resolution-checkbox">Стажировка</label>
                                 </div>
                             </div>
                         </div>
@@ -198,31 +198,31 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="profile-info">
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule1">
+                                    <input type="checkbox" class="form-check-input" id="schedule1" name="schedule[]" value="1">
                                     <label class="form-check-label" for="schedule1"></label>
                                     <label for="schedule1" class="profile-info__check-text job-resolution-checkbox">Полный
                                         день</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule2">
+                                    <input type="checkbox" class="form-check-input" id="schedule2" name="schedule[]" value="2">
                                     <label class="form-check-label" for="schedule2"></label>
                                     <label for="schedule2" class="profile-info__check-text job-resolution-checkbox">Сменный
                                         график</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule3">
+                                    <input type="checkbox" class="form-check-input" id="schedule3" name="schedule[]" value="3">
                                     <label class="form-check-label" for="schedule3"></label>
                                     <label for="schedule3" class="profile-info__check-text job-resolution-checkbox">Гибкий
                                         график</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule4">
+                                    <input type="checkbox" class="form-check-input" id="schedule4" name="schedule[]" value="4">
                                     <label class="form-check-label" for="schedule4"></label>
                                     <label for="schedule4" class="profile-info__check-text job-resolution-checkbox">Удалённая
                                         работа</label>
                                 </div>
                                 <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule5">
+                                    <input type="checkbox" class="form-check-input" id="schedule5" name="schedule[]" value="5">
                                     <label class="form-check-label" for="schedule5"></label>
                                     <label for="schedule5"
                                            class="profile-info__check-text job-resolution-checkbox">Вахтовый
@@ -245,11 +245,11 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <ul class="card-ul-radio profile-radio-list">
                                 <li>
-                                    <input type="radio" id="radio-experience-no" name="radio-group-experience">
+                                    <input type="radio" id="radio-experience-no" name="radio-experience[]" value="no">
                                     <label for="radio-experience-no">Нет опыта работы</label>
                                 </li>
                                 <li>
-                                    <input type="radio" id="radio-experience-yes" name="radio-group-experience" checked>
+                                    <input type="radio" id="radio-experience-yes" name="radio-experience[]" value="yes" checked>
                                     <label for="radio-experience-yes">Есть опыт работы</label>
                                 </li>
                             </ul>

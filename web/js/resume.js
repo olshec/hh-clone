@@ -92,7 +92,9 @@ async function uploadFile(file, userId) {
     xhr.onload = function () {
       if (xhr.status == 200) {
         //statusP.innerHTML = 'Upload copmlete!  Status = '+xhr.responseText;
-		document.getElementById("profile-photo").innerHTML = xhr.responseText;
+		var photoInfo = JSON.parse(xhr.responseText);
+		document.getElementById("profile-photo").innerHTML = photoInfo.photo;
+		document.getElementById("profile-photo").setAttribute('photo-name', photoInfo.photoName);
       } 
     };
     // Send the data.

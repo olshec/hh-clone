@@ -788,7 +788,6 @@ class ResumeController extends Controller
                 $resume = $command->queryOne();
                 $path = $resume['path'];
                 
-                // $this->renderFile($file1, []);
                 $addressServer = 'http://localhost'. \yii\helpers\Url::to(['/']).'ResumePhoto/';
                 try{
                     $file1->saveAs(Yii::getAlias('@webroot').'/ResumePhoto/'.$path.'/'.$file1->name);
@@ -796,7 +795,8 @@ class ResumeController extends Controller
                     echo $ex;
                 }
                 $photo = '<img src="'. $addressServer. $path.'/'.$file1->name . '" alt="photo">';
-                echo $photo;
+                $postData = json_encode(array('photo' => $photo, 'photoName' => $file1->name), JSON_FORCE_OBJECT);
+                echo $postData;
             } else {
                 echo 'ERR';
             }

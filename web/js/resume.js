@@ -6,7 +6,7 @@ function clearValueFromExperience(experientContainer, count) {
 	
 	let checkbox = experientContainer.getElementsByClassName('form-check-input')[0];
 	checkbox.checked = false;
-	let nameFor = "untilNow"+(count+1);
+	let nameFor = "jobUntilNow"+(count+1);
 	checkbox.id = nameFor;
 	experientContainer.getElementsByClassName('form-check-label')[0].htmlFor = nameFor;
 	experientContainer.getElementsByClassName('job-resolution-checkbox')[0].htmlFor = nameFor;

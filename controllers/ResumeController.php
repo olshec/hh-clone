@@ -814,6 +814,9 @@ class ResumeController extends Controller
      */
     public function actionUpdate()
     {
+        $date = '20.04.2012';
+        echo date('Y.m.d', strtotime($date));
+        exit();
 //         $model = $this->findModel($id);
 
 //         if ($model->load(Yii::$app->request->post()) && $model->save()) {

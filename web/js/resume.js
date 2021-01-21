@@ -1,5 +1,5 @@
 function clearValueFromExperience(experientContainer, count) {
-	let inputs = experientContainer.getElementsByClassName('dor-input');
+let inputs = experientContainer.getElementsByClassName('dor-input');
 	for(let i=0; i < inputs.length; i++) {
 		inputs[i].value='';
 	}
@@ -11,8 +11,20 @@ function clearValueFromExperience(experientContainer, count) {
 	experientContainer.getElementsByClassName('form-check-label')[0].htmlFor = nameFor;
 	experientContainer.getElementsByClassName('job-resolution-checkbox')[0].htmlFor = nameFor;
 	
-	document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
 	
+	
+	document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
+
+/*	let newObj = JSON.parse(JSON.stringify(experientContainer));
+	let lists = document.getElementsByClassName("job-experience");
+	let list = lists[lists.length-1];
+	list.innerHTML = newObj.experientContainer;*/
+	
+	//newObj = Object.assign({},experientContainer);
+	//document.getElementsByClassName("list-job-experience")[0] = newObj.innerHTML;
+	
+	
+	/*
 	let ht = `
                             <div class="row mb24">
                                 <div class="col-lg-2 col-md-3 dflex-acenter">
@@ -158,7 +170,7 @@ function clearValueFromExperience(experientContainer, count) {
 	let lists = document.getElementsByClassName("job-experience");
 	let list = lists[lists.length-1];
 	list.innerHTML = ht2;
-	
+	*/
 }
 	
 

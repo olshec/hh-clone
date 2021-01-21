@@ -265,9 +265,6 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-2 col-md-3 dflex-acenter">
                                     <div class="paragraph">Начало работы</div>
                                 </div>
-                                
-                                
-                             
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="d-flex justify-content-between">
                                         <div class="citizenship-select w100 mr16">
@@ -321,7 +318,9 @@ $this->title = 'Создание нового резюме'
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
+                            
+                            
                             <div class="row mb32">
                                 <div class="col-lg-2 col-md-3">
                                 </div>

@@ -12,6 +12,153 @@ function clearValueFromExperience(experientContainer, count) {
 	experientContainer.getElementsByClassName('job-resolution-checkbox')[0].htmlFor = nameFor;
 	
 	document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
+	
+	let ht = `
+                            <div class="row mb24">
+                                <div class="col-lg-2 col-md-3 dflex-acenter">
+                                    <div class="paragraph">Начало работы</div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="citizenship-select w100 mr16">
+                                            <select class="nselect-1 job-begin-month" data-title="Январь" name="job-begin-month[]">
+                                                <option selected="selected" value="01">Январь</option>
+                                                <option value="02">Февраль</option>
+                                                <option value="03">Март</option>
+                                                <option value="04">Апрель</option>
+                                                <option value="05">Май</option>
+                                                <option value="06">Июнь</option>
+                                                <option value="07">Июль</option>
+                                                <option value="08">Август</option>
+                                                <option value="09">Сентябрь</option>
+                                                <option value="10">Октябрь</option>
+                                                <option value="11">Ноябрь</option>
+                                                <option value="12">Декабрь</option>
+                                            </select>
+                                        </div>
+                                        <div class="citizenship-select w100">
+                                            <input placeholder="2006" type="text" name="job-begin-year[]" class="dor-input w100 job-begin-year">
+                                        </div>
+                                    </div>
+                                </div>
+                             </div> 
+	`;
+	
+	
+	let ht2 = `
+	                            <div class="row mb24">
+                                <div class="col-lg-2 col-md-3 dflex-acenter">
+                                    <div class="paragraph">Начало работы</div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="citizenship-select w100 mr16">
+                                            <select class="nselect-1 job-begin-month" data-title="Январь" name="job-begin-month[]">
+                                                <option selected="selected" value="01">Январь</option>
+                                                <option value="02">Февраль</option>
+                                                <option value="03">Март</option>
+                                                <option value="04">Апрель</option>
+                                                <option value="05">Май</option>
+                                                <option value="06">Июнь</option>
+                                                <option value="07">Июль</option>
+                                                <option value="08">Август</option>
+                                                <option value="09">Сентябрь</option>
+                                                <option value="10">Октябрь</option>
+                                                <option value="11">Ноябрь</option>
+                                                <option value="12">Декабрь</option>
+                                            </select>
+                                        </div>
+                                        <div class="citizenship-select w100">
+                                            <input placeholder="2006" type="text" name="job-begin-year[]" class="dor-input w100 job-begin-year">
+                                        </div>
+                                    </div>
+                                </div>
+                             </div> 
+<!--                            </div> -->
+                            
+                            <div class="row mb8">
+                                <div class="col-lg-2 col-md-3 dflex-acenter">
+                                    <div class="paragraph">Окончание работы</div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="citizenship-select w100 mr16">
+                                            <select class="nselect-1 job-end-month" data-title="Январь" name="job-end-month[]">
+                                                <option selected="selected" value="01">Январь</option>
+                                                <option value="02">Февраль</option>
+                                                <option value="03">Март</option>
+                                                <option value="04">Апрель</option>
+                                                <option value="05">Май</option>
+                                                <option value="06">Июнь</option>
+                                                <option value="07">Июль</option>
+                                                <option value="08">Август</option>
+                                                <option value="09">Сентябрь</option>
+                                                <option value="10">Октябрь</option>
+                                                <option value="11">Ноябрь</option>
+                                                <option value="12">Декабрь</option>
+                                            </select>
+                                        </div>
+                                        <div class="citizenship-select w100">
+                                            <input placeholder="2006" type="text" name="job-end-year[]" class="dor-input w100 job-end-year">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb32">
+                                <div class="col-lg-2 col-md-3">
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <div class="profile-info">
+                                        <div class="form-check d-flex">
+                                            <input type="checkbox" class="form-check-input job-until-now" id="job-until-now-1" name="job-until-now[]">
+                                            <label class="form-check-label" for="job-until-now-1"></label>
+                                            <label for="job-until-now-1"
+                                                   class="profile-info__check-text job-resolution-checkbox">По настоящее время</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb16">
+                                <div class="col-lg-2 col-md-3 dflex-acenter">
+                                    <div class="paragraph">Организация</div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <input type="text" name="organisation[]" class="dor-input w100 organisation">
+                                </div>
+                            </div>
+                            <div class="row mb16">
+                                <div class="col-lg-2 col-md-3 dflex-acenter">
+                                    <div class="paragraph">Должность</div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-11">
+                                    <input type="text" name="position[]" class="dor-input w100 position">
+                                </div>
+                            </div>
+                            <div class="row mb16">
+                                <div class="col-lg-2 col-md-3">
+                                    <div class="paragraph">Обязанности, функции, достижения</div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 job-container">
+                                    <textarea name="about-experient[]" class="dor-input w100 h96 mb8 about-experient"
+                                              placeholder="Расскажите о своих обязанностях, функциях и достижениях"></textarea>
+                                    <div class="mb24"><a href="#" class="job-experience-link-remove">Удалить место работы</a></div>
+                                    <div id="job-node-add"><a href="#" id="job-experience-link-add" >+ Добавить место работы</a></div>
+                                </div>
+                            </div>
+                            <div class="row mb24">
+                                <div class="col-lg-2 col-md-3">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="devide-border"></div>
+                                </div>
+                            </div>
+	
+	`;
+	
+	let lists = document.getElementsByClassName("job-experience");
+	let list = lists[lists.length-1];
+	list.innerHTML = ht2;
+	
 }
 	
 
@@ -21,13 +168,12 @@ function addJobExperience() {
 	
 	let jobContainer = document.getElementsByClassName("job-container");
 	//let jobNode = jobContainer[jobContainer.length-1].getElementsByClassName("job-node-add")[0].cloneNode(true);
-	let jobNodeRemove = document.getElementById("job-node-add");
+	let jobNodeAddingRemove = document.getElementById("job-node-add");
 	//let clnJobNode = jobNode.cloneNode(true);
-	jobContainer[jobContainer.length-1].removeChild(jobNodeRemove);
-	
+	jobContainer[jobContainer.length-1].removeChild(jobNodeAddingRemove);
+	//cln.getElementsByClassName('job-end-month')[0].setAttribute('name','asdf[]');
 	clearValueFromExperience(cln, itm.length);
-	
-	
+
 	addEventForAddJobExperience();
 	addEventForRemoveJobExperience();
 }

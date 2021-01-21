@@ -259,15 +259,20 @@ $this->title = 'Создание нового резюме'
                     
                    <div class="list-job-experience">
                        <div class="job-experience">
+                       
+<!--                         <div class="list-month"> -->
                             <div class="row mb24">
                                 <div class="col-lg-2 col-md-3 dflex-acenter">
                                     <div class="paragraph">Начало работы</div>
                                 </div>
+                                
+                                
+                             
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="d-flex justify-content-between">
                                         <div class="citizenship-select w100 mr16">
                                             <select class="nselect-1 job-begin-month" data-title="Январь" name="job-begin-month[]">
-                                                <option value="01">Январь</option>
+                                                <option selected="selected" value="01">Январь</option>
                                                 <option value="02">Февраль</option>
                                                 <option value="03">Март</option>
                                                 <option value="04">Апрель</option>
@@ -286,7 +291,9 @@ $this->title = 'Создание нового резюме'
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                             </div> 
+<!--                            </div> -->
+                            
                             <div class="row mb8">
                                 <div class="col-lg-2 col-md-3 dflex-acenter">
                                     <div class="paragraph">Окончание работы</div>
@@ -295,7 +302,7 @@ $this->title = 'Создание нового резюме'
                                     <div class="d-flex justify-content-between">
                                         <div class="citizenship-select w100 mr16">
                                             <select class="nselect-1 job-end-month" data-title="Январь" name="job-end-month[]">
-                                                <option value="01">Январь</option>
+                                                <option selected="selected" value="01">Январь</option>
                                                 <option value="02">Февраль</option>
                                                 <option value="03">Март</option>
                                                 <option value="04">Апрель</option>
@@ -321,11 +328,10 @@ $this->title = 'Создание нового резюме'
                                 <div class="col-lg-3 col-md-4 col-11">
                                     <div class="profile-info">
                                         <div class="form-check d-flex">
-                                            <input type="checkbox" class="form-check-input job-until-now" name="job-until-now[]">
-                                            <label class="form-check-label" for="job-until-now"></label>
-                                            <label for="job-until-now"
-                                                   class="profile-info__check-text job-resolution-checkbox">По настоящее
-                                                время</label>
+                                            <input type="checkbox" class="form-check-input job-until-now" id="job-until-now-1" name="job-until-now[]">
+                                            <label class="form-check-label" for="job-until-now-1"></label>
+                                            <label for="job-until-now-1"
+                                                   class="profile-info__check-text job-resolution-checkbox">По настоящее время</label>
                                         </div>
                                     </div>
                                 </div>
@@ -366,6 +372,21 @@ $this->title = 'Создание нового резюме'
                             </div>
                         </div>
                     </div> 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     

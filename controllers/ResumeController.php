@@ -779,6 +779,7 @@ class ResumeController extends Controller
             $email = Yii::$app->request->queryParams['email'];
             $telephone = Yii::$app->request->queryParams['telephone'];
             
+            
             if($surname == ''){
                 $errors['surname'] = 'Поле является обязательным';
             }
@@ -801,6 +802,30 @@ class ResumeController extends Controller
             if($telephone == ''){
                 $errors['telephone'] = 'Поле является обязательным';
             }
+            
+            
+            //get job experients
+            $experients['job-begin-month'] = Yii::$app->request->queryParams['job-begin-month'];
+            $experients['job-begin-year'] = Yii::$app->request->queryParams['job-begin-year'];
+            $experients['job-end-month'] = Yii::$app->request->queryParams['job-end-month'];
+            $experients['job-end-year'] = Yii::$app->request->queryParams['job-end-year'];
+            
+            
+//             $jobBeginMonth = Yii::$app->request->queryParams['job-begin-month'];
+//             $jobBeginYear = Yii::$app->request->queryParams['job-begin-year'];
+//             $jobEndMonth = Yii::$app->request->queryParams['job-end-month'];
+//             $jobEndYear = Yii::$app->request->queryParams['job-end-year'];
+            
+            
+            if(!array_key_exists('job-until-now', Yii::$app->request->queryParams)){
+                $jobUntilNow[] = 'off';
+            } else {
+                $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
+            }
+            $experients['job-until-now'] = $jobUntilNow;
+            
+            var_dump($experients);
+            
         }
         else {
             return $this->redirect('my-resumes');

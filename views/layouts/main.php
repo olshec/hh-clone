@@ -144,7 +144,7 @@ else {
 <script src="<?=  \yii\helpers\Url::to(['/']) ?>js/jquery.nselect.min.js"></script>
 <script src="<?=  \yii\helpers\Url::to(['/']) ?>js/bootstrap-datepicker.js"></script>
 <script src="<?=  \yii\helpers\Url::to(['/']) ?>js/bootstrap-datepicker.ru.min.js"></script>
-    
+<script src="<?=  \yii\helpers\Url::to(['/']) ?>js/jquery-editable-select.js"></script>      
 <?php $this->endBody() ?>
 </body>
 </html>

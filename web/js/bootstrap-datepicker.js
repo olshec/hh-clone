@@ -1941,9 +1941,9 @@
 			                '<th colspan="7" class="datepicker-title"></th>'+
 			              '</tr>'+
 							'<tr>'+
-								'<th><img class="prev" src="images/mini-left-arrow.svg" alt="left-arrow"></th>'+
+								'<th><img class="prev" src="http://localhost/hh-clone/web/images/mini-left-arrow.svg" alt="left-arrow"></th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
-								'<th><img class="next" src="images/mini-right-arrow.svg" alt="left-arrow"></th>'+
+								'<th><img class="next" src="http://localhost/hh-clone/web/images/mini-right-arrow.svg" alt="left-arrow"></th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',

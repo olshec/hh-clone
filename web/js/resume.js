@@ -1,5 +1,12 @@
-function clearValueFromExperience(experientContainer, count) {
-let inputs = experientContainer.getElementsByClassName('dor-input');
+function clearValueFromExperience() {
+	let	list = document.getElementsByClassName('nselect__head')[1];
+		
+		
+	let itm = document.getElementsByClassName("job-experience");
+	let count = itm.length-1;
+	let experientContainer = itm[count];
+	
+	let inputs = experientContainer.getElementsByClassName('dor-input');
 	for(let i=0; i < inputs.length; i++) {
 		inputs[i].value='';
 	}
@@ -13,7 +20,44 @@ let inputs = experientContainer.getElementsByClassName('dor-input');
 	
 	
 	
-	document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
+	//document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
+	
+
+/*let elem1 = document.getElementsByClassName('nselect__head')[1];
+cl1 = $('.nselect__head').clone(true, true);
+*/
+
+/*let elem1 = document.getElementsByClassName('nselect__head')[1];
+let elem2 = document.getElementsByClassName('nselect__head')[3];
+cl1 = $('.nselect__head').clone(true, true);
+let el = cl1[1];
+$(el).clone().appendTo(elem2);*/
+
+/*document.getElementsByClassName('nselect__head')[3] = document.getElementsByClassName('nselect__head')[1];
+let vs1 = Object.values(elem1);
+let vs2 = Object.values(elem1);*/
+
+// "JSON"
+//elem2 = elem1;
+
+
+
+//document.getElementsByClassName('nselect__head')[3] =  document.getElementsByClassName('nselect__head')[1];
+
+
+/*let el1 = JSON.parse(JSON.stringify(elem1));
+let el2 = JSON.parse(JSON.stringify(elem2));
+el2 = el1;
+let attr = el1;
+elem2.setAttribute('jQuery321089094437406630881', elem1.getAttribute('jQuery321089094437406630881'));
+let x = 5;*/
+
+/*let elem1 = document.getElementsByClassName('nselect__head')[1];
+let event1 = window.getEventListeners(elem1);
+
+let event2 = document.getElementsByClassName('nselect__head')[3];
+document.getElementsByClassName('nselect__head')[3]['click'] = event1['click'];*/
+
 
 /*	let newObj = JSON.parse(JSON.stringify(experientContainer));
 	let lists = document.getElementsByClassName("job-experience");
@@ -175,16 +219,13 @@ let inputs = experientContainer.getElementsByClassName('dor-input');
 	
 
 function addJobExperience() {
-	let itm = document.getElementsByClassName("job-experience");
-	let cln = itm[itm.length-1].cloneNode(true);
-	
+	$('.job-experience').clone(true, true).appendTo('.list-job-experience');
+
 	let jobContainer = document.getElementsByClassName("job-container");
-	//let jobNode = jobContainer[jobContainer.length-1].getElementsByClassName("job-node-add")[0].cloneNode(true);
 	let jobNodeAddingRemove = document.getElementById("job-node-add");
-	//let clnJobNode = jobNode.cloneNode(true);
-	jobContainer[jobContainer.length-1].removeChild(jobNodeAddingRemove);
-	//cln.getElementsByClassName('job-end-month')[0].setAttribute('name','asdf[]');
-	clearValueFromExperience(cln, itm.length);
+	//jobContainer[jobContainer.length-1].removeChild(jobNodeAddingRemove);
+	
+	clearValueFromExperience();
 
 	addEventForAddJobExperience();
 	addEventForRemoveJobExperience();

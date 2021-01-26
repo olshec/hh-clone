@@ -581,6 +581,7 @@ function afterPageLoad() {
 function addEventListeners() {
  	addEventsForSerchFullText();
 	addEventsForTypeSort();
+	addEventsForSerchGender();
 }
 
 function addEventsForSerchFullText() {
@@ -622,6 +623,25 @@ function addEventsForTypeSort() {
 	    }, false);
 }
 
+function addEventsForSerchGender() {
+	let el = document.getElementById("serch-gender-all");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchGender('all');
+	    }, false);
+
+	el = document.getElementById("serch-gender-male");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchGender('male');
+	    }, false);
+
+	el = document.getElementById("serch-gender-female");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchGender('female');
+	    }, false);
+}
 
 
 

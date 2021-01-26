@@ -306,100 +306,7 @@ class FullTextSercher {
 	}
 }
 
-function addEventListeners() {
-	//Full text serch
-	let el = document.getElementById("btn-serch");
-	el.addEventListener("click", serchFullText, false);
-	
-	el = document.getElementById("full-text-serch");
-	el.addEventListener('keydown', function(e) {
-	    if (e.keyCode === 13) {
-			e.preventDefault();
-	    	serchFullText();
-	    }
-	  }, false);
-	
-	el = document.getElementById("full-text-serch-img");
-	el.addEventListener("click", function(e) {
-	    	e.preventDefault();
-	    	serchFullText();
-	    }, false);
-}
-
-function afterPageLoad() {
-	addEventListeners();
-	
-	let params = (new URL(document.location)).searchParams; 
-	if(params.has('city')){
-		let idCity = params.get('city');
-        ServiceLocator.city = new City(idCity);
-	} else {
-        ServiceLocator.city = new City('0');
-	}
-	
-	if(params.has('gender')) {
-		let genderString = params.get('gender');
-    	ServiceLocator.gender = new Gender(genderString);
-	} else {
-        ServiceLocator.gender = new Gender('all');
-	}
-	
-	if(params.has('specialization')) {
-		let specializationString = params.get('specialization');
-		ServiceLocator.specialization = new Specialization(specializationString);
-	} else {
-        ServiceLocator.specialization = new Specialization('0');
-	}
-	
-	if(params.has('type_sort')) {
-		let typeSortString = params.get('type_sort');
-		ServiceLocator.typeSort = new TypeSort(typeSortString);
-	} else {
-        ServiceLocator.typeSort = new TypeSort('new');
-	}
-	
-	if(params.has('salary')) {
-		let salaryString = params.get('salary');
-		ServiceLocator.salary = new Salary(salaryString);
-	} else {
-        ServiceLocator.salary = new Salary('0');
-	}
-	
-	if(params.has('ageFrom')) {
-		let ageFromString = params.get('ageFrom');
-		ServiceLocator.ageFrom = new AgeFrom(ageFromString);
-	} else {
-        ServiceLocator.ageFrom = new AgeFrom('0');
-	}
-	
-	if(params.has('ageUp')) {
-		let ageUpString = params.get('ageUp');
-		ServiceLocator.ageUp = new AgeUp(ageUpString);
-	} else {
-        ServiceLocator.ageUp = new AgeUp('0');
-	}
-	
-	if(params.has('page')) {
-		let numberPage = params.get('page');
-		ServiceLocator.page = new Page(numberPage);
-	} else {
-        ServiceLocator.page = new Page('1');
-	}
-	
-	if(params.has('serchText')) {
-		let serchText = params.get('serchText');
-		ServiceLocator.fullTextSercher = new FullTextSercher(serchText);
-	} else {
-        ServiceLocator.fullTextSercher = new FullTextSercher('');
-	}
-	
-	ServiceLocator.typeEmployment = new TypeEmployment();
-	ServiceLocator.typeSchedule = new TypeSchedule();
-	ServiceLocator.experience = new Experience();
-
-}
-
-
+//Serch functions
 
 function serchCity() {
 	let elements = document.getElementsByClassName("nselect-1");
@@ -592,6 +499,128 @@ function serchFullText() {
 	window.location.href = serchUrl;
 }
 
+
+
+//Load events
+
+
+function afterPageLoad() {
+	addEventListeners();
+	
+	let params = (new URL(document.location)).searchParams; 
+	if(params.has('city')){
+		let idCity = params.get('city');
+        ServiceLocator.city = new City(idCity);
+	} else {
+        ServiceLocator.city = new City('0');
+	}
+	
+	if(params.has('gender')) {
+		let genderString = params.get('gender');
+    	ServiceLocator.gender = new Gender(genderString);
+	} else {
+        ServiceLocator.gender = new Gender('all');
+	}
+	
+	if(params.has('specialization')) {
+		let specializationString = params.get('specialization');
+		ServiceLocator.specialization = new Specialization(specializationString);
+	} else {
+        ServiceLocator.specialization = new Specialization('0');
+	}
+	
+	if(params.has('type_sort')) {
+		let typeSortString = params.get('type_sort');
+		ServiceLocator.typeSort = new TypeSort(typeSortString);
+	} else {
+        ServiceLocator.typeSort = new TypeSort('new');
+	}
+	
+	if(params.has('salary')) {
+		let salaryString = params.get('salary');
+		ServiceLocator.salary = new Salary(salaryString);
+	} else {
+        ServiceLocator.salary = new Salary('0');
+	}
+	
+	if(params.has('ageFrom')) {
+		let ageFromString = params.get('ageFrom');
+		ServiceLocator.ageFrom = new AgeFrom(ageFromString);
+	} else {
+        ServiceLocator.ageFrom = new AgeFrom('0');
+	}
+	
+	if(params.has('ageUp')) {
+		let ageUpString = params.get('ageUp');
+		ServiceLocator.ageUp = new AgeUp(ageUpString);
+	} else {
+        ServiceLocator.ageUp = new AgeUp('0');
+	}
+	
+	if(params.has('page')) {
+		let numberPage = params.get('page');
+		ServiceLocator.page = new Page(numberPage);
+	} else {
+        ServiceLocator.page = new Page('1');
+	}
+	
+	if(params.has('serchText')) {
+		let serchText = params.get('serchText');
+		ServiceLocator.fullTextSercher = new FullTextSercher(serchText);
+	} else {
+        ServiceLocator.fullTextSercher = new FullTextSercher('');
+	}
+	
+	ServiceLocator.typeEmployment = new TypeEmployment();
+	ServiceLocator.typeSchedule = new TypeSchedule();
+	ServiceLocator.experience = new Experience();
+
+}
+
+
+function addEventListeners() {
+ 	addEventsForSerchFullText();
+	addEventsForTypeSort();
+}
+
+function addEventsForSerchFullText() {
+	let el = document.getElementById("btn-serch");
+	el.addEventListener("click", serchFullText, false);
+	
+	el = document.getElementById("full-text-serch");
+	el.addEventListener('keydown', function(e) {
+	    if (e.keyCode === 13) {
+			e.preventDefault();
+	    	serchFullText();
+	    }
+	  }, false);
+	
+	el = document.getElementById("full-text-serch-img");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchFullText();
+	    }, false);
+}
+
+function addEventsForTypeSort() {
+	let el = document.getElementById("type-sort-new");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchTypeSort('new');
+	    }, false);
+
+	el = document.getElementById("type-sort-inc-salary");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchTypeSort('inc-salary');
+	    }, false);
+
+	el = document.getElementById("type-sort-desc-salary");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchTypeSort('desc-salary');
+	    }, false);
+}
 
 
 

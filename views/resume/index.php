@@ -44,9 +44,9 @@ $this->title = 'Список резюме';
                                     <i class="fas fa-angle-down arrowDown"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-                                    <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('new'); return false;">По новизне</a>
-                                    <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('inc-salary'); return false;">По возрастанию зарплаты</a>
-                                    <a class="dropdown-item" href="<?= $addressServer?>resume#" onclick="serchTypeSort('desc-salary'); return false;">По убыванию зарплаты</a>
+                                    <a class="dropdown-item" id="type-sort-new" href="#">По новизне</a>
+                                    <a class="dropdown-item" id="type-sort-inc-salary" href="#">По возрастанию зарплаты</a>
+                                    <a class="dropdown-item" id="type-sort-desc-salary" href="#">По убыванию зарплаты</a>
                                 </div>
                             </div>
                         </div>

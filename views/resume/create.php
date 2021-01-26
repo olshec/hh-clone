@@ -135,7 +135,7 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="citizenship-select">
                                 <select class="nselect-1" id="specialization" data-title="Программист"  name="specialization">
-                                    <option value="01">Программист</option>
+                                    <option select value="01">Программист</option>
                                     <option value="02">Дизайнер</option>
                                     <option value="03">Повар</option>
                                     <option value="04">Акробат</option>

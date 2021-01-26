@@ -771,7 +771,7 @@ class ResumeController extends Controller
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
             $surname = Yii::$app->request->queryParams['surname'];
-            $name = Yii::$app->request->queryParams['name'];
+            $nameUser = Yii::$app->request->queryParams['name'];
             $patronymic = Yii::$app->request->queryParams['patronymic'];
             $dateBirth = Yii::$app->request->queryParams['date-birth'];
             $radioGender = Yii::$app->request->queryParams['radio-gender'];
@@ -780,10 +780,31 @@ class ResumeController extends Controller
             $telephone = Yii::$app->request->queryParams['telephone'];
             
             
+            //Career objective
+            $specialization = Yii::$app->request->queryParams['specialization'];
+            if (array_key_exists('salary', Yii::$app->request->queryParams)) {
+                $salary = Yii::$app->request->queryParams['salary'];
+            } else {
+                $salary = '0';
+            }
+            
+            if (array_key_exists('type-employment', Yii::$app->request->queryParams)) {
+                $typeEmployment = Yii::$app->request->queryParams['type-employment'];
+            } else {
+                $typeEmployment =  [];
+            }
+            
+            if (array_key_exists('schedule', Yii::$app->request->queryParams)) {
+                $schedule = Yii::$app->request->queryParams['schedule'];
+            } else {
+                $schedule =  [];
+            }
+           
+            
             if($surname == ''){
                 $errors['surname'] = 'Поле является обязательным';
             }
-            if($name == ''){
+            if($nameUser == ''){
                 $errors['name'] = 'Поле является обязательным';
             }
             if($patronymic == ''){
@@ -831,7 +852,21 @@ class ResumeController extends Controller
             $aboutMe = Yii::$app->request->queryParams['about-me'];
             
            // var_dump($experients);
-            echo $aboutMe;
+            var_dump( $typeEmployment);
+            
+            
+            
+//             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
+//             $command->bindValue(':name', $nameUser);
+//             $command->bindValue(':surname', $surname);
+//             $command->bindValue(':date_birth', $dateBirth);
+//             $post = $command->queryOne();
+            
+//             $idUser = $post['id'];
+            
+            
+//             $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
+//             $resume->save();
             
         }
         else {

@@ -583,6 +583,7 @@ function addEventListeners() {
 	addEventsForTypeSort();
 	addEventsForSerchGender();
 	addEventsForSerchCity();
+	addEventsForSerchSpecialization();
 }
 
 function addEventsForSerchFullText() {
@@ -646,10 +647,14 @@ function addEventsForSerchGender() {
 
 function addEventsForSerchCity() {
 	let el = document.getElementById("city-selector");
-	el.addEventListener("click", function(e) {
-	    	e.preventDefault();
+	el.addEventListener("click", function() {
 	    	serchCity();
 	    }, false);
 }
 
-
+function addEventsForSerchSpecialization() {
+	let el = document.getElementById("specialization-selector");
+	el.addEventListener("click", function() {
+	    	serchSpecialization();
+	    }, false);
+}

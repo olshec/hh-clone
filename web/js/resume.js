@@ -12,6 +12,7 @@ let inputs = experientContainer.getElementsByClassName('dor-input');
 	experientContainer.getElementsByClassName('job-resolution-checkbox')[0].htmlFor = nameFor;
 
 	document.getElementsByClassName("list-job-experience")[0].appendChild(experientContainer);
+	
 }
 	
 

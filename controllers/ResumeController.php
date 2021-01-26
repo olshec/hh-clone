@@ -824,7 +824,14 @@ class ResumeController extends Controller
             }
             $experients['job-until-now'] = $jobUntilNow;
             
-            var_dump($experients);
+            $experients['organisation'] = Yii::$app->request->queryParams['organisation'];
+            $experients['position'] = Yii::$app->request->queryParams['position'];
+            $experients['about-experient'] = Yii::$app->request->queryParams['about-experient'];
+            
+            $aboutMe = Yii::$app->request->queryParams['about-me'];
+            
+           // var_dump($experients);
+            echo $aboutMe;
             
         }
         else {

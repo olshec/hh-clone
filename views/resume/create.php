@@ -399,7 +399,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">О себе</div>
                         </div>
                         <div class="col-lg-5 col-md-7 col-12">
-                            <textarea id="about-me" class="dor-input w100 h176 mb8"></textarea>
+                            <textarea id="about-me" name="about-me" class="dor-input w100 h176 mb8"></textarea>
                         </div>
                     </div>
                     <div class="row mb128 mobile-mb64">

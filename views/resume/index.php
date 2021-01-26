@@ -105,7 +105,7 @@ $this->title = 'Список резюме';
                     </div>
                     <div class="vakancy-page-filter-block__row mb24">
                         <div class="paragraph cadet-blue" >Город</div>
-                        <div class="citizenship-select" onclick="serchCity()">
+                        <div class="citizenship-select" id="city-selector">
 							 <select class="nselect-1"  >
                              	<?php foreach ($dataCities as $city): ?>
                                     <option <?= ($city['id'] == $cityIdSelect)? 'selected':''?> 

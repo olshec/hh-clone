@@ -582,6 +582,7 @@ function addEventListeners() {
  	addEventsForSerchFullText();
 	addEventsForTypeSort();
 	addEventsForSerchGender();
+	addEventsForSerchCity();
 }
 
 function addEventsForSerchFullText() {
@@ -643,5 +644,12 @@ function addEventsForSerchGender() {
 	    }, false);
 }
 
+function addEventsForSerchCity() {
+	let el = document.getElementById("city-selector");
+	el.addEventListener("click", function(e) {
+	    	e.preventDefault();
+	    	serchCity();
+	    }, false);
+}
 
 

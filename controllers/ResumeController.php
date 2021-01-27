@@ -770,6 +770,7 @@ class ResumeController extends Controller
             return $this->render('create', ['userID' => $userID]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
+            $photo = Yii::$app->request->queryParams['photo-profile'];;
             $surname = Yii::$app->request->queryParams['surname'];
             $nameUser = Yii::$app->request->queryParams['name'];
             $patronymic = Yii::$app->request->queryParams['patronymic'];
@@ -869,18 +870,17 @@ class ResumeController extends Controller
                 $idUser = $post['id'];
             }
             if($idUser != -1){
-                echo $idUser;
-                
+                //echo $idUser;        
                 $dateBirth = date('Y-m-d', strtotime($dateBirth));
-                
                 $nameResume=$specialization;
                 $dateUpdate =  date("Y-m-d h:i:s");
                 $numberViews = 0;
                 $datePublication = $dateUpdate;
                 $numberGenerate = '576890435';
                 $path = \yii\helpers\Url::to(['/']) .'ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
-                $file1 = UploadedFile::getInstanceByName('input-foto');
-                var_dump($file1);
+                
+                //var_dump($photo);
+                
                 //'Andrey_Rumov_2001-08-11_576890435'
                 //$resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 

@@ -32,7 +32,7 @@ $this->title = 'Создание нового резюме'
                             <div class="profile-foto-upload mb8" id="profile-photo" photo-name="profile-foto.jpg"><img src="<?= \yii\helpers\Url::to(['/']) ?>images/profile-foto.jpg" alt="photo">
                             </div>
                             <label class="custom-file-upload" id="label-photo">
-                                <input type="file" id="input-foto"/>
+                                <input type="file" id="input-foto"  name="photo-profile" />
                                 Изменить фото
                             </label>
                         </div>

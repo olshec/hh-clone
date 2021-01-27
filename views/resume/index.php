@@ -64,14 +64,17 @@ $this->title = 'Список резюме';
                             <h3 class="mini-title mobile-off"><?= $resume['name'] ?></h3>
                             <div class="d-flex align-items-center flex-wrap mb8 ">
                                 <span class="mr16 paragraph"><?= number_format($resume['salary'], 0, '', ' ');  ?></span>
+                                 <?php if($resume['infoAboutLastWork'] != 'Нет опыта'):?>
                                 <span class="mr16 paragraph"><?= $resume['experience'] ?></span>
+                                <?php endif;?>
                                 <span class="mr16 paragraph"><?= $resume['age'] ?> </span>
                                 <span class="mr16 paragraph"><?= $resume['city'] ?></span>
                             </div>
+                            <?php if($resume['infoAboutLastWork'] != 'Нет опыта'):?>
                             <p class="paragraph tbold mobile-off">Последнее место работы</p>
+                            <?php endif;?>
                         </div>
                         <div class="company-list-search__block-middle">
-                            <h3 class="mini-title desktop-off">PHP разработчик</h3>
                             <p class="paragraph mb16 mobile-mb32"><?= $resume['infoAboutLastWork'] ?></p>
                         </div>
                     </div>

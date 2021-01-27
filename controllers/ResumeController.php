@@ -385,14 +385,15 @@ class ResumeController extends Controller
         $lastPlaceOfWork = $command->queryOne();
         $dateStartWork = $lastPlaceOfWork['date_start'];
         $dateFinishWork = $lastPlaceOfWork['date_end'];
-        //list of month
-        $monthAndYearStart = $this->getFormatDate($dateStartWork);
-        $monthAndYearFinish = $this->getFormatDate($dateFinishWork);
-        //          echo $month;
-        //          exit;
         
-        $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
-        ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        $infoAboutLastWork = 'Нет опыта';
+        if($dateStartWork != null && $dateFinishWork != null){
+            $monthAndYearStart = $this->getFormatDate($dateStartWork);
+            $monthAndYearFinish = $this->getFormatDate($dateFinishWork);
+            $infoAboutLastWork = $lastPlaceOfWork['position']." в ".$lastPlaceOfWork['name_organization'].
+            ", ".$monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        }
+        
         return $infoAboutLastWork;
     }
     
@@ -599,7 +600,6 @@ class ResumeController extends Controller
         $resumes = array();
         for ($i=0; $i < count($listResume); $i++) {
             $resumeModel=$listResume[$i];
-            
             $experienceDays = $this->getAllDaysExperience($resumeModel['resume_id']);
             if($this->checkExperience($experienceDays)){
                 $userAge = $this->getAge($resumeModel['date_birth']);

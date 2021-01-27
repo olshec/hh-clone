@@ -141,6 +141,10 @@ function addEventForRadioButtonsForExperience() {
 function addEventForSaveFormButton() {
 	const saveFormButton = document.getElementById("saveFormButton");
 	saveFormButton.addEventListener("click", function() {
+	/*	let photo = document.getElementById("profile-photo");
+		let photoName = photo.getAttribute('photo-name');
+		let form = document.getElementsByTagName('form')[0];
+		form.setAttribute('photo', photoName);*/
 		document.getElementsByTagName('form')[0].submit() 
 		}, false);
 }

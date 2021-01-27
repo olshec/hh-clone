@@ -781,7 +781,12 @@ class ResumeController extends Controller
             
             
             //Career objective
-            $specialization = Yii::$app->request->queryParams['specialization'];
+            if (array_key_exists('specialization', Yii::$app->request->queryParams)) {
+                $specialization = Yii::$app->request->queryParams['specialization'];
+            } else {
+                $specialization = '1';
+            }
+            
             if (array_key_exists('salary', Yii::$app->request->queryParams)) {
                 $salary = Yii::$app->request->queryParams['salary'];
             } else {
@@ -831,13 +836,6 @@ class ResumeController extends Controller
             $experients['job-end-month'] = Yii::$app->request->queryParams['job-end-month'];
             $experients['job-end-year'] = Yii::$app->request->queryParams['job-end-year'];
             
-            
-//             $jobBeginMonth = Yii::$app->request->queryParams['job-begin-month'];
-//             $jobBeginYear = Yii::$app->request->queryParams['job-begin-year'];
-//             $jobEndMonth = Yii::$app->request->queryParams['job-end-month'];
-//             $jobEndYear = Yii::$app->request->queryParams['job-end-year'];
-            
-            
             if(!array_key_exists('job-until-now', Yii::$app->request->queryParams)){
                 $jobUntilNow[] = 'off';
             } else {
@@ -851,22 +849,45 @@ class ResumeController extends Controller
             
             $aboutMe = Yii::$app->request->queryParams['about-me'];
             
+            
+            
            // var_dump($experients);
-            var_dump( $typeEmployment);
+           // var_dump( $typeEmployment);
             
             
             
-//             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
-//             $command->bindValue(':name', $nameUser);
-//             $command->bindValue(':surname', $surname);
-//             $command->bindValue(':date_birth', $dateBirth);
-//             $post = $command->queryOne();
+            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
+            $command->bindValue(':name', $nameUser= 'Anton');
+            $command->bindValue(':surname', $surname='Lavrov');
+            $command->bindValue(':date_birth', $dateBirth='1990-02-18');
+            $post = $command->queryOne();
             
-//             $idUser = $post['id'];
-            
-            
-//             $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
-//             $resume->save();
+            //var_dump( $post);
+            $idUser = -1;
+           // exit();
+            if($post != false){
+                $idUser = $post['id'];
+            }
+            if($idUser != -1){
+                echo $idUser;
+                
+                $dateBirth = date('Y-m-d', strtotime($dateBirth));
+                
+                $nameResume=$specialization;
+                $dateUpdate =  date("Y-m-d h:i:s");
+                $numberViews = 0;
+                $datePublication = $dateUpdate;
+                $numberGenerate = '576890435';
+                $path = \yii\helpers\Url::to(['/']) .'ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
+                $file1 = UploadedFile::getInstanceByName('input-foto');
+                var_dump($file1);
+                //'Andrey_Rumov_2001-08-11_576890435'
+                //$resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
+                
+                //$resume->save();
+            }
+           
+
             
         }
         else {

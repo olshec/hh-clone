@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 use app\models\TypeEmployment;
 use app\models\Schedule;
 
@@ -791,7 +792,7 @@ class ResumeController extends Controller
             if (array_key_exists('salary', Yii::$app->request->queryParams)) {
                 $salary = Yii::$app->request->queryParams['salary'];
             } else {
-                $salary = '0';
+                $salary = 0;
             }
             
             if (array_key_exists('type-employment', Yii::$app->request->queryParams)) {
@@ -876,15 +877,25 @@ class ResumeController extends Controller
                 $dateUpdate =  date("Y-m-d h:i:s");
                 $numberViews = 0;
                 $datePublication = $dateUpdate;
-                $numberGenerate = '576890435';
-                $path = \yii\helpers\Url::to(['/']) .'ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
+                $numberGenerate = rand( 99999, 999999);
                 
+                $path ='ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
+                Yii::setAlias('@addressServer','http://localhost');
+                $fd = false;
+                while(!$fd){
+                    $numberGenerate = rand( 99999, 999999);
+                    $path ='ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
+                    $fd = !is_dir($path);//FileHelper::findDirectories($path);
+                }
+                FileHelper::createDirectory($path, 0700);
+                echo $path.'<br>';
+                //echo $fl;
                 //var_dump($photo);
                 
                 //'Andrey_Rumov_2001-08-11_576890435'
-                //$resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
+                $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 
-                //$resume->save();
+                $resume->save();
             }
            
 
@@ -936,9 +947,13 @@ class ResumeController extends Controller
      */
     public function actionUpdate()
     {
-        $date = '20.04.2012';
-        echo date('Y.m.d', strtotime($date));
+//         $date = '20.04.2012';
+//         echo date('Y.m.d', strtotime($date));
+        
+//         $rand = rand( 99999, 999999);
+//         echo $rand;
         exit();
+        
 //         $model = $this->findModel($id);
 
 //         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -767,8 +767,8 @@ class ResumeController extends Controller
     public function actionCreate()
     {
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
-            $userID = Yii::$app->request->queryParams['user-id'];
-            return $this->render('create', ['userID' => $userID]);
+            $user = Yii::$app->request->queryParams['user-id'];
+            return $this->render('create', ['userID' => $user]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
             $photo = Yii::$app->request->queryParams['photo-profile'];;
@@ -855,20 +855,18 @@ class ResumeController extends Controller
             
            // var_dump($experients);
            // var_dump( $typeEmployment);
-            
-            
-            
+
             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
-            $command->bindValue(':name', $nameUser= 'Anton');
-            $command->bindValue(':surname', $surname='Lavrov');
-            $command->bindValue(':date_birth', $dateBirth='1990-02-18');
-            $post = $command->queryOne();
+            $command->bindValue(':name', $nameUser= 'Andrey');
+            $command->bindValue(':surname', $surname='Rumov');
+            $command->bindValue(':date_birth', $dateBirth='1999-08-11');
+            $user = $command->queryOne();
             
             //var_dump( $post);
             $idUser = -1;
            // exit();
-            if($post != false){
-                $idUser = $post['id'];
+            if($user != false){
+                $idUser = $user['id'];
             }
             if($idUser != -1){
                 //echo $idUser;        
@@ -877,29 +875,35 @@ class ResumeController extends Controller
                 $dateUpdate =  date("Y-m-d h:i:s");
                 $numberViews = 0;
                 $datePublication = $dateUpdate;
-                $numberGenerate = rand( 99999, 999999);
-                
-                $path ='ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
-                Yii::setAlias('@addressServer','http://localhost');
-                $fd = false;
-                while(!$fd){
-                    $numberGenerate = rand( 99999, 999999);
-                    $path ='ResumePhoto/'.$nameUser.'_'.$surname.'_'.$dateBirth.'_'.$numberGenerate;
-                    $fd = !is_dir($path);//FileHelper::findDirectories($path);
-                }
-                FileHelper::createDirectory($path, 0700);
-                echo $path.'<br>';
-                //echo $fl;
-                //var_dump($photo);
+              
+                $command = Yii::$app->db->createCommand('SELECT path, photo FROM "resume" WHERE user_id=:user_id');
+                $command->bindValue(':user_id', $idUser);
+                $resume = $command->queryOne();
+                $path = $resume['path'];
                 
                 //'Andrey_Rumov_2001-08-11_576890435'
                 $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
-                
                 $resume->save();
+                
+                $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');
+                $command->bindValue(':user_id', $idUser);
+                $command->bindValue(':name_resume', $nameResume);
+                $resume = $command->queryOne();
+                $resume['photo'] = $resume['path'].'/'.$resume['photo'];
+                $resume['resume_name'] = $resume['name'];
+                $resume['user_name'] = $user['name'];   
+                $resume['user_surname'] = $user['surname']; 
+                $resume['user_patronymic'] = $user['patronymic'];  
+                $resume['experience_total'] = "Опыт работы 2 года";
+                $resume['age'] = '22 года';
+                $resume['type_employment'] = '';
+                $resume['schedule'] = '';
+                $resume['city_name'] = 'Moscow';
+                $resume['email'] = $user['email'];  
+                $resume['telephone'] = $user['telephone'];  
+                $resume['place_of_work'] = [];
+                return $this->render('view', ['resume' => $resume]);
             }
-           
-
-            
         }
         else {
             return $this->redirect('my-resumes');
@@ -921,12 +925,12 @@ class ResumeController extends Controller
                 $resume = $command->queryOne();
                 $path = $resume['path'];
                 
-                $addressServer = 'http://localhost'. \yii\helpers\Url::to(['/']).'ResumePhoto/';
                 try{
                     $file1->saveAs(Yii::getAlias('@webroot').'/ResumePhoto/'.$path.'/'.$file1->name);
                 } catch (\Exception $ex) {
                     echo $ex;
                 }
+                $addressServer = 'http://localhost'. \yii\helpers\Url::to(['/']).'ResumePhoto/';
                 $photo = '<img src="'. $addressServer. $path.'/'.$file1->name . '" alt="photo">';
                 $postData = json_encode(array('photo' => $photo, 'photoName' => $file1->name), JSON_FORCE_OBJECT);
                 echo $postData;

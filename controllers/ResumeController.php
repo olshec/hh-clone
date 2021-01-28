@@ -770,6 +770,40 @@ class ResumeController extends Controller
         ]);
     }
 
+    
+    public function initFieldForActionCreate(array $errors): array {
+        
+        if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
+            $idUser = Yii::$app->request->queryParams['user-id'];
+        } else {
+            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
+            $command->bindValue(':name', $nameUser= 'Andrey');
+            $command->bindValue(':surname', $surname='Rumov');
+            $command->bindValue(':date_birth', $dateBirth='1999-08-11');
+            $user = $command->queryOne();
+            
+            if(count($user) > 0){
+                $idUser = $user['id'];
+            } else {
+                $idUser = -1;
+                $errors['userStatus'] = 'Пользователь не найден';
+            }
+        }
+        
+        $specialization = new Specialization();
+        $listSpecialization = $specialization->getAllSpecializations();
+        $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
+        $schedules = (new Schedule())->getAllSchedules();
+        $user = (new User())->getUserById($idUser);
+        $user['date_birth'] = date('d.m.Y', strtotime($user['date_birth']));
+        $user['city'] = (new City())->findNameCityById($user['city_id']);
+        $result = ['listSpecialization' => $listSpecialization,
+            'typeEmployments' => $typeEmployments, 'schedules' => $schedules, 'user' => $user,
+            'errors' => $errors,
+        ];
+        return $result;
+    }
+    
     /**
      * Creates a new Resume model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -778,22 +812,9 @@ class ResumeController extends Controller
     public function actionCreate()
     {
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
-            $idUser = Yii::$app->request->queryParams['user-id'];
-            $specialization = new Specialization();
-            $listSpecialization = $specialization->getAllSpecializations();
-            $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
-            $schedules = (new Schedule())->getAllSchedules();
-            $user = (new User())->getUserById($idUser);
-            $user['date_birth'] = date('d.m.Y', strtotime($user['date_birth']));
-            $user['city'] = (new City())->findNameCityById($user['city_id']);
-            return $this->render('create', ['listSpecialization' => $listSpecialization,
-                'typeEmployments' => $typeEmployments, 'schedules' => $schedules, 'user' => $user,
-            ]);
+            return $this->render('create', $this->initFieldForActionCreate([]));
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
-//             var_dump( Yii::$app->request->queryParams['type_employment']);
-//             exit();
-            
-            
+
             $photo = Yii::$app->request->queryParams['photo-profile'];
             $surname = Yii::$app->request->queryParams['surname'];
             $nameUser = Yii::$app->request->queryParams['name'];
@@ -855,45 +876,35 @@ class ResumeController extends Controller
             if($telephone == ''){
                 $errors['telephone'] = 'Поле является обязательным';
             }
-            
-            
-            //get job experients
-            $experients['job-begin-month'] = Yii::$app->request->queryParams['job-begin-month'];
-            $experients['job-begin-year'] = Yii::$app->request->queryParams['job-begin-year'];
-            $experients['job-end-month'] = Yii::$app->request->queryParams['job-end-month'];
-            $experients['job-end-year'] = Yii::$app->request->queryParams['job-end-year'];
-            
-            if(!array_key_exists('job-until-now', Yii::$app->request->queryParams)){
-                $jobUntilNow[] = 'off';
-            } else {
-                $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
-            }
-            $experients['job-until-now'] = $jobUntilNow;
-            
-            $experients['organisation'] = Yii::$app->request->queryParams['organisation'];
-            $experients['position'] = Yii::$app->request->queryParams['position'];
-            $experients['about-experient'] = Yii::$app->request->queryParams['about-experient'];
-            
             $aboutMe = Yii::$app->request->queryParams['about-me'];
-
+            
             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
             $command->bindValue(':name', $nameUser= 'Andrey');
             $command->bindValue(':surname', $surname='Rumov');
             $command->bindValue(':date_birth', $dateBirth='1999-08-11');
             $user = $command->queryOne();
             
-            $idUser = -1;
-            if($user != false){
+            
+            if(count($user) > 0){
                 $idUser = $user['id'];
-            }
-            if($idUser != -1){      
+                
                 $dateBirth = date('Y-m-d', strtotime($dateBirth));
                 $specialization = new Specialization();
                 $nameResume = $specialization->getNameSpecializationById($idSpecialization);
+                $hasNameResume = (new ResumeSearch())->hasNameResume($nameResume);
+                
+                if($hasNameResume){
+                    $errors['resumeName'] = 'Резюме с данной специализацией уже зарегистрировано.
+                                                Вы можете создать резюме с другой специализацией или
+                                                отредактировать существующее.';
+                    return $this->render('create', $this->initFieldForActionCreate($errors));
+                }
+                
+                //get job experients 
                 $dateUpdate =  date("Y-m-d h:i:s");
                 $numberViews = 0;
                 $datePublication = $dateUpdate;
-              
+                
                 $command = Yii::$app->db->createCommand('SELECT path, photo FROM "resume" WHERE user_id=:user_id');
                 $command->bindValue(':user_id', $idUser);
                 $resume = $command->queryOne();
@@ -902,28 +913,27 @@ class ResumeController extends Controller
                 //'Andrey_Rumov_2001-08-11_576890435'
                 $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 $resume->save();
-
+                
                 foreach($idTtypeEmployment as $idTE){
                     $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
                     $resumeTypeEmployment->save();
                 }
-
+                
                 foreach($schedule as $sch){
                     $resumeSchedule = ResumeSchedule::getNewResumeSchedule($resume['id'], $sch);
                     $resumeSchedule->save();
                 }
                 
                 $experienceRadioButton = Yii::$app->request->queryParams['radio-experience'];
-//                 var_dump($experienceRadioButton);
-//                 exit();
+
                 if($experienceRadioButton[0] == 'yes'){
                     $jobBeginMonth = Yii::$app->request->queryParams['job-begin-month'];
                     $jobBeginYear = Yii::$app->request->queryParams['job-begin-year'];
                     
-                   
+                    
                     $jobEndMonth = Yii::$app->request->queryParams['job-end-month'];
                     $jobEndYear = Yii::$app->request->queryParams['job-end-year'];
-                   
+                    
                     if (array_key_exists('job-until-now', Yii::$app->request->queryParams)) {
                         $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
                     } else {
@@ -942,16 +952,18 @@ class ResumeController extends Controller
                             $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
                         $placeOfWork->save();
                     }
-                    //for()
-                } 
-                
+                }
                 
                 $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');
                 $command->bindValue(':user_id', $idUser);
                 $command->bindValue(':name_resume', $nameResume);
                 $resume = $command->queryOne();
-
+                
                 return $this->redirect('view?resume='.$resume['id']);
+
+            } else {
+                $errors['userStatus'] = 'Пользователь не найден';
+                return $this->render('create', $this->initFieldForActionCreate($errors));
             }
         }
         else {

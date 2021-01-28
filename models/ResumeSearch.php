@@ -344,16 +344,24 @@ class ResumeSearch extends Resume
                     WHERE "resume"."id"=:idResume
                     EOT;
         
-        //         $query = Resume::findBySql($strQuery);
-        //         $dataProvider = new ActiveDataProvider([
-        //             'query' => $query,
-        //         ]);
-        //         return $dataProvider->models;
-        
         $command = Yii::$app->db->createCommand($strQuery);
         $command->bindValue(':idResume', $idResume);
         $resultQuery = $command->queryOne();
         return $resultQuery;
+    }
+    
+    public function hasNameResume(string $name): bool {
+        $strQuery = 'SELECT "resume"."name" 
+                    FROM "resume" 
+                    WHERE "resume"."name"=:name';
+        $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':name', $name);
+        $resultQuery = $command->queryOne();
+        if($resultQuery != ''){
+            return true;
+        } else {
+            return false;
+        }
     }
     
 }

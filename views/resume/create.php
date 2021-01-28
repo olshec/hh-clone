@@ -144,6 +144,9 @@ $this->title = 'Создание нового резюме'
                                 </select>
                             </div>
                         </div>
+                        <?php if(array_key_exists('resumeName', $errors)): ?>
+                        <?= $errors['resumeName'] ?>
+                        <?php endif;?>
                     </div>
                     <div class="row mb16">
                         <div class="col-lg-2 col-md-3 dflex-acenter">

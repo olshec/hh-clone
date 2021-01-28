@@ -1,0 +1,3 @@
+error: object file .git/objects/f8/8b88aaa7a670b093ef74d3d6c37bd97c7ac761 is empty
+fatal: unable to get object info for f88b88aaa7a670b093ef74d3d6c37bd97c7ac761
+error: failed to run prune

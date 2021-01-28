@@ -448,8 +448,11 @@ class ResumeController extends Controller
             $days -= $year * 365;
             
             $stringYear = strval($year);
-            $lastFigureYear = $stringYear[count(str_split($stringYear))-1];
-            if ($lastFigureYear == "1") {
+            $countDigit = count(str_split($stringYear));
+            $lastFigureYear = $stringYear[$countDigit-1];
+            if($year == '11'){
+                $yearsExperience = "11 лет";
+            } else if ($lastFigureYear == "1") {
                 $yearsExperience = $year . " год";
             } else if ($lastFigureYear == "2" || $lastFigureYear == "3" || $lastFigureYear == "4") {
                 $yearsExperience = $year . " года";

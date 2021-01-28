@@ -1,0 +1,67 @@
+0000000000000000000000000000000000000000 39a2ea47c90eaef87e47b8b06e1cb69a50903eca Oleg Shestakov <olshec@gmail.com> 1606719508 +0300	clone: from https://github.com/olshec/hh-clone.git
+39a2ea47c90eaef87e47b8b06e1cb69a50903eca 010c518172129d13b86e9973ca382ab56d01449c Oleg Shestakov <olshec@gmail.com> 1606725108 +0300	commit: change layout
+010c518172129d13b86e9973ca382ab56d01449c 55a1ab671c4f7b5432ecaf35fcc7874674f1bf33 Oleg Shestakov <olshec@gmail.com> 1606742763 +0300	commit: added header active
+55a1ab671c4f7b5432ecaf35fcc7874674f1bf33 635c241a5623c7605e6f06c089c93b475dcc8864 Oleg Shestakov <olshec@gmail.com> 1606742857 +0300	commit: added link for header
+635c241a5623c7605e6f06c089c93b475dcc8864 6f1f85a5fa836d96943711d0df3fc9f9c6850766 Oleg Shestakov <olshec@gmail.com> 1606751201 +0300	commit: added edit-resume page
+6f1f85a5fa836d96943711d0df3fc9f9c6850766 fbf1d7c3fb5299a845993a60871b09876b398fdf Oleg Shestakov <olshec@gmail.com> 1606751350 +0300	commit: added resume view page
+fbf1d7c3fb5299a845993a60871b09876b398fdf 7fb17f5b0e4069c396418d244bc037011ff732e7 Oleg Shestakov <olshec@gmail.com> 1606751393 +0300	commit: fix comment in controller
+7fb17f5b0e4069c396418d244bc037011ff732e7 64d257bbbe2423a283a8883c74258c296dd444fc Oleg Shestakov <olshec@gmail.com> 1606751533 +0300	commit: added resume-view method in controller
+64d257bbbe2423a283a8883c74258c296dd444fc c3ff6e829c01d0f1542e09e0fc4e5f64216a4a75 Oleg Shestakov <olshec@gmail.com> 1606752522 +0300	commit: added add-resume view
+c3ff6e829c01d0f1542e09e0fc4e5f64216a4a75 03f0501062900d3d9e83535dcc510dc0927756cd Oleg Shestakov <olshec@gmail.com> 1606752809 +0300	commit: added link for go back whithout save in edit resume
+03f0501062900d3d9e83535dcc510dc0927756cd af8842c6d73388f46dd9cc7c826b072e776e889b Oleg Shestakov <olshec@gmail.com> 1606809974 +0300	commit: set \yii\helpers\Url
+af8842c6d73388f46dd9cc7c826b072e776e889b 5642304ef7f302da862c5b9ebb280c4cb669b47f Oleg Shestakov <olshec@gmail.com> 1606897184 +0300	commit: move addressServer to config file
+5642304ef7f302da862c5b9ebb280c4cb669b47f 4ba51a0dd15705eb58125d4813cb30252944c1e8 Oleg Shestakov <olshec@gmail.com> 1606897839 +0300	commit: move params for menu to Yii params
+4ba51a0dd15705eb58125d4813cb30252944c1e8 40a523910afe1c3e4869f6642600121b467752b3 Oleg Shestakov <olshec@gmail.com> 1606901606 +0300	commit: added MenuHeader class
+40a523910afe1c3e4869f6642600121b467752b3 d3e4a67833204c4e136f4f1102c453f1f492742b Oleg Shestakov <olshec@gmail.com> 1606915308 +0300	commit: added migration user
+d3e4a67833204c4e136f4f1102c453f1f492742b ef93268c329b9ce6a5ec54bb2b7c23c18995a697 Oleg Shestakov <olshec@gmail.com> 1606940439 +0300	commit: remove default function in SiteController
+ef93268c329b9ce6a5ec54bb2b7c23c18995a697 b45f7ef55e9171d44588a719a051603a4e0074a7 Oleg Shestakov <olshec@gmail.com> 1606940493 +0300	commit: remove test string in main.php
+b45f7ef55e9171d44588a719a051603a4e0074a7 35cf16b7d95345aab382eb4933eee21bf577078d Oleg Shestakov <olshec@gmail.com> 1607012628 +0300	commit: add link for menu
+35cf16b7d95345aab382eb4933eee21bf577078d 099e135cd9b710300e1ea7210b26c3674d4cca0f Oleg Shestakov <olshec@gmail.com> 1607013008 +0300	commit: remove addressServer from params
+099e135cd9b710300e1ea7210b26c3674d4cca0f 1620607b09176defea787191d2f36715b236c661 Oleg Shestakov <olshec@gmail.com> 1607075340 +0300	commit: added fields in user_table
+1620607b09176defea787191d2f36715b236c661 5875c9d017528e07a45ea25c0d513f241fd56cb9 Oleg Shestakov <olshec@gmail.com> 1607087442 +0300	commit: added migration for resume
+5875c9d017528e07a45ea25c0d513f241fd56cb9 06b3dd0b00fa2fcfb818010c502f93b3bddcc70e Oleg Shestakov <olshec@gmail.com> 1607089689 +0300	commit: added migrations
+06b3dd0b00fa2fcfb818010c502f93b3bddcc70e 8cc09cb2cb4ff7768ff0b696894f58f12a3b1b17 Oleg Shestakov <olshec@gmail.com> 1607090863 +0300	commit: added migrations for specialization
+8cc09cb2cb4ff7768ff0b696894f58f12a3b1b17 96ea7706f9746060934aefaf635a7383a6a55d71 Oleg Shestakov <olshec@gmail.com> 1607092353 +0300	commit: fixed migrations
+96ea7706f9746060934aefaf635a7383a6a55d71 db6d96a509793e8fdce54a1e1c6acf8abc079d82 Oleg Shestakov <olshec@gmail.com> 1607166608 +0300	commit: move photo phield from User to Resume
+db6d96a509793e8fdce54a1e1c6acf8abc079d82 d100bfa39d61ab8a90437234a28cebf4a3168e52 Oleg Shestakov <olshec@gmail.com> 1607166827 +0300	commit: remove defaul models and views
+d100bfa39d61ab8a90437234a28cebf4a3168e52 b9d6f84f81db3d4b9ec325a80f367de8395b435d Oleg Shestakov <olshec@gmail.com> 1607167522 +0300	commit: added models
+b9d6f84f81db3d4b9ec325a80f367de8395b435d 460784a39de8b6e1348d79e5b3b97e0f724911f0 Oleg Shestakov <olshec@gmail.com> 1607168042 +0300	commit: added Resumecontroller
+460784a39de8b6e1348d79e5b3b97e0f724911f0 0d89fe88f717eea1b50e42187b362e75b0b66f00 Oleg Shestakov <olshec@gmail.com> 1607168589 +0300	commit: added CRUD for Resume
+0d89fe88f717eea1b50e42187b362e75b0b66f00 c91d43ab2bacfd05a3b3e3bdf5cc83ed45057d77 Oleg Shestakov <olshec@gmail.com> 1607169046 +0300	commit: fixed menuHeader in layout(main.php)
+c91d43ab2bacfd05a3b3e3bdf5cc83ed45057d77 02dc8cb1eb9c2849ab6386c10eeaeff50f436d3e Oleg Shestakov <olshec@gmail.com> 1607171362 +0300	commit: fixed UserController
+02dc8cb1eb9c2849ab6386c10eeaeff50f436d3e 16d43020a299e9ef63ce856a70725d71a43f97e9 Oleg Shestakov <olshec@gmail.com> 1607171889 +0300	commit: fixed CRUD for user and resume
+16d43020a299e9ef63ce856a70725d71a43f97e9 69e85f9d4029e8968a832fe9687c5ff7658ac4fa Oleg Shestakov <olshec@gmail.com> 1607173790 +0300	commit: fixed index for resume
+69e85f9d4029e8968a832fe9687c5ff7658ac4fa c8ea509308fceb1c8cc6ff7c7e36ab7dde4d726a Oleg Shestakov <olshec@gmail.com> 1607175024 +0300	commit: change _form for resume
+c8ea509308fceb1c8cc6ff7c7e36ab7dde4d726a bd762a403f09ed96cddd21e1f636cd46c7f3f0ee Oleg Shestakov <olshec@gmail.com> 1607177424 +0300	commit: change _form for resume
+bd762a403f09ed96cddd21e1f636cd46c7f3f0ee f9603de5642b888b5e1c9041fb96480e55e70d65 Oleg Shestakov <olshec@gmail.com> 1607236870 +0300	commit: fixed actionIndex in ResumeController
+f9603de5642b888b5e1c9041fb96480e55e70d65 1c7e175cf12eba090c205b3cede68ea851d19b2d Oleg Shestakov <olshec@gmail.com> 1607255751 +0300	commit: fixed siteController
+1c7e175cf12eba090c205b3cede68ea851d19b2d a122298f711eeb5b0c46be97391a936b44e59a39 Oleg Shestakov <olshec@gmail.com> 1607257547 +0300	commit: moved functions for resume to ResumeController
+a122298f711eeb5b0c46be97391a936b44e59a39 52d476d1ccacc0e3e325b67fce864fd50b94815e Oleg Shestakov <olshec@gmail.com> 1607259915 +0300	commit: added data about users to migrations
+52d476d1ccacc0e3e325b67fce864fd50b94815e 5263982fdb13fa94102a1cf24769e9364d9c165d Oleg Shestakov <olshec@gmail.com> 1607280112 +0300	commit: migrates: added data for resume
+5263982fdb13fa94102a1cf24769e9364d9c165d 6217d441ce28222fbdf372ed56b7b028deac02a2 Oleg Shestakov <olshec@gmail.com> 1608275847 +0300	commit: fix config/db
+6217d441ce28222fbdf372ed56b7b028deac02a2 2d5fe6e8d663e04c8becbc22cb7af2f26b8a4e00 Oleg Shestakov <olshec@gmail.com> 1608279346 +0300	commit: added name field in resume
+2d5fe6e8d663e04c8becbc22cb7af2f26b8a4e00 0cdfb6f03c99553ce087bc5f3376cdb8bc6d5546 Oleg Shestakov <olshec@gmail.com> 1608279450 +0300	commit: fix resume model
+0cdfb6f03c99553ce087bc5f3376cdb8bc6d5546 d35ab2c0f66c052e9c117f433a89dd0ead678882 Oleg Shestakov <olshec@gmail.com> 1608280617 +0300	commit: fixed migration for add resume
+d35ab2c0f66c052e9c117f433a89dd0ead678882 656b86dc6b259c03a4bccf867498b09404f51774 Oleg Shestakov <olshec@gmail.com> 1608282257 +0300	commit: added specializations to migration
+656b86dc6b259c03a4bccf867498b09404f51774 00de98889322c81a0a2768e3709059ab8bf47840 Oleg Shestakov <olshec@gmail.com> 1608282322 +0300	commit: remove no start tag </a>
+00de98889322c81a0a2768e3709059ab8bf47840 c2a2ca73a8448e4fdcac43afb1a00509db797ac2 Oleg Shestakov <olshec@gmail.com> 1608282333 +0300	commit: remove no start tag </a> in myResume
+c2a2ca73a8448e4fdcac43afb1a00509db797ac2 a4350718292be8e7cc7fce6d5d35e595208901e2 Oleg Shestakov <olshec@gmail.com> 1608282444 +0300	commit: renamed addresume -> addResume
+a4350718292be8e7cc7fce6d5d35e595208901e2 aa4fc4386dce2799ad5fa5f7b4c231a53dc2ac83 Oleg Shestakov <olshec@gmail.com> 1608282600 +0300	commit: added function addUser
+aa4fc4386dce2799ad5fa5f7b4c231a53dc2ac83 e82c21b3f9f414ec88faac806d7e38355e3ca052 Oleg Shestakov <olshec@gmail.com> 1608294303 +0300	commit: added comments ifor specialization model
+e82c21b3f9f414ec88faac806d7e38355e3ca052 a954feb990139568333fe33a796aa2e600debb68 Oleg Shestakov <olshec@gmail.com> 1608294432 +0300	commit: move m201204_135221_create__place_of_work_table.php to migrations
+a954feb990139568333fe33a796aa2e600debb68 be88cf848a81e7766ee6556e01825d7480d0c9d5 Oleg Shestakov <olshec@gmail.com> 1608296197 +0300	commit: added data to migration for place_of_work
+be88cf848a81e7766ee6556e01825d7480d0c9d5 b141077605e79f649257ccb64a887df6e71383c5 Oleg Shestakov <olshec@gmail.com> 1608296822 +0300	commit: added data to migration for place_of_work
+b141077605e79f649257ccb64a887df6e71383c5 f9404087f7dd0389b494770e02e28bfbc68ecd34 Oleg Shestakov <olshec@gmail.com> 1608297581 +0300	commit: added data to migration for place_of_work
+f9404087f7dd0389b494770e02e28bfbc68ecd34 f5fe12772cc5fe2731c42dc98152f0aa1f3101ba Oleg Shestakov <olshec@gmail.com> 1608297907 +0300	commit: added places of work
+f5fe12772cc5fe2731c42dc98152f0aa1f3101ba c56f4d583c974031779bbc5495cdf2ffbadcb82c Oleg Shestakov <olshec@gmail.com> 1608305336 +0300	commit: added info for resumes
+c56f4d583c974031779bbc5495cdf2ffbadcb82c 54b32734356499f1dce1e39c5d872cc4e2002ca8 Oleg Shestakov <olshec@gmail.com> 1608305412 +0300	commit: fixed place_of_work migrate
+54b32734356499f1dce1e39c5d872cc4e2002ca8 a8996e643a9bf5c65a5e8404064b6d5a1d2ef88f Oleg Shestakov <olshec@gmail.com> 1608305980 +0300	commit: added data for type of employment in migrate
+a8996e643a9bf5c65a5e8404064b6d5a1d2ef88f fc91b669ef21fb00494741da1864f6cb9d33bcc7 Oleg Shestakov <olshec@gmail.com> 1608306011 +0300	commit: added data for type of employment in migrate
+fc91b669ef21fb00494741da1864f6cb9d33bcc7 87f6ef3b49cc90ca411368beb212064d1421fbc6 Oleg Shestakov <olshec@gmail.com> 1608306785 +0300	commit: added data for schedule
+87f6ef3b49cc90ca411368beb212064d1421fbc6 0855975ec767a92bcb8cb1cb432f2bdcfcc14eed Oleg Shestakov <olshec@gmail.com> 1608372484 +0300	commit: added data for resume_type_employment
+0855975ec767a92bcb8cb1cb432f2bdcfcc14eed 4015b4826f5e2624742b58f83b4387c15ccf7608 Oleg Shestakov <olshec@gmail.com> 1608373404 +0300	commit: added data for resume_schedule
+4015b4826f5e2624742b58f83b4387c15ccf7608 3ccff576d073ec5411e42f0bf0cb80c9aed142e1 Oleg Shestakov <olshec@gmail.com> 1608373958 +0300	commit: fixed data types in migrates
+3ccff576d073ec5411e42f0bf0cb80c9aed142e1 14b73454889b9ab55be54ee348974abae56f641d Oleg Shestakov <olshec@gmail.com> 1608379548 +0300	commit: added photo
+14b73454889b9ab55be54ee348974abae56f641d 27d4586f903858629e48ef84a6841a2135d7321f Oleg Shestakov <olshec@gmail.com> 1610370495 +0300	merge list-resume3: Fast-forward
+27d4586f903858629e48ef84a6841a2135d7321f eeed1593a1e53e1da1329fd6f857c12dea67505b Oleg Shestakov <olshec@gmail.com> 1610647495 +0300	merge myResume: Fast-forward
+eeed1593a1e53e1da1329fd6f857c12dea67505b 9fc8a9159f8ddf627fdd5baa8133e4c7853b7a77 Oleg Shestakov <olshec@gmail.com> 1611739423 +0300	merge addResume: Fast-forward

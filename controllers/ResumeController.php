@@ -161,8 +161,7 @@ class ResumeController extends Controller
     * @return array
     */
     private function getSchedulesList(array $listCheckBoxSchedules):array {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
-        $schedules = $command->queryAll();
+        $schedules = (new Schedule())->getAllSchedules();
         
         for($i=0; $i<count($schedules); $i++) {
             $schedules[$i]['checked'] = false;
@@ -771,12 +770,13 @@ class ResumeController extends Controller
             $specialization = new Specialization();
             $listSpecialization = $specialization->getAllSpecializations();
             $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
+            $schedules = (new Schedule())->getAllSchedules();
             return $this->render('create', ['userID' => $idUser, 'listSpecialization' => $listSpecialization,
-                'typeEmployments' => $typeEmployments,
+                'typeEmployments' => $typeEmployments, 'schedules' => $schedules,
             ]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
-            $photo = Yii::$app->request->queryParams['photo-profile'];;
+            $photo = Yii::$app->request->queryParams['photo-profile'];
             $surname = Yii::$app->request->queryParams['surname'];
             $nameUser = Yii::$app->request->queryParams['name'];
             $patronymic = Yii::$app->request->queryParams['patronymic'];

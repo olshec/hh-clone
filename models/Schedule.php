@@ -54,7 +54,12 @@ class Schedule extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
-
+    
+    public function getAllSchedules(): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "schedule"');
+        $schedules = $command->queryAll();
+        return $schedules;
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

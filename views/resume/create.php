@@ -167,39 +167,7 @@ $this->title = 'Создание нового резюме'
                                         <label class="form-check-label" for="<?= 'type_employment'.$typeEmployment['id'] ?>"></label>
                                         <label for="<?= 'type_employment'.$typeEmployment['id'] ?>" class="profile-info__check-text job-resolution-checkbox"> <?= $typeEmployment['name'] ?></label>
                                 	</div>
-                            	<?php endforeach; ?>
-                            
-<!--                                 <div class="form-check d-flex"> -->
-<!--                                     <input type="checkbox" class="form-check-input" id="type-employment1" name="type-employment[]" value="1"> -->
-<!--                                     <label class="form-check-label" for="type-employment1"></label> -->
-<!--                                     <label for="type-employment1" class="profile-info__check-text job-resolution-checkbox">Полная -->
-<!--                                         занятость</label> -->
-<!--                                 </div> -->
-<!--                                 <div class="form-check d-flex"> -->
-<!--                                     <input type="checkbox" class="form-check-input" id="type-employment2" name="type-employment[]" value="2"> -->
-<!--                                     <label class="form-check-label" for="type-employment2"></label> -->
-<!--                                     <label for="type-employment2" class="profile-info__check-text job-resolution-checkbox">Частичная -->
-<!--                                         занятость</label> -->
-<!--                                 </div> -->
-<!--                                 <div class="form-check d-flex"> -->
-<!--                                     <input type="checkbox" class="form-check-input" id="type-employment3" name="type-employment[]" value="3"> -->
-<!--                                     <label class="form-check-label" for="type-employment3"></label> -->
-<!--                                     <label for="type-employment3" class="profile-info__check-text job-resolution-checkbox">Проектная/Временная -->
-<!--                                         работа</label> -->
-<!--                                 </div> -->
-<!--                                 <div class="form-check d-flex"> -->
-<!--                                     <input type="checkbox" class="form-check-input" id="type-employment4" name="type-employment[]" value="4"> -->
-<!--                                     <label class="form-check-label" for="type-employment4"></label> -->
-<!--                                     <label for="type-employment4" class="profile-info__check-text job-resolution-checkbox">Волонтёрство</label> -->
-<!--                                 </div> -->
-<!--                                 <div class="form-check d-flex"> -->
-<!--                                     <input type="checkbox" class="form-check-input" id="type-employment5" name="type-employment[]" value="5"> -->
-<!--                                     <label class="form-check-label" for="type-employment5"></label> -->
-<!--                                     <label for="type-employment5" class="profile-info__check-text job-resolution-checkbox">Стажировка</label> -->
-<!--                                 </div> -->
-                                
-                                
-                                
+                            	<?php endforeach; ?>                            
                             </div>
                         </div>
                     </div>
@@ -209,37 +177,15 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="profile-info">
-                                <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule1" name="schedule[]" value="1">
-                                    <label class="form-check-label" for="schedule1"></label>
-                                    <label for="schedule1" class="profile-info__check-text job-resolution-checkbox">Полный
-                                        день</label>
-                                </div>
-                                <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule2" name="schedule[]" value="2">
-                                    <label class="form-check-label" for="schedule2"></label>
-                                    <label for="schedule2" class="profile-info__check-text job-resolution-checkbox">Сменный
-                                        график</label>
-                                </div>
-                                <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule3" name="schedule[]" value="3">
-                                    <label class="form-check-label" for="schedule3"></label>
-                                    <label for="schedule3" class="profile-info__check-text job-resolution-checkbox">Гибкий
-                                        график</label>
-                                </div>
-                                <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule4" name="schedule[]" value="4">
-                                    <label class="form-check-label" for="schedule4"></label>
-                                    <label for="schedule4" class="profile-info__check-text job-resolution-checkbox">Удалённая
-                                        работа</label>
-                                </div>
-                                <div class="form-check d-flex">
-                                    <input type="checkbox" class="form-check-input" id="schedule5" name="schedule[]" value="5">
-                                    <label class="form-check-label" for="schedule5"></label>
-                                    <label for="schedule5"
-                                           class="profile-info__check-text job-resolution-checkbox">Вахтовый
-                                        метод</label>
-                                </div>
+                            	<?php foreach ($schedules as $schedule): ?>
+                                	<div class="form-check d-flex">
+                                        <input type="checkbox" name="type_schedule[]" class="form-check-input" id="<?= 'schedule'.$schedule['id'] ?>"
+                                        	value="<?= $schedule['id'] ?>">
+                                        <label class="form-check-label" for="<?= 'schedule'.$schedule['id'] ?>"></label>
+                                        <label for="<?= 'schedule'.$schedule['id'] ?>" class="profile-info__check-text job-resolution-checkbox"> 
+                                        	<?= ($schedule['name'] == 'Полный день')? '+':'' ?> <?= $schedule['name'] ?> </label>
+                                    </div>
+                        		<?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -383,23 +329,6 @@ $this->title = 'Создание нового резюме'
                             </div>
                         </div>
                     </div> 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     <div class="row mb32">
                         <div class="col-12">

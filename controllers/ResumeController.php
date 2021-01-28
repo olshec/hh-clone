@@ -20,6 +20,7 @@ use app\models\City;
 use yii\web\UploadedFile;
 use app\models\Specialization;
 use app\models\ResumeTypeEmployment;
+use yii\helpers\VarDumper;
 
 
 /**
@@ -698,6 +699,8 @@ class ResumeController extends Controller
             //serch type employment
             $searchModel = new TypeEmployment();
             $typeEmployments = $searchModel->getTypeEmploymentByIdResume($resume['resume_id']);
+//             var_dump($typeEmployments);
+//             exit();
             $typeEmployment = '';
             if(count($typeEmployments)>=1){
                 $typeEmployment .= $typeEmployments[0]['name'];
@@ -867,11 +870,6 @@ class ResumeController extends Controller
             $experients['about-experient'] = Yii::$app->request->queryParams['about-experient'];
             
             $aboutMe = Yii::$app->request->queryParams['about-me'];
-            
-            
-            
-           // var_dump($experients);
-           // var_dump( $typeEmployment);
 
             $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
             $command->bindValue(':name', $nameUser= 'Andrey');
@@ -879,14 +877,11 @@ class ResumeController extends Controller
             $command->bindValue(':date_birth', $dateBirth='1999-08-11');
             $user = $command->queryOne();
             
-            //var_dump( $post);
             $idUser = -1;
-           // exit();
             if($user != false){
                 $idUser = $user['id'];
             }
-            if($idUser != -1){
-                //echo $idUser;        
+            if($idUser != -1){      
                 $dateBirth = date('Y-m-d', strtotime($dateBirth));
                 $specialization = new Specialization();
                 $nameResume = $specialization->getNameSpecializationById($idSpecialization);
@@ -902,7 +897,7 @@ class ResumeController extends Controller
                 //'Andrey_Rumov_2001-08-11_576890435'
                 $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 $resume->save();
-                var_dump($idTtypeEmployment);
+                //var_dump($idTtypeEmployment);
 //                 exit();
                 foreach($idTtypeEmployment as $idTE){
                     $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);

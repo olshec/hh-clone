@@ -55,7 +55,22 @@ class Specialization extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+    
+    public function getAllSpecializations(): array {
+        $strQuery = 'SELECT id, name FROM "specialization"';
+        $command = Yii::$app->db->createCommand($strQuery);
+        $resultQuery = $command->queryAll();
+        return $resultQuery;
+    }
 
+    public function getNameSpecializationById(int $id): string {
+        $strQuery = 'SELECT name FROM "specialization" where "id"=:id';
+        $command = Yii::$app->db->createCommand($strQuery);
+        $command->bindValue(':id', $id);
+        $resultQuery = $command->queryOne();
+        return $resultQuery['name'];
+    }
+    
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -16,6 +16,7 @@ use app\models\TypeEmployment;
 use app\models\Schedule;
 
 use yii\web\UploadedFile;
+use app\models\Specialization;
 
 
 /**
@@ -767,8 +768,10 @@ class ResumeController extends Controller
     public function actionCreate()
     {
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
-            $user = Yii::$app->request->queryParams['user-id'];
-            return $this->render('create', ['userID' => $user]);
+            $idUser = Yii::$app->request->queryParams['user-id'];
+            $specialization = new Specialization();
+            $listSpecialization = $specialization->getAllSpecializations();
+            return $this->render('create', ['userID' => $idUser, 'listSpecialization' => $listSpecialization,]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
             $photo = Yii::$app->request->queryParams['photo-profile'];;
@@ -784,13 +787,16 @@ class ResumeController extends Controller
             
             //Career objective
             if (array_key_exists('specialization', Yii::$app->request->queryParams)) {
-                $specialization = Yii::$app->request->queryParams['specialization'];
+                $idSpecialization = Yii::$app->request->queryParams['specialization'];
             } else {
-                $specialization = '1';
+                $idSpecialization = '1';
             }
             
             if (array_key_exists('salary', Yii::$app->request->queryParams)) {
                 $salary = Yii::$app->request->queryParams['salary'];
+                if($salary == '') {
+                    $salary = 0;
+                }
             } else {
                 $salary = 0;
             }
@@ -871,7 +877,8 @@ class ResumeController extends Controller
             if($idUser != -1){
                 //echo $idUser;        
                 $dateBirth = date('Y-m-d', strtotime($dateBirth));
-                $nameResume=$specialization;
+                $specialization = new Specialization();
+                $nameResume = $specialization->getNameSpecializationById($idSpecialization);
                 $dateUpdate =  date("Y-m-d h:i:s");
                 $numberViews = 0;
                 $datePublication = $dateUpdate;

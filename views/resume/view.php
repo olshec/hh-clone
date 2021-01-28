@@ -26,7 +26,9 @@ $this->title = 'Резюме PHP разработчик';
                     <div class="main-title d-md-flex justify-content-between align-items-center mobile-mb16"><?=  $resume['resume_name']; ?>
                     </div>
                     <div class="paragraph-lead mb16">
-                        <span class="mr24"><?= number_format($resume['salary'], 0, '', ' ');  ?> ₽</span>
+                    <?php if($resume['salary'] != 0):?>
+                    	<span class="mr24"><?= number_format($resume['salary'], 0, '', ' ');  ?> ₽</span>
+                    <?php endif; ?>
                         <span><?= $resume['experience_total']; ?></span>
                     </div>
                     <div class="profile-info company-profile-info resume-view__info-blick">

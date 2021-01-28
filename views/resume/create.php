@@ -134,11 +134,10 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="citizenship-select">
-                                <select class="nselect-1" id="specialization" data-title="Программист"  name="specialization">
-                                    <option select value="01">Программист</option>
-                                    <option value="02">Дизайнер</option>
-                                    <option value="03">Повар</option>
-                                    <option value="04">Акробат</option>
+                                <select class="nselect-1" id="specialization" name="specialization">
+                                 <?php foreach ($listSpecialization as $specialization):?>
+                                 	<option value="<?= $specialization['id'] ?>"><?= $specialization['name'] ?></option>
+                                 <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>

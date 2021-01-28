@@ -63,7 +63,9 @@ $this->title = 'Список резюме';
                             <div class="mini-paragraph cadet-blue mobile-mb12">Обновлено <?= $resume['dateUpdate'] ?> </div>
                             <h3 class="mini-title mobile-off"><?= $resume['name'] ?></h3>
                             <div class="d-flex align-items-center flex-wrap mb8 ">
+                            	<?php if($resume['salary'] != 0):?>
                                 <span class="mr16 paragraph"><?= number_format($resume['salary'], 0, '', ' ');  ?></span>
+                                <?php endif;?>
                                  <?php if($resume['infoAboutLastWork'] != 'Нет опыта'):?>
                                 <span class="mr16 paragraph"><?= $resume['experience'] ?></span>
                                 <?php endif;?>

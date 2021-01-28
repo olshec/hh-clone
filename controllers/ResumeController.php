@@ -896,20 +896,23 @@ class ResumeController extends Controller
                 $command->bindValue(':user_id', $idUser);
                 $command->bindValue(':name_resume', $nameResume);
                 $resume = $command->queryOne();
-                $resume['photo'] = $resume['path'].'/'.$resume['photo'];
-                $resume['resume_name'] = $resume['name'];
-                $resume['user_name'] = $user['name'];   
-                $resume['user_surname'] = $user['surname']; 
-                $resume['user_patronymic'] = $user['patronymic'];  
-                $resume['experience_total'] = "Опыт работы 2 года";
-                $resume['age'] = '22 года';
-                $resume['type_employment'] = '';
-                $resume['schedule'] = '';
-                $resume['city_name'] = 'Moscow';
-                $resume['email'] = $user['email'];  
-                $resume['telephone'] = $user['telephone'];  
-                $resume['place_of_work'] = [];
-                return $this->render('view', ['resume' => $resume]);
+//                 $resume['photo'] = $resume['path'].'/'.$resume['photo'];
+//                 $resume['resume_name'] = $resume['name'];
+//                 $resume['user_name'] = $user['name'];   
+//                 $resume['user_surname'] = $user['surname']; 
+//                 $resume['user_patronymic'] = $user['patronymic'];  
+//                 $resume['experience_total'] = "Опыт работы 2 года";
+//                 $resume['age'] = '22 года';
+//                 $resume['type_employment'] = '';
+//                 $resume['schedule'] = '';
+//                 $resume['city_name'] = 'Moscow';
+//                 $resume['email'] = $user['email'];  
+//                 $resume['telephone'] = $user['telephone'];  
+//                 $resume['place_of_work'] = [];
+                
+                
+                return $this->redirect('view?resume='.$resume['id']);
+                //return $this->render('view', ['resume' => $resume]);
             }
         }
         else {

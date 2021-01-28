@@ -19,6 +19,7 @@ use app\models\City;
 
 use yii\web\UploadedFile;
 use app\models\Specialization;
+use app\models\ResumeTypeEmployment;
 
 
 /**
@@ -780,7 +781,10 @@ class ResumeController extends Controller
                 'typeEmployments' => $typeEmployments, 'schedules' => $schedules, 'user' => $user,
             ]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
-            //var_dump( Yii::$app->request->queryParams['radio-gender']);
+//             var_dump( Yii::$app->request->queryParams['type_employment']);
+//             exit();
+            
+            
             $photo = Yii::$app->request->queryParams['photo-profile'];
             $surname = Yii::$app->request->queryParams['surname'];
             $nameUser = Yii::$app->request->queryParams['name'];
@@ -808,10 +812,10 @@ class ResumeController extends Controller
                 $salary = 0;
             }
             
-            if (array_key_exists('type-employment', Yii::$app->request->queryParams)) {
-                $typeEmployment = Yii::$app->request->queryParams['type-employment'];
+            if (array_key_exists('type_employment', Yii::$app->request->queryParams)) {
+                $idTtypeEmployment = Yii::$app->request->queryParams['type_employment'];
             } else {
-                $typeEmployment =  [];
+                $idTtypeEmployment =  [];
             }
             
             if (array_key_exists('schedule', Yii::$app->request->queryParams)) {
@@ -898,7 +902,14 @@ class ResumeController extends Controller
                 //'Andrey_Rumov_2001-08-11_576890435'
                 $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 $resume->save();
-                
+                var_dump($idTtypeEmployment);
+//                 exit();
+                foreach($idTtypeEmployment as $idTE){
+                    $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
+                    $resumeTypeEmployment->save();
+                    //echo $result.'-----'.$resume['id'].'--------'. $idTE.'<br>';  
+                }
+                //exit();
                 $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');
                 $command->bindValue(':user_id', $idUser);
                 $command->bindValue(':name_resume', $nameResume);

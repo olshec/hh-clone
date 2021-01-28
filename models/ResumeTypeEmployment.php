@@ -78,4 +78,11 @@ class ResumeTypeEmployment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TypeEmployment::className(), ['id' => 'type_employment_id']);
     }
+    
+    public function insertOneResumeTypeEmployment(int $idResume, int $idTypeEmployment){
+        $command = Yii::$app->db->createCommand('INSERT ("resume_id", "type_employment_id") INTO resume_type_employment value(:idResume, :idTypeEmployment)');
+        $command->bindValue(':idResume', $idResume);
+        $command->bindValue(':idTypeEmployment', $idTypeEmployment);
+        $command->queryScalar();
+    }
 }

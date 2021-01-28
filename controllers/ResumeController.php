@@ -627,7 +627,7 @@ class ResumeController extends Controller
         $typeEmployments        = $this->getTypeEmploymentsData($listCheckBoxTypeEmployments);
         $schedules              = $this->getSchedulesList($listCheckBoxSchedules);
         $experience             = $this->getExperienceList();
-        
+        $countResumes           = count($resumes);
         //paginator
         $paginator = $this->setPaginizeDataProvider($resumes, 5);
         $stringPagination = $paginator->getPaginationLinks();
@@ -636,6 +636,7 @@ class ResumeController extends Controller
         SiteController::activateMenuItem(MenuHeader::LIST_RESUME);
         return $this->render('index', [
             'resumeModels'                    => $resumes,
+            'countResumes'                    => $countResumes,
             'typeSort'                        => $sortData['typeSort'],
             'gender'                          => $gender,
             'dataCities'                      => $cityData['dataCities'],

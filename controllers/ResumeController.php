@@ -16,6 +16,7 @@ use app\models\TypeEmployment;
 use app\models\Schedule;
 use app\models\User;
 use app\models\City;
+use app\models\ResumeSchedule;
 
 use yii\web\UploadedFile;
 use app\models\Specialization;
@@ -821,13 +822,12 @@ class ResumeController extends Controller
                 $idTtypeEmployment =  [];
             }
             
-            if (array_key_exists('schedule', Yii::$app->request->queryParams)) {
-                $schedule = Yii::$app->request->queryParams['schedule'];
+            if (array_key_exists('type_schedule', Yii::$app->request->queryParams)) {
+                $schedule = Yii::$app->request->queryParams['type_schedule'];
             } else {
                 $schedule =  [];
             }
            
-            
             if($surname == ''){
                 $errors['surname'] = 'Поле является обязательным';
             }
@@ -902,9 +902,13 @@ class ResumeController extends Controller
                 foreach($idTtypeEmployment as $idTE){
                     $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
                     $resumeTypeEmployment->save();
-                    //echo $result.'-----'.$resume['id'].'--------'. $idTE.'<br>';  
                 }
-                //exit();
+
+                foreach($schedule as $sch){
+                    $resumeSchedule = ResumeSchedule::getNewResumeSchedule($resume['id'], $sch);
+                    $resumeSchedule->save();
+                }
+                
                 $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');
                 $command->bindValue(':user_id', $idUser);
                 $command->bindValue(':name_resume', $nameResume);

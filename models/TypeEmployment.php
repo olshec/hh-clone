@@ -64,6 +64,12 @@ class TypeEmployment extends \yii\db\ActiveRecord
         return $this->hasMany(ResumeTypeEmployment::className(), ['type_employment_id' => 'id']);
     }
     
+    public function getAllTypeEmployment(): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
+        $typeEmployments = $command->queryAll();
+        return $typeEmployments;
+    }
+    
     public function getTypeEmploymentByIdResume(int $idResume) : array {
         $strQuery = <<<EOT
                     SELECT "type_employment"."name"

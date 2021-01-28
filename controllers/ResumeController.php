@@ -143,8 +143,7 @@ class ResumeController extends Controller
     * @return array
     */
     private function getTypeEmploymentsData(array $listCheckBoxTypeEmployments):array {
-        $command = Yii::$app->db->createCommand('SELECT * FROM "type_employment"');
-        $typeEmployments = $command->queryAll();
+        $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
         for($i=0; $i<count($typeEmployments); $i++) {
             $typeEmployments[$i]['checked'] = false;
         }
@@ -771,7 +770,10 @@ class ResumeController extends Controller
             $idUser = Yii::$app->request->queryParams['user-id'];
             $specialization = new Specialization();
             $listSpecialization = $specialization->getAllSpecializations();
-            return $this->render('create', ['userID' => $idUser, 'listSpecialization' => $listSpecialization,]);
+            $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
+            return $this->render('create', ['userID' => $idUser, 'listSpecialization' => $listSpecialization,
+                'typeEmployments' => $typeEmployments,
+            ]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);
             $photo = Yii::$app->request->queryParams['photo-profile'];;

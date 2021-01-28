@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\helpers\FileHelper;
+use app\models\PlaceOfWork;
 use app\models\TypeEmployment;
 use app\models\Schedule;
 use app\models\User;
@@ -897,8 +898,7 @@ class ResumeController extends Controller
                 //'Andrey_Rumov_2001-08-11_576890435'
                 $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
                 $resume->save();
-                //var_dump($idTtypeEmployment);
-//                 exit();
+
                 foreach($idTtypeEmployment as $idTE){
                     $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
                     $resumeTypeEmployment->save();
@@ -909,27 +909,45 @@ class ResumeController extends Controller
                     $resumeSchedule->save();
                 }
                 
+                $experienceRadioButton = Yii::$app->request->queryParams['radio-experience'];
+//                 var_dump($experienceRadioButton);
+//                 exit();
+                if($experienceRadioButton[0] == 'yes'){
+                    $jobBeginMonth = Yii::$app->request->queryParams['job-begin-month'];
+                    $jobBeginYear = Yii::$app->request->queryParams['job-begin-year'];
+                    
+                   
+                    $jobEndMonth = Yii::$app->request->queryParams['job-end-month'];
+                    $jobEndYear = Yii::$app->request->queryParams['job-end-year'];
+                   
+                    if (array_key_exists('job-until-now', Yii::$app->request->queryParams)) {
+                        $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
+                    } else {
+                        $jobUntilNow = 'off';
+                    }
+                    
+                    
+                    $organisation = Yii::$app->request->queryParams['organisation'];
+                    $position = Yii::$app->request->queryParams['position'];
+                    $aboutExperient = Yii::$app->request->queryParams['about-experient'];
+                    
+                    for($i=0; $i < count($jobBeginMonth); $i++) {
+                        $date_start =  $jobBeginYear[$i].'-'.$jobBeginMonth[$i].'-'.'01';
+                        $date_end =  $jobEndYear[$i].'-'.$jobEndMonth[$i].'-'.'01';
+                        $placeOfWork = PlaceOfWork::getNewPlaceOfWork($organisation[$i], $position[$i], $date_start,
+                            $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
+                        $placeOfWork->save();
+                    }
+                    //for()
+                } 
+                
+                
                 $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');
                 $command->bindValue(':user_id', $idUser);
                 $command->bindValue(':name_resume', $nameResume);
                 $resume = $command->queryOne();
-//                 $resume['photo'] = $resume['path'].'/'.$resume['photo'];
-//                 $resume['resume_name'] = $resume['name'];
-//                 $resume['user_name'] = $user['name'];   
-//                 $resume['user_surname'] = $user['surname']; 
-//                 $resume['user_patronymic'] = $user['patronymic'];  
-//                 $resume['experience_total'] = "Опыт работы 2 года";
-//                 $resume['age'] = '22 года';
-//                 $resume['type_employment'] = '';
-//                 $resume['schedule'] = '';
-//                 $resume['city_name'] = 'Moscow';
-//                 $resume['email'] = $user['email'];  
-//                 $resume['telephone'] = $user['telephone'];  
-//                 $resume['place_of_work'] = [];
-                
-                
+
                 return $this->redirect('view?resume='.$resume['id']);
-                //return $this->render('view', ['resume' => $resume]);
             }
         }
         else {

@@ -35,6 +35,13 @@ class City extends \yii\db\ActiveRecord
         return $city;
     }
     
+    public function findNameCityById(int $id) {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "city" where id=:id');
+        $command->bindValue(':id', $id);
+        $city = $command->queryOne();
+        return $city['name'];
+    }
+    
     /**
      * {@inheritdoc}
      */

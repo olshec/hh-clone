@@ -60,6 +60,7 @@ class Schedule extends \yii\db\ActiveRecord
         $schedules = $command->queryAll();
         return $schedules;
     }
+    
     /**
      * @return \yii\db\ActiveQuery
      */

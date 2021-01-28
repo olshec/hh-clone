@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
 use yii\helpers\FileHelper;
 use app\models\TypeEmployment;
 use app\models\Schedule;
+use app\models\User;
+use app\models\City;
 
 use yii\web\UploadedFile;
 use app\models\Specialization;
@@ -771,8 +773,11 @@ class ResumeController extends Controller
             $listSpecialization = $specialization->getAllSpecializations();
             $typeEmployments = (new TypeEmployment())->getAllTypeEmployment();
             $schedules = (new Schedule())->getAllSchedules();
-            return $this->render('create', ['userID' => $idUser, 'listSpecialization' => $listSpecialization,
-                'typeEmployments' => $typeEmployments, 'schedules' => $schedules,
+            $user = (new User())->getUserById($idUser);
+            $user['date_birth'] = date('d.m.Y', strtotime($user['date_birth']));
+            $user['city'] = (new City())->findNameCityById($user['city_id']);
+            return $this->render('create', ['listSpecialization' => $listSpecialization,
+                'typeEmployments' => $typeEmployments, 'schedules' => $schedules, 'user' => $user,
             ]);
         } else if(array_key_exists('radio-gender', Yii::$app->request->queryParams)) {
             //var_dump( Yii::$app->request->queryParams['radio-gender']);

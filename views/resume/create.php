@@ -42,7 +42,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Фамилия</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="surname" class="dor-input w100"  name="surname">
+                            <input type="text" id="surname" class="dor-input w100"  name="surname" value="<?= $user['surname'] ?>">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -50,7 +50,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Имя</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="name" class="dor-input w100" name="name">
+                            <input type="text" id="name" class="dor-input w100" name="name" value="<?= $user['name'] ?>">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -58,7 +58,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Отчество</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="patronymic" class="dor-input w100" name="patronymic">
+                            <input type="text" id="patronymic" class="dor-input w100" name="patronymic" value="<?= $user['patronymic'] ?>">
                         </div>
                     </div>
                     <div class="row mb24">
@@ -67,7 +67,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="datepicker-wrap input-group date">
-                                <input type="text" id="date-birth" class="dor-input dpicker datepicker-input" name="date-birth">
+                                <input type="text" id="date-birth" class="dor-input dpicker datepicker-input" name="date-birth" value="<?= $user['date_birth'] ?>">
                                 <img src="<?= \yii\helpers\Url::to(['/']) ?>images/mdi_calendar_today.svg" alt="">
                             </div>
                         </div>
@@ -79,11 +79,13 @@ $this->title = 'Создание нового резюме'
                         <div class="col-lg-3 col-md-4 col-11">
                             <ul class="card-ul-radio profile-radio-list">
                                 <li>
-                                    <input type="radio" id="gender-male" name="radio-gender[]" value="male" checked>
+                                    <input type="radio" id="gender-male" name="radio-gender[]" value="male" 
+                                        <?= ($user['gender']=='male')? 'checked="true"':'' ?> >
                                     <label for="gender-male">Мужской</label>
                                 </li>
                                 <li>
-                                    <input type="radio" id="gender-female" name="radio-gender[]" value="female">
+                                    <input type="radio" id="gender-female" name="radio-gender[]" value="female"
+                                     <?= ($user['gender']=='female')? 'checked="true"':'' ?> >
                                     <label for="gender-female">Женский</label>
                                 </li>
                             </ul>
@@ -94,7 +96,7 @@ $this->title = 'Создание нового резюме'
                             <div class="paragraph">Город проживания</div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
-                            <input type="text" id="city" class="dor-input w100" name="city">
+                            <input type="text" id="city" class="dor-input w100" name="city" value="<?= $user['city'] ?>">
                         </div>
                     </div>
                     <div class="row mb16">
@@ -109,7 +111,7 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div class="p-rel">
-                                <input type="text" id="email" class="dor-input w100"  name="email">
+                                <input type="text" id="email" class="dor-input w100"  name="email" value="<?= $user['email'] ?>">
                             </div>
                         </div>
                     </div>
@@ -119,7 +121,8 @@ $this->title = 'Создание нового резюме'
                         </div>
                         <div class="col-lg-3 col-md-4 col-11">
                             <div style="width: 140px;" class="p-rel mobile-w100">
-                                <input type="text" id="telephone" class="dor-input w100" name="telephone" placeholder="+7 ___ ___-__-__">
+                                <input type="text" id="telephone" class="dor-input w100" name="telephone" placeholder="+7 ___ ___-__-__"
+                                value="<?= $user['telephone'] ?>">
                             </div>
                         </div>
                     </div>

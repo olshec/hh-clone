@@ -54,6 +54,13 @@ class User extends \yii\db\ActiveRecord
         $user->gender = $gender;
         return $user;
     }
+    
+    public function getUserById(int $id): array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "user" where id=:id');
+        $command->bindValue(':id', $id);
+        $user = $command->queryOne();
+        return $user;
+    }
 
     /**
      * {@inheritdoc}

@@ -421,17 +421,20 @@ class ResumeController extends Controller
         $command = Yii::$app->db->createCommand('SELECT * FROM "place_of_work" WHERE resume_id=:resume_id');
         $command->bindValue(':resume_id', $resumeId);
         $placesOfWork = $command->queryAll();
+        
         $days = 0;
         for ($i=0; $i < count($placesOfWork); $i++) {
             $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
             $dateFinish = $this->getDateEnd($placesOfWork[$i]['date_end']);
             $dateFinishWork = new DateTime($dateFinish);
-           
-          // var_dump( $dateFinishWork);
-           //exit();
+
             $interval = $dateFinishWork->diff($dateStartWork);
             $days += $interval->y*365 + $interval->m*30 + $interval->d;
-        }
+            //echo $days.'<br>';
+            
+        } 
+        //var_dump($placesOfWork);
+       // exit();
         return $days;
     }
     
@@ -453,7 +456,7 @@ class ResumeController extends Controller
      * @param int $days
      * @return string
      */
-    private function countExperience(int $days):string {
+    private function countExperience(int $days):string {       
         $countExperience='Опыт работы ';
         if($days >= 365) {
             $year = intdiv($days, 365);

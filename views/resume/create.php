@@ -296,6 +296,7 @@ $this->title = 'Создание нового резюме'
                                             <label for="job-until-now-1"
                                                    class="profile-info__check-text job-resolution-checkbox">По настоящее время</label>
                                         </div>
+                                        <input type="hidden" class="job-until-now-hidden" name="job-until-now-hidden[]" value="off">
                                     </div>
                                 </div>
                             </div>

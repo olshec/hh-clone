@@ -939,7 +939,9 @@ class ResumeController extends Controller
                     } else {
                         $jobUntilNow = 'off';
                     }
-                    
+                    $jobUntilNow = Yii::$app->request->queryParams['job-until-now-hidden'];
+                    var_dump($jobUntilNow);
+                    exit();
                     
                     $organisation = Yii::$app->request->queryParams['organisation'];
                     $position = Yii::$app->request->queryParams['position'];
@@ -1012,7 +1014,12 @@ class ResumeController extends Controller
      */
     public function actionUpdate()
     {
-//         $date = '20.04.2012';
+//         $date = date('Y.m.d');
+//         echo date('Y.m-d', strtotime($date));
+        $now = new DateTime();
+        echo $now->format('Y-m-d');    // MySQL datetime format
+        
+        //         $date = '20.04.2012';
 //         echo date('Y.m.d', strtotime($date));
         
 //         $rand = rand( 99999, 999999);

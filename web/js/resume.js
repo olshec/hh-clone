@@ -138,11 +138,20 @@ function addEventForRadioButtonsForExperience() {
 	radioButtonExperienceNo.addEventListener("change", changeRadioButtonExperienceNo, false);
 }
 
+function formSubmit(){
+	const checkboxesJob = document.getElementsByClassName('job-until-now');
+	const hiddenFieldForJob = document.getElementsByClassName('job-until-now-hidden');
+	for(let i=0; i < checkboxesJob.length; i++) {
+		if(checkboxesJob[i].checked) {
+			hiddenFieldForJob[i].value = "on";
+		}
+	}
+	document.getElementsByTagName('form')[0].submit();
+}
+
 function addEventForSaveFormButton() {
 	const saveFormButton = document.getElementById("saveFormButton");
-	saveFormButton.addEventListener("click", function() {
-		document.getElementsByTagName('form')[0].submit() 
-		}, false);
+	saveFormButton.addEventListener("click", formSubmit, false);
 }
 
 function jobCheckboxClick(checkbox, index) {
@@ -152,12 +161,12 @@ function jobCheckboxClick(checkbox, index) {
 	}
 }
 
-function addEventForCheckboxExperience() {
+/*function addEventForCheckboxExperience() {
 	const jobCheckboxes = document.getElementsByClassName("job-until-now");
 	for(let i=0; i < jobCheckboxes.length; i++) {
 		jobCheckboxes[i].addEventListener("click", jobCheckboxClick(jobCheckboxes[i], i), false);
 	}
-}
+}*/
 
 function addEventListeners() {
 	addEventForAddJobExperience();
@@ -165,7 +174,7 @@ function addEventListeners() {
 	addEventForInputPhoto();
 	addEventForRadioButtonsForExperience();
 	addEventForSaveFormButton();
-	addEventForCheckboxExperience();
+	//addEventForCheckboxExperience();
 }
 
 function afterPageLoad() {

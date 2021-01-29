@@ -389,8 +389,8 @@ class ResumeController extends Controller
         $command->bindValue(':resume_id', $resumeId);
         $lastPlaceOfWork = $command->queryOne();
         $dateStartWork = $lastPlaceOfWork['date_start'];
-        $dateFinishWork = $lastPlaceOfWork['date_end'];
         
+        $dateFinishWork = $this->getDateEnd($lastPlaceOfWork['date_end']);
         $infoAboutLastWork = 'Нет опыта';
         if($dateStartWork != null && $dateFinishWork != null){
             $monthAndYearStart = $this->getFormatDate($dateStartWork);
@@ -403,6 +403,14 @@ class ResumeController extends Controller
     }
     
 
+    private function getDateEnd($date): string{
+        if($date == null || $date == ''){
+            $now = new DateTime();
+            $date = $now->format('Y-m-d');
+        }
+        return $date;
+    }
+    
     /**
      * Return all days experience.
      *
@@ -416,7 +424,11 @@ class ResumeController extends Controller
         $days = 0;
         for ($i=0; $i < count($placesOfWork); $i++) {
             $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
-            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $dateFinish = $this->getDateEnd($placesOfWork[$i]['date_end']);
+            $dateFinishWork = new DateTime($dateFinish);
+           
+          // var_dump( $dateFinishWork);
+           //exit();
             $interval = $dateFinishWork->diff($dateStartWork);
             $days += $interval->y*365 + $interval->m*30 + $interval->d;
         }
@@ -670,15 +682,16 @@ class ResumeController extends Controller
         $experience = [];
         for ($i=0; $i < count($placesOfWork); $i++) {
             $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
-            $dateFinishWork = new DateTime($placesOfWork[$i]['date_end']);
+            $dateFinish = $this->getDateEnd($placesOfWork[$i]['date_end']);
+            $dateFinishWork = new DateTime($dateFinish);
             $interval = $dateFinishWork->diff($dateStartWork);
             $days = $interval->y*365 + $interval->m*30 + $interval->d;
             $experience[$i]['date_experients']      = $this->countExperience($days);
             $experience[$i]['name_organization']    = $placesOfWork[$i]['name_organization'];
             $experience[$i]['position']             = $placesOfWork[$i]['position'];
             $experience[$i]['about']                = $placesOfWork[$i]['about'];
-            $experience[$i]['date_work']             = $this->getInfoAooutDateWork($placesOfWork[$i]['date_start'], 
-                                                    $placesOfWork[$i]['date_end']);
+            $experience[$i]['date_work']            = $this->getInfoAooutDateWork($placesOfWork[$i]['date_start'], 
+                                                        $dateFinishWork);
         }
 //         var_dump($experience);
 //         exit();
@@ -934,22 +947,29 @@ class ResumeController extends Controller
                     $jobEndMonth = Yii::$app->request->queryParams['job-end-month'];
                     $jobEndYear = Yii::$app->request->queryParams['job-end-year'];
                     
-                    if (array_key_exists('job-until-now', Yii::$app->request->queryParams)) {
-                        $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
-                    } else {
-                        $jobUntilNow = 'off';
-                    }
+//                     if (array_key_exists('job-until-now', Yii::$app->request->queryParams)) {
+//                         $jobUntilNow = Yii::$app->request->queryParams['job-until-now'];
+//                     } else {
+//                         $jobUntilNow = 'off';
+//                     }
                     $jobUntilNow = Yii::$app->request->queryParams['job-until-now-hidden'];
-                    var_dump($jobUntilNow);
-                    exit();
+//                     var_dump($jobUntilNow);
+//                     exit();
                     
                     $organisation = Yii::$app->request->queryParams['organisation'];
                     $position = Yii::$app->request->queryParams['position'];
                     $aboutExperient = Yii::$app->request->queryParams['about-experient'];
                     
+                    $j=0;
                     for($i=0; $i < count($jobBeginMonth); $i++) {
                         $date_start =  $jobBeginYear[$i].'-'.$jobBeginMonth[$i].'-'.'01';
-                        $date_end =  $jobEndYear[$i].'-'.$jobEndMonth[$i].'-'.'01';
+                        if($jobUntilNow[$i] == 'on'){
+                            $date_end =  $jobEndYear[$j].'-'.$jobEndMonth[$j].'-'.'01';
+                            $j++;
+                        } else {
+                            $date_end =  '';
+                        }
+                        $date_end = $this->getDateEnd($date_end);
                         $placeOfWork = PlaceOfWork::getNewPlaceOfWork($organisation[$i], $position[$i], $date_start,
                             $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
                         $placeOfWork->save();

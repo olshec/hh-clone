@@ -60,8 +60,8 @@ class PlaceOfWork extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_organization', 'position', 'date_start', 'date_end', 'resume_id', 'specialization_id'], 'required'],
-            [['date_start', 'date_end'], 'safe'],
+            [['name_organization', 'position', 'date_start', 'resume_id', 'specialization_id'], 'required'],
+            [['date_start'], 'safe'],
             [['about'], 'string'],
             [['resume_id', 'specialization_id'], 'default', 'value' => null],
             [['resume_id', 'specialization_id'], 'integer'],

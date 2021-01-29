@@ -18,7 +18,7 @@ class m201204_135221_create__place_of_work_table extends Migration
             'name_organization' => $this->string(50)->notNull(),
             'position' => $this->string(50)->notNull(),
             'date_start' => $this->date()->notNull(),
-            'date_end' => $this->date()->notNull(),
+            'date_end' => $this->date(),
             'about' => $this->text(),
             'resume_id' => $this->integer(11)->notNull(),
             'specialization_id' => $this->integer(11)->notNull(),

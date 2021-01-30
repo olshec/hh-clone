@@ -785,17 +785,22 @@ class ResumeController extends Controller
         ]);
     }
 
+    private function getUser():array {
+        $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
+        $command->bindValue(':name', 'Andrey');
+        $command->bindValue(':surname', 'Rumov');
+        $command->bindValue(':date_birth', '1999-08-11');
+        $user = $command->queryOne();
+        return $user;
+    }
     
     public function initFieldForActionCreate(array $errors): array {
         
         if (array_key_exists('user-id', Yii::$app->request->queryParams)) {
             $idUser = Yii::$app->request->queryParams['user-id'];
         } else {
-            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
-            $command->bindValue(':name', $nameUser= 'Andrey');
-            $command->bindValue(':surname', $surname='Rumov');
-            $command->bindValue(':date_birth', $dateBirth='1999-08-11');
-            $user = $command->queryOne();
+            
+            $user = $this->getUser();
             
             if(count($user) > 0){
                 $idUser = $user['id'];
@@ -893,11 +898,7 @@ class ResumeController extends Controller
             }
             $aboutMe = Yii::$app->request->queryParams['about-me'];
             
-            $command = Yii::$app->db->createCommand('SELECT * FROM "user" WHERE name=:name AND surname=:surname AND date_birth=:date_birth');
-            $command->bindValue(':name', $nameUser= 'Andrey');
-            $command->bindValue(':surname', $surname='Rumov');
-            $command->bindValue(':date_birth', $dateBirth='1999-08-11');
-            $user = $command->queryOne();
+            $user = $this->getUser();
             
             
             if(count($user) > 0){
@@ -970,13 +971,13 @@ class ResumeController extends Controller
                             $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
                         $resultSave = $placeOfWork->save();
                         
-                        var_dump($placeOfWork);
-                        echo '<br>';
-                        var_dump($resultSave);
-                        echo '<br>';
-                        echo '<br>---$date_start-----'.$date_start;
-                        echo '<br>---$date_end-----'.$date_end;
-                        exit();
+//                         var_dump($placeOfWork);
+//                         echo '<br>';
+//                         var_dump($resultSave);
+//                         echo '<br>';
+//                         echo '<br>---$date_start-----'.$date_start;
+//                         echo '<br>---$date_end-----'.$date_end;
+//                         exit();
                        
                     }
                 }

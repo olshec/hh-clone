@@ -403,9 +403,15 @@ class ResumeController extends Controller
     }
     
 
+    private function checkDateFinishWork($date) {
+        if($date == null || strlen($date) < 10) {
+            return false;
+        }
+        return true;
+    }
+    
     private function getDateEnd($date): string{
-       
-        if($date == null || strlen($date) < 10){
+        if(!$this->checkDateFinishWork($date)){
             $now = new DateTime();
             $date = $now->format('Y-m-d');
         }
@@ -824,6 +830,22 @@ class ResumeController extends Controller
         return $result;
     }
     
+    private function checkArrayDateFinish($jobBeginMonth, array $jobUntilNow, array $jobEndYear,
+        array $jobEndMonth): array {
+        $errors = [];
+        $j=0;
+        for($i=0; $i < count($jobBeginMonth); $i++) {
+            if($jobUntilNow[$i] == 'off'){
+                $date_end =  $jobEndYear[$j].'-'.$jobEndMonth[$j].'-'.'01';
+                if(!$this->checkDateFinishWork($date_end)) {
+                    $errors['date_end'][] = [$i, 'Поле не может быть пустым',];
+                }
+                $j++;
+            } 
+        }
+        return $errors;
+    }
+    
     /**
      * Creates a new Resume model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -863,9 +885,9 @@ class ResumeController extends Controller
             }
             
             if (array_key_exists('type_employment', Yii::$app->request->queryParams)) {
-                $idTtypeEmployment = Yii::$app->request->queryParams['type_employment'];
+                $idTypeEmployment = Yii::$app->request->queryParams['type_employment'];
             } else {
-                $idTtypeEmployment =  [];
+                $idTypeEmployment =  [];
             }
             
             if (array_key_exists('type_schedule', Yii::$app->request->queryParams)) {
@@ -874,6 +896,7 @@ class ResumeController extends Controller
                 $schedule =  [];
             }
            
+            $errors = [];
             if($surname == ''){
                 $errors['surname'] = 'Поле является обязательным';
             }
@@ -916,33 +939,10 @@ class ResumeController extends Controller
                     return $this->render('create', $this->initFieldForActionCreate($errors));
                 }
                 
-                //get job experients 
-                $dateUpdate =  date("Y-m-d h:i:s");
-                $numberViews = 0;
-                $datePublication = $dateUpdate;
-                
-                $command = Yii::$app->db->createCommand('SELECT path, photo FROM "resume" WHERE user_id=:user_id');
-                $command->bindValue(':user_id', $idUser);
-                $resume = $command->queryOne();
-                $path = $resume['path'];
-                
-                //'Andrey_Rumov_2001-08-11_576890435'
-                $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
-                $resume->save();
-                
-                foreach($idTtypeEmployment as $idTE){
-                    $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
-                    $resumeTypeEmployment->save();
-                }
-                
-                foreach($schedule as $sch){
-                    $resumeSchedule = ResumeSchedule::getNewResumeSchedule($resume['id'], $sch);
-                    $resumeSchedule->save();
-                }
-                
+                //has experience
                 $experienceRadioButton = Yii::$app->request->queryParams['radio-experience'];
+                if($experienceRadioButton[0] == 'yes') {
 
-                if($experienceRadioButton[0] == 'yes'){
                     $jobBeginMonth = Yii::$app->request->queryParams['job-begin-month'];
                     $jobBeginYear = Yii::$app->request->queryParams['job-begin-year'];
                     
@@ -956,30 +956,69 @@ class ResumeController extends Controller
                     $position = Yii::$app->request->queryParams['position'];
                     $aboutExperient = Yii::$app->request->queryParams['about-experient'];
                     
-                    $j=0;
-                    for($i=0; $i < count($jobBeginMonth); $i++) {
-                        $date_start =  $jobBeginYear[$i].'-'.$jobBeginMonth[$i].'-'.'01';
-                        if($jobUntilNow[$i] == 'off'){
-                            $date_end =  $jobEndYear[$j].'-'.$jobEndMonth[$j].'-'.'01';
-                            $j++;
-                        } else {
-                            $date_end =  '';
+                    $ers = $this->checkArrayDateFinish($jobBeginMonth, $jobUntilNow, $jobEndYear, $jobEndMonth);
+                    $errors = array_merge($errors, $ers);
+                    
+                    if(empty($errors)) {
+                        
+                        $this->saveResume();
+                        $this->saveResumeTypeEmployment();
+                        $this->saveResumeSchedule();
+                        //get job experients
+                        $dateUpdate =  date("Y-m-d h:i:s");
+                        $numberViews = 0;
+                        $datePublication = $dateUpdate;
+                        
+                        $command = Yii::$app->db->createCommand('SELECT path, photo FROM "resume" WHERE user_id=:user_id');
+                        $command->bindValue(':user_id', $idUser);
+                        $resume = $command->queryOne();
+                        $path = $resume['path'];
+                        
+                        //'Andrey_Rumov_2001-08-11_576890435'
+                        $resume = Resume::getNewResume($nameResume, $salary, $aboutMe, $path, $photo, $dateUpdate, $numberViews, $datePublication, $idUser);
+                        $resume->save();
+                        
+                        foreach($idTypeEmployment as $idTE){
+                            $resumeTypeEmployment = ResumeTypeEmployment::getNewResumeTypeEmployment($resume['id'], $idTE);
+                            $resumeTypeEmployment->save();
                         }
-                        //$date_end = $this->getDateEnd($date_end);
                         
-                        $placeOfWork = PlaceOfWork::getNewPlaceOfWork($organisation[$i], $position[$i], $date_start,
-                            $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
-                        $resultSave = $placeOfWork->save();
+                        foreach($schedule as $sch){
+                            $resumeSchedule = ResumeSchedule::getNewResumeSchedule($resume['id'], $sch);
+                            $resumeSchedule->save();
+                        }
                         
-//                         var_dump($placeOfWork);
-//                         echo '<br>';
-//                         var_dump($resultSave);
-//                         echo '<br>';
-//                         echo '<br>---$date_start-----'.$date_start;
-//                         echo '<br>---$date_end-----'.$date_end;
-//                         exit();
-                       
+                        
+                        $j=0;
+                        for($i=0; $i < count($jobBeginMonth); $i++) {
+                            $date_start =  $jobBeginYear[$i].'-'.$jobBeginMonth[$i].'-'.'01';
+                            if($jobUntilNow[$i] == 'off'){
+                                $date_end =  $jobEndYear[$j].'-'.$jobEndMonth[$j].'-'.'01';
+                                $j++;
+                            } else {
+                                $date_end =  '';
+                            }
+                            //$date_end = $this->getDateEnd($date_end);
+                            
+                            $placeOfWork = PlaceOfWork::getNewPlaceOfWork($organisation[$i], $position[$i], $date_start,
+                                $date_end, $aboutExperient[$i], $resume['id'], $idSpecialization);
+                            $resultSave = $placeOfWork->save();
+                            
+    //                         var_dump($placeOfWork);
+    //                         echo '<br>';
+    //                         var_dump($resultSave);
+    //                         echo '<br>';
+    //                         echo '<br>---$date_start-----'.$date_start;
+    //                         echo '<br>---$date_end-----'.$date_end;
+    //                         exit();
+    
+    //                         var_dump( $errors['date_end']);
+    //                         exit();
+                        }
+                    } else {
+                        return $this->render('create', $this->initFieldForActionCreate($errors));
                     }
+                    
                 }
                 
                 $command = Yii::$app->db->createCommand('SELECT * FROM "resume" WHERE user_id=:user_id AND "resume"."name"=:name_resume');

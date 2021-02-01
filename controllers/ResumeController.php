@@ -434,14 +434,9 @@ class ResumeController extends Controller
             $dateStartWork = new DateTime($placesOfWork[$i]['date_start']);
             $dateFinish = $this->getDateEnd($placesOfWork[$i]['date_end']);
             $dateFinishWork = new DateTime($dateFinish);
-//             echo $dateFinish;
-//             exit();
             $interval = $dateFinishWork->diff($dateStartWork);
             $days += $interval->y*365 + $interval->m*30 + $interval->d;
-            //echo $days.'<br>'; 
         } 
-//         var_dump($placesOfWork);
-//         exit();
         return $days;
     }
     
@@ -676,10 +671,15 @@ class ResumeController extends Controller
         ]);
     }
     
-    private function getInfoAboutDateWork(string $dateStartWork, string $dateFinishWork): string {
+    private function getInfoAboutDateWork(string $dateStartWork, string $dateFinishWork, bool $hasUntilNow): string {
         $monthAndYearStart = $this->getFormatDate($dateStartWork);
         $monthAndYearFinish = $this->getFormatDate($dateFinishWork);
-        $infoAboutWork = $monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        if(!$hasUntilNow){
+            $infoAboutWork = $monthAndYearStart.' — по '." ".$monthAndYearFinish;
+        } else {
+            $infoAboutWork = $monthAndYearStart.' — по настоящее время';
+        }
+        
         return $infoAboutWork;
     }
 
@@ -700,11 +700,11 @@ class ResumeController extends Controller
             $experience[$i]['name_organization']    = $placesOfWork[$i]['name_organization'];
             $experience[$i]['position']             = $placesOfWork[$i]['position'];
             $experience[$i]['about']                = $placesOfWork[$i]['about'];
+            
+            $hasUntilNow = $placesOfWork[$i]['date_end'] == '' ? false : true;
             $experience[$i]['date_work']            = $this->getInfoAboutDateWork($placesOfWork[$i]['date_start'], 
-                                                         $dateFinish);
+                $dateFinish, $hasUntilNow);
         }
-//         var_dump($experience);
-//         exit();
         return $experience;
     }
     
@@ -716,7 +716,6 @@ class ResumeController extends Controller
      */
     public function actionView()
     {
-
         if (array_key_exists('resume', Yii::$app->request->queryParams)) {
             $resumeID = Yii::$app->request->queryParams['resume'];
             $searchModel = new ResumeSearch();

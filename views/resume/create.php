@@ -249,6 +249,7 @@ $this->title = 'Создание нового резюме'
                                         </div>
                                         <div class="citizenship-select w100">
                                             <input placeholder="2006" type="text" name="job-begin-year[]" class="dor-input w100 job-begin-year">
+                                            <div class="job-begin-year-error-message"> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -279,6 +280,7 @@ $this->title = 'Создание нового резюме'
                                         </div>
                                         <div class="citizenship-select w100">
                                             <input placeholder="2006" type="text" name="job-end-year[]" class="dor-input w100 job-end-year">
+                                        <div class="job-end-year-error-message"> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -361,8 +363,11 @@ $this->title = 'Создание нового резюме'
             </div>
         </div>
     </div>
+    <input type="hidden" id="errors" value='<?php if(isset($errors['date_end'])){echo json_encode($errors ) ;}?>'>
+    
     <script src="<?= $addressServer?>js/resume.js"> </script>
     <script> 
-   	window.onload = afterPageLoad();
+   	window.onload = afterPageLoad();	
 	</script>
+	<script src="<?= $addressServer?>js/checkErrors.js"> </script>
     

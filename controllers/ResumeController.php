@@ -845,6 +845,19 @@ class ResumeController extends Controller
         return $errors;
     }
     
+    private function checkArrayDateStart($jobBeginMonth, array $jobBeginYear): array {
+            $errors = [];
+            $j=0;
+            for($i=0; $i < count($jobBeginMonth); $i++) {
+                $date_start =  $jobBeginYear[$j].'-'.$jobBeginMonth[$j].'-'.'01';
+                if(!$this->checkDateFinishWork($date_start)) {
+                        $errors['date_start'][] = [$i, 'Поле не может быть пустым',];
+                    }
+                    $j++;
+            }
+            return $errors;
+    }
+    
     //save resume
     private function saveResume($idUser, $nameResume, $salary, $aboutMe, $photo): Resume 
     {
@@ -969,7 +982,6 @@ class ResumeController extends Controller
             if($city == ''){
                 $errors['city'] = 'Поле является обязательным';
             }
-            //experients
             if($email == ''){
                 $errors['email'] = 'Поле является обязательным';
             }
@@ -1012,9 +1024,13 @@ class ResumeController extends Controller
                     $position = Yii::$app->request->queryParams['position'];
                     $aboutExperient = Yii::$app->request->queryParams['about-experient'];
                     
+                    $errorDateStart = $this->checkArrayDateStart($jobBeginMonth, $jobBeginYear);
+                    
                     $errorDateFinish = $this->checkArrayDateFinish($jobBeginMonth, 
                         $jobUntilNow, $jobEndYear, $jobEndMonth);
+                    $errors = array_merge($errors, $errorDateStart);
                     $errors = array_merge($errors, $errorDateFinish);
+                    
                     
                     if(empty($errors)) {
                         
@@ -1036,6 +1052,8 @@ class ResumeController extends Controller
     //                         var_dump( $errors['date_end']);
     //                         exit();
                     } else {
+//                         var_dump($errors);
+//                         exit();
                         return $this->render('create', $this->initFieldForActionCreate($errors));
                     }
                     
